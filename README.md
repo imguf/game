@@ -1,1 +1,2 @@
 # game
+sa någon blame?
