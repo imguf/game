@@ -1,2 +1,2 @@
 # game
-sa någon blame?
+nej vi ska vara snälla med varanda
