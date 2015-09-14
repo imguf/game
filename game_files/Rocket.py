@@ -4,8 +4,9 @@ from kivy.graphics import *
 class Rocket:
     def __init__(self, xpos, ypos, direc):
         self.xpos = xpos
-        self.start_x = xpos
         self.ypos = ypos
+        self.start_x = xpos
+        self.start_y = ypos
         self.speed = 350
         self.max_speed = 1000
         
@@ -43,6 +44,12 @@ class Rocket:
     def get_direc(self):
         
         return self.direc
+        
+    def get_start_x(self):
+        return self.start_x
+        
+    def get_start_y(self):
+        return self.start_y
     
     def change_speed(self):
         """
@@ -54,6 +61,9 @@ class Rocket:
         self.speed = 1000
     def set_start_x(self):
         self.xpos = self.start_x
+        
+    def set_start_y(self):
+        self.xpos = self.start_y
     
     def set_direc(self, direc):
         self.direc = direc
