@@ -59,11 +59,11 @@ class Rocket:
             self.speed = self.max_speed
             """
         self.speed = 1000
-    def set_start_x(self):
-        self.xpos = self.start_x
+    def set_start_x(self, xpos):
+        self.start_x = xpos
         
-    def set_start_y(self):
-        self.xpos = self.start_y
+    def set_start_y(self, ypos):
+        self.start_y = ypos
     
     def set_direc(self, direc):
         self.direc = direc
