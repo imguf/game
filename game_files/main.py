@@ -80,7 +80,7 @@ class RootWidget(BoxLayout):
                                     self.board_size_x, self.board_size_y)
                                     
         
-        self.rockets_x = [Rocket.Rocket(200,2,1)]
+        self.rockets_x = [Rocket.Rocket(self.play_field_width,2,1)]
         self.rockets_y = [Rocket.Rocket(3,5,3)]
         
         self.rockets_moving = False
@@ -192,6 +192,8 @@ class RootWidget(BoxLayout):
         
         self.setup_base_variables()
         
+        self.rockets_x[0].set_start_x(self.play_field_width)
+        
         #rocket controller
         self.rocket_control(dt)
 
@@ -220,7 +222,7 @@ class RootWidget(BoxLayout):
             try:
                 self.angle = degrees(atan(y/x))
             except ZeroDivisionError:
-                print("Dividera med 0, nedskag ich uptagningsplats densamma")
+                print("Dividera med 0, nedslag och uppslagsplats densamma")
             
             # checks which "square" of the screen the touch is in and corrects the 
             # angle to the correct one
