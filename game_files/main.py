@@ -55,6 +55,7 @@ class RootWidget(BoxLayout):
         # add the layout to the window
         self.add_widget(layout)
         
+        # creates the variables that holds the amount of squares of the playfield
         self.board_size_x = 3
         self.board_size_y = 5        
         
@@ -77,51 +78,15 @@ class RootWidget(BoxLayout):
         # creates the player object
         self.player = Player.Player(1,1, self.sq_w, self.sq_h, 
                                     self.board_size_x, self.board_size_y)
+                                    
         
-        rockets_rand_pos =[randint(0,self.board_size_x-1),
-                           randint(0,self.board_size_y-1),
-                            randint(0,self.board_size_y-1),
-                            randint(0,self.board_size_y-1),
-                            randint(0,self.board_size_x-1),
-                            randint(0,self.board_size_y-1),
-                            randint(0,self.board_size_y-1),
-                            randint(0,self.board_size_y-1)]
+        self.rockets_x = [Rocket.Rocket(200,2,1)]
+        self.rockets_y = [Rocket.Rocket(3,5,3)]
         
-        # creates the rocket objects in a list
-        self.rockets = [Rocket.Rocket(rockets_rand_pos[0],self.play_field_height,3),
-                        Rocket.Rocket(self.play_field_width,rockets_rand_pos[1],1),
-                        Rocket.Rocket(self.play_field_width,rockets_rand_pos[2],1),
-                        Rocket.Rocket(self.play_field_width,rockets_rand_pos[3],1),
-                        Rocket.Rocket(rockets_rand_pos[4],self.play_field_height,3),
-                        Rocket.Rocket(self.play_field_width,rockets_rand_pos[5],1),
-                        Rocket.Rocket(self.play_field_width,rockets_rand_pos[6],1),
-                        Rocket.Rocket(self.play_field_width,rockets_rand_pos[7],1)]
-                        
-        self.moving_rockets = [False, False, False, False,
-                               False, False, False, False]
-        self.next_rocket_ready = True
-        self.wich_rocket = 0
+        self.rockets_moving = False
+
         
-                
-        # creates the indicator objects in a list
-        self.indicators = [Indicator.Indicator(rockets_rand_pos[0],self.board_size_y,3, self.board_size_x, self.board_size_y),
-                           Indicator.Indicator(self.board_size_x,rockets_rand_pos[1],1, self.board_size_x, self.board_size_y),
-                           Indicator.Indicator(self.board_size_x,rockets_rand_pos[2],1, self.board_size_x, self.board_size_y),
-                           Indicator.Indicator(self.board_size_x,rockets_rand_pos[3],1, self.board_size_x, self.board_size_y),
-                           Indicator.Indicator(rockets_rand_pos[4],self.board_size_y,3, self.board_size_x, self.board_size_y),
-                           Indicator.Indicator(self.board_size_x,rockets_rand_pos[5],1, self.board_size_x, self.board_size_y),
-                           Indicator.Indicator(self.board_size_x,rockets_rand_pos[6],1, self.board_size_x, self.board_size_y),
-                           Indicator.Indicator(self.board_size_x,rockets_rand_pos[7],1, self.board_size_x, self.board_size_y)]
-                           
-        self.draw_indicators = [False,False,False,False,
-                                False,False,False,False]
-                                
-        # variables which controlls the border growth and the growth in speed
-        self.rocket_time = 1.0
-        self.rocket_time_lowest = 0.5
-        self.upgrade_time_size = 15.0
-        
-        self.upgrade_ready_size = True
+       
 
 
     def setup_base_variables(self):
@@ -151,12 +116,9 @@ class RootWidget(BoxLayout):
             # call the draw function of the player
             self.player.draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
             
-            # call the draw function of the rocket
-            for n in range(len(self.rockets)):
-                self.rockets[n].draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
-                
-                if(self.draw_indicators[n]):
-                    self.indicators[n].draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
+            self.rockets_x[0].draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
+            
+            
             
             
     
@@ -175,79 +137,30 @@ class RootWidget(BoxLayout):
             Rectangle(pos=(30 + (self.play_field_width // x_size * n), self.play_field_y), size=(10,self.play_field_height))
         for n in range(1, y_size):
             Rectangle(pos=(self.play_field_x, 40+(self.play_field_height // y_size) * (n)), size=(self.play_field_width,10))
-                   
-    def set_rocket_start_position(self,n, direc):
-        """ this function updates the rockets startingpositions
-        and the position of the indicators"""
-        if(direc == 1):
-            self.rockets[n].set_x(self.play_field_width)
-            self.indicators[n].set_x(self.board_size_x)
-        elif(direc == 2):
-            self.rockets[n].set_x(self.play_field_x - 350)
-            self.indicators[n].set_x(-1)
-        elif(direc == 3):
-            self.rockets[n].set_y(self.play_field_height)
-            self.indicators[n].set_y(self.board_size_y)
-        elif(direc == 4):
-            self.rockets[n].set_y(self.play_field_y-350)
-            self.indicators[n].set_y(-1)
             
+           
+    def rocket_control(self, dt):
+        """this fnction controll the movements of the rockets"""
+        
+        if(float(self.seconds) % 1 == 0 and float(self.seconds) != 0.0):
+            self.rockets_moving = True
+            
+        if(self.rockets_moving):
+            for n in range(len(self.rockets_x)):
+                self.rockets_x[n-1].move(dt)
+           
     def check_collision(self):
         """ this function is used to check collision with different things"""        
+        for n in range(len(self.rockets_x)):
+            if(self.rockets_x[n-1].get_x() < 0):
+                self.rockets_moving = False
+                
+                for n in range(len(self.rockets_x)):
+                    self.rockets_x[n-1].set_x(self.rockets_x[n-1].get_start_x())
+                    self.rockets_x[n-1].set_y(randint(0,4))
         
-        
-        for n in range(len(self.rockets)):
             
-            #checks if the rockets goes outside of the playfield
-            # for the horizontal rockets
-            if(self.rockets[n].get_x() < self.play_field_x - 400 or
-               self.rockets[n].get_x() > self.play_field_width):
-                
-                # generates a new direction for the rockets
-                new_direc = randint(1,4)
-                
-                if(new_direc == 1):                    
-                    self.set_rocket_start_position(n,1)
-                elif(new_direc == 2):
-                    self.set_rocket_start_position(n, 2)
-                elif(new_direc == 3):
-                    self.set_rocket_start_position(n, 3)
-                elif(new_direc == 4):
-                    self.set_rocket_start_position(n, 4)
-
-                self.rockets[n].set_direc(new_direc)
-                
-                # sets the new y position and stops the rocket from moving
-                new_y = randint(0,self.board_size_y-1)                
-                self.indicators[n].set_y(new_y)
-                self.rockets[n].set_y(new_y)
-                self.moving_rockets[n] = False
-            
-            #for the vertical rockets
-            elif(self.rockets[n].get_y() > self.play_field_height or
-                self.rockets[n].get_y() < self.play_field_y - 400):
-                
-                # generates a new direction for the rocket
-                new_direc = randint(1,4)
-                    
-                # set the new starting position depending on wich direction
-                if(new_direc == 1):                    
-                    self.set_rocket_start_position(n,1)
-                elif(new_direc == 2):
-                    self.set_rocket_start_position(n, 2)
-                elif(new_direc == 3):
-                    self.set_rocket_start_position(n,3)
-                elif(new_direc == 4):
-                    self.set_rocket_start_position(n,4)
-                    
-                # set the new direction
-                self.rockets[n].set_direc(new_direc)
-                
-                #set the new x position and stops the rocket from moving
-                new_x = randint(0,self.board_size_x-1)
-                self.indicators[n].set_x(new_x)
-                self.rockets[n].set_x(new_x)
-                self.moving_rockets[n] = False
+           
             
     def update_timer(self):
         #update the timer and print out the new time on screen
@@ -264,53 +177,6 @@ class RootWidget(BoxLayout):
         self.seconds = "%.1f" % self.seconds
         self.timer_label.text = (str(self.minutes) +":"+ self.seconds)
         
-    def rocket_controll(self, dt):
-        
-        
-        
-        """ this function controlls the rockets and their movement"""
-        #sets the correct startpossition for the rockets
-        if(self.timer < 1):
-            for n in range(len(self.rockets)):
-                if(self.rockets[n].get_direc() == 1):
-                    self.set_rocket_start_position(n,1)
-                elif(self.rockets[n].get_direc == 2):
-                    self.set_rocket_start_position(n,2)
-                elif(self.rockets[n].get_direc() == 3):
-                    self.set_rocket_start_position(n,3)
-                elif(self.rockets[n].get_direc == 4):
-                    self.set_rocket_start_position(n,4)
-        
-
-        
-        # every 1 seconds start a new rocket
-        if((float(self.seconds))% self.rocket_time == 0.0 and float(self.seconds) != 0.0 and self.next_rocket_ready):
-            for n in range(len(self.rockets)):
-                if(self.draw_indicators[n]):
-                    self.moving_rockets[n] = True
-                    self.draw_indicators[n] = False
-            
-            self.draw_indicators[self.wich_rocket] = True
-            
-            # dissable so the next rocket does not come directly
-            self.next_rocket_ready = False
-            print("next rocket not ready")
-           
-            self.wich_rocket += 1
-            if(self.wich_rocket == len(self.rockets)):
-                self.wich_rocket = 0
-        
-        # Enable the next rocket
-        if(float(self.seconds) % self.rocket_time != 0.0):
-            self.next_rocket_ready = True
-            
-        # moves all the rockets that are supposed to move
-        for n in range(len(self.rockets)):
-            if(self.moving_rockets[n]):
-                self.rockets[n].move(dt)
-                
-                
-        
 
     
     def update(self, dt):
@@ -323,11 +189,12 @@ class RootWidget(BoxLayout):
         
         # update the the base variables, 
         # do not know why this is needed, but it is
+        
         self.setup_base_variables()
         
-        # call the rocket controll fnk
-        self.rocket_controll(dt)
-        
+        #rocket controller
+        self.rocket_control(dt)
+
         # check collision function 
         self.check_collision()
             
