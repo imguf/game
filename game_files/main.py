@@ -57,7 +57,8 @@ class RootWidget(BoxLayout):
         
         # creates the variables that holds the amount of squares of the playfield
         self.board_size_x = 3
-        self.board_size_y = 5        
+        
+        self.board_size_y = 5 # this is temporary, start standard is 5 <------        
         
         # creates the base varuables 
         self.setup_base_variables()
@@ -80,10 +81,16 @@ class RootWidget(BoxLayout):
                                     self.board_size_x, self.board_size_y)
                                     
         
-        self.rockets_x = [Rocket.Rocket(self.play_field_width,2,1)]
+        self.rockets_x = [Rocket.Rocket(-10000,2,1), Rocket.Rocket(-10000,0,1),
+                          Rocket.Rocket(-10000,4,1), Rocket.Rocket(-10000,3,1)]
         self.rockets_y = [Rocket.Rocket(3,5,3)]
         
         self.rockets_moving = False
+        
+        
+        # holding the new ypos of the horizontal rockets
+        self.rocket_x_ypos = [-1,-1,-1,-1]
+        self.next_rocket_x = 0
 
         
        
@@ -116,7 +123,8 @@ class RootWidget(BoxLayout):
             # call the draw function of the player
             self.player.draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
             
-            self.rockets_x[0].draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
+            for n in range(len(self.rockets_x)):            
+                self.rockets_x[n-1].draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
             
             
             
@@ -148,16 +156,68 @@ class RootWidget(BoxLayout):
         if(self.rockets_moving):
             for n in range(len(self.rockets_x)):
                 self.rockets_x[n-1].move(dt)
-           
+                
+    def new_rocket_position(self, direc):
+        """ This function returns a new position for the rockets and it makes
+            sure that that position is not already taken by another rocket"""
+            
+        # creates a variable to controll the while loop and one to check so 
+        # it loops the right amount of time
+        check_clear_position = True  
+        clear_pos = 0
+
+
+        #starts the while loop
+        while(check_clear_position):
+            
+            #generate a new y position
+            ypos = randint(0, self.board_size_y-1)
+
+
+            print(self.rocket_x_ypos)
+              
+            
+            for n in self.rocket_x_ypos:
+                
+                #checks if the new ypos collides with a allready used one
+                if(ypos == n):
+                    clear_pos = 0
+                    break
+                #if no add 1 to clear_pos
+                else:
+                    clear_pos += 1
+                
+            # if the new position does not collide with another
+                # set that as the new position and return the value
+            if(clear_pos == len(self.rocket_x_ypos)):
+                
+                self.rocket_x_ypos[self.next_rocket_x] = ypos
+                self.next_rocket_x += 1
+                check_clear_position = False
+                print(ypos)
+                return ypos
+    
     def check_collision(self):
         """ this function is used to check collision with different things"""        
-        for n in range(len(self.rockets_x)):
-            if(self.rockets_x[n-1].get_x() < 0):
-                self.rockets_moving = False
+        
+        # check if the rockets are out of bounds 
+        # if yes stop them from mobing and return them to a new starting position
+        if(self.rockets_x[0].get_x() < 0 ):
+            self.rockets_moving = False
+            
+            for n in range(len(self.rockets_x)):
+                # change the xpos back to the starting position
+                self.rockets_x[n-1].set_x(self.rockets_x[n-1].get_start_x())
                 
-                for n in range(len(self.rockets_x)):
-                    self.rockets_x[n-1].set_x(self.rockets_x[n-1].get_start_x())
-                    self.rockets_x[n-1].set_y(randint(0,4))
+                # set the new ypos by using the function new_rocket_position
+                self.rockets_x[n-1].set_y(self.new_rocket_position(self.rockets_x[n-1].get_direc()))
+                
+            
+            # resets the variables used in new_rocket_position so it can be used again
+            for n in range(len(self.rocket_x_ypos)):
+                self.rocket_x_ypos[n-1] = -1
+            self.next_rocket_x = 0
+                
         
             
            
@@ -189,10 +249,14 @@ class RootWidget(BoxLayout):
         
         # update the the base variables, 
         # do not know why this is needed, but it is
+        if(float(self.timer)<0.1):   
+            self.setup_base_variables()
+            
+            for n in range(len(self.rockets_x)):
+                self.rockets_x[n-1].set_start_x(self.play_field_width)
+                self.rockets_x[n-1].set_x(self.play_field_width)
+
         
-        self.setup_base_variables()
-        
-        self.rockets_x[0].set_start_x(self.play_field_width)
         
         #rocket controller
         self.rocket_control(dt)
