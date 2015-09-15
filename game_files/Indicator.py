@@ -4,12 +4,12 @@ from kivy.graphics import *
 class Indicator:
     """ This is the indicator class"""
     
-    def __init__(self, xpos, ypos, direc, border_w, border_h):
+    def __init__(self, xpos, ypos, direc, bord_w, bord_h):
         self.xpos = xpos
         self.ypos = ypos
         self.direc = direc
-        self.border_w = border_w
-        self.border_h = border_h        
+        self.bord_w = bord_w
+        self.bord_h = bord_h        
         
     def draw(self, widget, window_x, window_y, sq_w, sq_h):
         """ This function controlls the drawing of the indicator"""
@@ -22,11 +22,11 @@ class Indicator:
         """ This function gives the indicator a new position depending on wich 
         direction that the rocket are coming from"""
         if(self.direc == 1):
-            self.xpos = self.border_w
+            self.xpos = self.bord_w
         elif(self.direc == 2):
             self.xpos = -1
         elif(self.direc == 3):
-            self.ypos = self.border_h
+            self.ypos = self.bord_h
         elif(self.direc == 4):
             self.ypos = -1
     
@@ -48,5 +48,5 @@ class Indicator:
         
     def set_border_size(self, x, y):
         """ Updates the border size"""
-        self.border_w = x
-        self.border_h = y
+        self.bord_w = x
+        self.bord_h = y
