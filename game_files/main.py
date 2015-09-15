@@ -91,8 +91,11 @@ class RootWidget(BoxLayout):
         # holding the new ypos of the horizontal rockets
         self.rocket_x_ypos = [-1,-1,-1,-1]
         self.next_rocket_x = 0
-
         
+        self.indicator = Indicator.Indicator(-1,-1, 1, 3, 5)
+
+        self.show_indicator = False
+        self.rocket_ready = True
        
 
 
@@ -125,6 +128,9 @@ class RootWidget(BoxLayout):
             
             for n in range(len(self.rockets_x)):            
                 self.rockets_x[n-1].draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
+                
+            if(self.show_indicator and self.rockets_moving == False):
+                self.indicator.draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
             
             
             
@@ -150,12 +156,23 @@ class RootWidget(BoxLayout):
     def rocket_control(self, dt):
         """this fnction controll the movements of the rockets"""
         
-        if(float(self.seconds) % 1 == 0 and float(self.seconds) != 0.0):
-            self.rockets_moving = True
+        if(float(self.seconds) % 1 == 0 and float(self.seconds) != 0.0 and self.rocket_ready):
+            if(self.show_indicator):            
+                self.rockets_moving = True
+                self.rocket_ready = False
+                self.show_indicator = False
+
+            else:
+                self.show_indicator = True
+                self.rocket_ready = False
             
         if(self.rockets_moving):
             for n in range(len(self.rockets_x)):
                 self.rockets_x[n-1].move(dt)
+                
+        if(float(self.seconds) % 1 != 0):
+            self.rocket_ready = True
+
                 
     def new_rocket_position(self, direc):
         """ This function returns a new position for the rockets and it makes
@@ -202,7 +219,7 @@ class RootWidget(BoxLayout):
         
         # check if the rockets are out of bounds 
         # if yes stop them from mobing and return them to a new starting position
-        if(self.rockets_x[0].get_x() < 0 ):
+        if(self.rockets_x[0].get_x() < -500):
             self.rockets_moving = False
             
             for n in range(len(self.rockets_x)):
@@ -249,7 +266,7 @@ class RootWidget(BoxLayout):
         
         # update the the base variables, 
         # do not know why this is needed, but it is
-        if(float(self.timer)<0.1):   
+        if(float(self.timer) < 0.1):   
             self.setup_base_variables()
             
             for n in range(len(self.rockets_x)):
