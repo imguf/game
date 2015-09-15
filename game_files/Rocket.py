@@ -2,6 +2,7 @@ from kivy.graphics import *
 
 
 class Rocket:
+    """ This is the Rocket-class"""
     def __init__(self, xpos, ypos, direc):
         self.xpos = xpos
         self.ypos = ypos
@@ -24,6 +25,7 @@ class Rocket:
                       size=(sq_w-30, sq_h-30))
     
     def move(self, dt):
+        """ moves the rocket depending on the direction"""
         if(self.direc == 1):
             self.xpos -= self.speed *dt
         elif(self.direc == 2):
@@ -42,30 +44,28 @@ class Rocket:
         return self.ypos
         
     def get_direc(self):
-        
+        """ returns the direction of the rocket"""
         return self.direc
         
     def get_start_x(self):
+        """ returns the start x position"""
         return self.start_x
         
     def get_start_y(self):
+        """ returns the start y position"""
         return self.start_y
     
-    def change_speed(self):
-        """
-        if(self.speed * 1.1 < self.max_speed):        
-            self.speed *= 1.1
-        else:
-            self.speed = self.max_speed
-            """
-        self.speed = 1000
+
     def set_start_x(self, xpos):
+        """ sets the start x position"""
         self.start_x = xpos
         
     def set_start_y(self, ypos):
+        """ sets the start y position"""
         self.start_y = ypos
     
     def set_direc(self, direc):
+        """ sets the new direction"""
         self.direc = direc
         
     def set_x(self, xpos):

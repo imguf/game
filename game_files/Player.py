@@ -2,6 +2,7 @@ from kivy.graphics import *
 
 
 class Player:
+    """ This is the player class"""
     
     def __init__(self, xpos, ypos, size_x, size_y, board_width, board_height):
         # sets the position of the player        
