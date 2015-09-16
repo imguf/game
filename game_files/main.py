@@ -195,21 +195,31 @@ class RootWidget(BoxLayout):
         
         
         
-        """ Test of growing playfield"""
-        if(float(self.seconds) % 15 == 0 and float(self.seconds) != 0 and self.update_once):
+        # when chosen amount of time has passed, grow the field
+        if(float(self.seconds) % 30 == 0 and float(self.seconds) != 0 and self.update_once):
+            
+            # add one to the size in both x and y
             self.board_size_x += 1
             self.board_size_y += 1
             
+            # gives the new bordersize to the indicators
             for n in range(len(self.indicator_x)):
                 self.indicator_x[n-1].set_border_size(self.board_size_x, self.board_size_y)
-                
+            
+            #create a new rocket
             self.rockets_x.append(Rocket.Rocket(self.play_field_width,self.board_size_y-1,1))
+            
+            # create a new indicatorss            
             self.indicator_x.append(Indicator.Indicator(self.board_size_x,self.board_size_y-1,1, self.board_size_x, self.board_size_y))
+            
+            #             
             self.rocket_x_ypos.append(-1)
+            
+            
             self.update_once = False
             print(len((self.rockets_x)))
             
-        if(float(self.seconds) % 15 != 0):
+        if(float(self.seconds) % 30 != 0):
             self.update_once = True
         
 
@@ -253,17 +263,29 @@ class RootWidget(BoxLayout):
                 check_clear_position = False
                 print(ypos)
                 return ypos
+                
     
     def check_collision(self):
         """ this function is used to check collision with different things"""        
         
         # check if the rockets are out of bounds 
         # if yes stop them from mobing and return them to a new starting position
-        if(self.rockets_x[0].get_x() < -500):
+        if(self.rockets_x[0].get_x() < -500 or self.rockets_x[0].get_x() > self.play_field_width+500):
             self.rockets_moving = False
             
             for n in range(len(self.rockets_x)):
-                # change the xpos back to the starting position
+                # gives a new direction
+                new_direc = randint(1,2)
+                
+                # sets a new start_x position depening on direction
+                if(new_direc == 1):    
+                    self.rockets_x[n-1].set_start_x(self.play_field_width)
+                elif(new_direc == 2):
+                    self.rockets_x[n-1].set_start_x(self.sq_w * -2)
+
+
+                # sets the new direction and sets the xpos to the new position
+                self.rockets_x[n-1].set_direc(new_direc)
                 self.rockets_x[n-1].set_x(self.rockets_x[n-1].get_start_x())
                 
                 # set the new ypos by using the function new_rocket_position
