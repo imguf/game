@@ -56,9 +56,9 @@ class RootWidget(BoxLayout):
         self.add_widget(layout)
         
         # creates the variables that holds the amount of squares of the playfield
-        self.board_size_x = 3
+        self.board_size_x = 4
         
-        self.board_size_y = 5 # this is temporary, start standard is 5 <------        
+        self.board_size_y = 6         
         
         # creates the base varuables 
         self.setup_base_variables()
@@ -82,21 +82,25 @@ class RootWidget(BoxLayout):
                                     
         
         self.rockets_x = [Rocket.Rocket(-10000,2,1), Rocket.Rocket(-10000,0,1),
-                          Rocket.Rocket(-10000,4,1), Rocket.Rocket(-10000,3,1)]
+                          Rocket.Rocket(-10000,4,1), Rocket.Rocket(-10000,3,1),
+                          Rocket.Rocket(-10000,5,1)]
         self.rockets_y = [Rocket.Rocket(3,5,3)]
         
         self.rockets_moving = False
         
         
         # holding the new ypos of the horizontal rockets
-        self.rocket_x_ypos = [-1,-1,-1,-1]
+        self.rocket_x_ypos = [-1,-1,-1,-1, -1]
         self.next_rocket_x = 0
         
-        self.indicator = Indicator.Indicator(-1,-1, 1, 3, 5)
+        self.indicator_x = [Indicator.Indicator(-1,-1, 1, 4, 6),Indicator.Indicator(-1,-1, 1, 4, 6),
+                            Indicator.Indicator(-1,-1, 1, 4, 6),Indicator.Indicator(-1,-1, 1, 4, 6),
+                            Indicator.Indicator(-1,-1, 1, 4, 6)]
 
         self.show_indicator = False
         self.rocket_ready = True
        
+        self.update_once = True
 
 
     def setup_base_variables(self):
@@ -126,11 +130,12 @@ class RootWidget(BoxLayout):
             # call the draw function of the player
             self.player.draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
             
-            for n in range(len(self.rockets_x)):            
+            for n in range(len(self.rockets_x)):         
                 self.rockets_x[n-1].draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
                 
             if(self.show_indicator and self.rockets_moving == False):
-                self.indicator.draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
+                for n in range(len(self.indicator_x)):
+                    self.indicator_x[n-1].draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
             
             
             
@@ -156,13 +161,19 @@ class RootWidget(BoxLayout):
     def rocket_control(self, dt):
         """this fnction controll the movements of the rockets"""
         
-        if(float(self.seconds) % 1 == 0 and float(self.seconds) != 0.0 and self.rocket_ready):
+        
+        
+        if(float(self.seconds) % 0.5 == 0 and float(self.seconds) != 0.0 and self.rocket_ready):
             if(self.show_indicator):            
                 self.rockets_moving = True
                 self.rocket_ready = False
                 self.show_indicator = False
 
             else:
+                for n in range(len(self.indicator_x)):
+                    self.indicator_x[n-1].set_new_pos(self.rockets_x[n-1].get_direc())
+                    self.indicator_x[n-1].set_y(self.rockets_x[n-1].get_y())
+                
                 self.show_indicator = True
                 self.rocket_ready = False
             
@@ -170,8 +181,28 @@ class RootWidget(BoxLayout):
             for n in range(len(self.rockets_x)):
                 self.rockets_x[n-1].move(dt)
                 
-        if(float(self.seconds) % 1 != 0):
+        if(float(self.seconds) % 0.5 != 0):
             self.rocket_ready = True
+        
+        
+        
+        """ Test of growing playfield"""
+        if(float(self.seconds) % 15 == 0 and float(self.seconds) != 0 and self.update_once):
+            self.board_size_x += 1
+            self.board_size_y += 1
+            
+            for n in range(len(self.indicator_x)):
+                self.indicator_x[n-1].set_border_size(self.board_size_x, self.board_size_y)
+                
+            self.rockets_x.append(Rocket.Rocket(self.play_field_width,self.board_size_y-1,1))
+            self.indicator_x.append(Indicator.Indicator(self.board_size_x,self.board_size_y-1,1, self.board_size_x, self.board_size_y))
+            self.rocket_x_ypos.append(-1)
+            self.update_once = False
+            print(len((self.rockets_x)))
+            
+        if(float(self.seconds) % 15 != 0):
+            self.update_once = True
+        
 
                 
     def new_rocket_position(self, direc):
@@ -263,17 +294,18 @@ class RootWidget(BoxLayout):
         
         # call the fnk that updates the timer
         self.update_timer()
+        self.setup_base_variables()
+
         
         # update the the base variables, 
         # do not know why this is needed, but it is
         if(float(self.timer) < 0.1):   
-            self.setup_base_variables()
             
             for n in range(len(self.rockets_x)):
                 self.rockets_x[n-1].set_start_x(self.play_field_width)
                 self.rockets_x[n-1].set_x(self.play_field_width)
 
-        
+        self.player.update_image(self.timer)        
         
         #rocket controller
         self.rocket_control(dt)
