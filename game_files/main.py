@@ -162,25 +162,33 @@ class RootWidget(BoxLayout):
         """this fnction controll the movements of the rockets"""
         
         
-        
+        # start the rockets movement firstly with the indicators
         if(float(self.seconds) % 0.5 == 0 and float(self.seconds) != 0.0 and self.rocket_ready):
-            if(self.show_indicator):            
+            if(self.show_indicator):
+                # make the rockets able to move
                 self.rockets_moving = True
+                # make the rocekts inable to spawn again
                 self.rocket_ready = False
+                # dissable the indicators
                 self.show_indicator = False
 
             else:
+                #gives the indicators a new position
                 for n in range(len(self.indicator_x)):
                     self.indicator_x[n-1].set_new_pos(self.rockets_x[n-1].get_direc())
                     self.indicator_x[n-1].set_y(self.rockets_x[n-1].get_y())
                 
+                # show the indicators
                 self.show_indicator = True
+                # dissable the rockets
                 self.rocket_ready = False
             
+        # move the rockets
         if(self.rockets_moving):
             for n in range(len(self.rockets_x)):
                 self.rockets_x[n-1].move(dt)
-                
+        
+        # make the rockets ready to spawn
         if(float(self.seconds) % 0.5 != 0):
             self.rocket_ready = True
         
