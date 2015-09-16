@@ -174,10 +174,7 @@ class RootWidget(BoxLayout):
                 self.show_indicator = False
 
             else:
-                #gives the indicators a new position
-                for n in range(len(self.indicator_x)):
-                    self.indicator_x[n-1].set_new_pos(self.rockets_x[n-1].get_direc())
-                    self.indicator_x[n-1].set_y(self.rockets_x[n-1].get_y())
+                
                 
                 # show the indicators
                 self.show_indicator = True
@@ -291,6 +288,11 @@ class RootWidget(BoxLayout):
                 # set the new ypos by using the function new_rocket_position
                 self.rockets_x[n-1].set_y(self.new_rocket_position(self.rockets_x[n-1].get_direc()))
                 
+                #gives the indicators a new position
+                for n in range(len(self.indicator_x)):
+                    self.indicator_x[n-1].set_new_pos(self.rockets_x[n-1].get_direc())
+                    self.indicator_x[n-1].set_y(self.rockets_x[n-1].get_y())
+                
             
             # resets the variables used in new_rocket_position so it can be used again
             for n in range(len(self.rocket_x_ypos)):
@@ -337,6 +339,11 @@ class RootWidget(BoxLayout):
             for n in range(len(self.rockets_x)):
                 self.rockets_x[n-1].set_start_x(self.play_field_width)
                 self.rockets_x[n-1].set_x(self.play_field_width)
+                
+             #gives the indicators a new position
+            for n in range(len(self.indicator_x)):
+                self.indicator_x[n-1].set_new_pos(self.rockets_x[n-1].get_direc())
+                self.indicator_x[n-1].set_y(self.rockets_x[n-1].get_y())
 
         self.player.update_image(self.seconds)        
         
