@@ -14,7 +14,8 @@ from kivy.clock import Clock
 from kivy.core.window import Window
 from math import atan
 from random import randint
-from math import degrees 
+from math import degrees
+from kivy.uix.image import AsyncImage 
 import Player
 import Rocket
 import Indicator
@@ -45,7 +46,7 @@ class RootWidget(BoxLayout):
         
         upper_layout.add_widget(self.timer_label)        
         upper_layout.add_widget(self.empty_label)        
-        upper_layout.add_widget(self.paus_label)           
+        upper_layout.add_widget(AsyncImage(source ="pause.png", size_hint= (1, 2), pos_hint={'center_x':.5, 'center_y':-.5}))           
         
         layout.add_widget(upper_layout)        
         
