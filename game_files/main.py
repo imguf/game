@@ -303,18 +303,20 @@ class RootWidget(BoxLayout):
         
         # call the fnk that updates the timer
         self.update_timer()
-        self.setup_base_variables()
+        
 
         
         # update the the base variables, 
         # do not know why this is needed, but it is
+        self.setup_base_variables()        
+        
         if(float(self.timer) < 0.1):   
             
             for n in range(len(self.rockets_x)):
                 self.rockets_x[n-1].set_start_x(self.play_field_width)
                 self.rockets_x[n-1].set_x(self.play_field_width)
 
-        self.player.update_image(self.timer)        
+        self.player.update_image(self.seconds)        
         
         #rocket controller
         self.rocket_control(dt)
