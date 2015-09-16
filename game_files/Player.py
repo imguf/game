@@ -8,8 +8,8 @@ class Player:
         # sets the position of the player        
         self.xpos = xpos
         self.ypos = ypos
-        self.image = ["prealphacube80x80.png", "prealphacube80x802.png"]
-        self.current_image = "prealphacube80x80.png"
+        self.image = ["img/prealphacube80x80.png", "img/prealphacube80x802.png"]
+        self.current_image = "img/prealphacube80x80.png"
         self.num = 0
         self.board_width = board_width
         self.board_height = board_height

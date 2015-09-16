@@ -46,7 +46,7 @@ class RootWidget(BoxLayout):
         
         upper_layout.add_widget(self.timer_label)        
         upper_layout.add_widget(self.empty_label)        
-        upper_layout.add_widget(AsyncImage(source ="pause.png", size_hint= (1, 2), pos_hint={'center_x':.5, 'center_y':-.5}))           
+        upper_layout.add_widget(AsyncImage(source ="img/pause.png", size_hint= (1, 2), pos_hint={'center_x':.5, 'center_y':-.5}))           
         
         layout.add_widget(upper_layout)        
         
