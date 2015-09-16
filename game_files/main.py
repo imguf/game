@@ -56,6 +56,9 @@ class RootWidget(BoxLayout):
         # add the layout to the window
         self.add_widget(layout)
         
+        # create a boolean to hold the state of the game, pauses or unpaused
+        self.paused = False
+        
         # creates the variables that holds the amount of squares of the playfield
         self.board_size_x = 4
         
@@ -325,80 +328,92 @@ class RootWidget(BoxLayout):
         everything piece of code that is going to be run more than once goes 
         through here"""
         
-        # call the fnk that updates the timer
-        self.update_timer()
         
-
         
-        # update the the base variables, 
-        # do not know why this is needed, but it is
-        self.setup_base_variables()        
-        
-        if(float(self.timer) < 0.1):   
+        if(self.paused == False):
+            # call the fnk that updates the timer
+            self.update_timer()
             
-            for n in range(len(self.rockets_x)):
-                self.rockets_x[n-1].set_start_x(self.play_field_width)
-                self.rockets_x[n-1].set_x(self.play_field_width)
+            
+            # update the the base variables, 
+            # do not know why this is needed, but it is
+            self.setup_base_variables()        
+            
+            if(float(self.timer) < 0.1):   
                 
-             #gives the indicators a new position
-            for n in range(len(self.indicator_x)):
-                self.indicator_x[n-1].set_new_pos(self.rockets_x[n-1].get_direc())
-                self.indicator_x[n-1].set_y(self.rockets_x[n-1].get_y())
-
-        self.player.update_image(self.seconds)        
-        
-        #rocket controller
-        self.rocket_control(dt)
-
-        # check collision function 
-        self.check_collision()
+                for n in range(len(self.rockets_x)):
+                    self.rockets_x[n-1].set_start_x(self.play_field_width)
+                    self.rockets_x[n-1].set_x(self.play_field_width)
+                    
+                 #gives the indicators a new position
+                for n in range(len(self.indicator_x)):
+                    self.indicator_x[n-1].set_new_pos(self.rockets_x[n-1].get_direc())
+                    self.indicator_x[n-1].set_y(self.rockets_x[n-1].get_y())
+    
+            self.player.update_image(self.seconds)        
             
-        
-        # calls the main draw function        
-        self.draw(self.play_field_widget)
+            #rocket controller
+            self.rocket_control(dt)
+    
+            # check collision function 
+            self.check_collision()
+                
+            
+            # calls the main draw function        
+            self.draw(self.play_field_widget)
         
     
     def on_touch_down(self, touch):
         """ gets the position of the first screen touch"""
         
-        if(touch.y < self.play_field_height):
-            self.touch_down_x = touch.x
-            self.touch_down_y = touch.y
+        
+            
+        if(self.paused and touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):
+            self.paused = False
+        else:
+            if(touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):            
+                self.paused = True
+            
+            
+            if(touch.y < self.play_field_height):
+                self.touch_down_x = touch.x
+                self.touch_down_y = touch.y
         
     def on_touch_up(self, touch):
         """ gets the position of the point where the usesr pulls upp the finger"""        
-        if(touch.y < self.play_field_height):
-            x = touch.x - self.touch_down_x
-            y = touch.y - self.touch_down_y
+        if(self.paused == False):      
+            if(touch.y < self.play_field_height):
+                x = touch.x - self.touch_down_x
+                y = touch.y - self.touch_down_y
+                
+                # checks so the y/x != 0 and takes out the angle between the two positions
+                try:
+                    self.angle = degrees(atan(y/x))
+                except ZeroDivisionError:
+                    print("Dividera med 0, nedslag och uppslagsplats densamma")
+                
+                # checks which "square" of the screen the touch is in and corrects the 
+                # angle to the correct one
+                if(x > 0 and y < 0):
+                    self.angle = 360 - self.angle * -1
+                elif(x < 0 and y > 0):
+                    self.angle = 180 - self.angle * -1
+                elif(x < 0 and y < 0):
+                    self.angle = self.angle + 180
             
-            # checks so the y/x != 0 and takes out the angle between the two positions
-            try:
-                self.angle = degrees(atan(y/x))
-            except ZeroDivisionError:
-                print("Dividera med 0, nedslag och uppslagsplats densamma")
+                # moves the player in the right direction 
+                if(self.angle < 45 or self.angle > 315):
+                    self.player.move_right(1) # move right
+                    
+                elif(self.angle > 135 and self.angle < 225):
+                    self.player.move_right(-1) # move left
+                    
+                elif(self.angle > 45 and self.angle < 135):
+                    self.player.move_up(1) # move up
+                    
+                elif(self.angle > 225 and self.angle < 315):
+                    self.player.move_up(-1) # move down
             
-            # checks which "square" of the screen the touch is in and corrects the 
-            # angle to the correct one
-            if(x > 0 and y < 0):
-                self.angle = 360 - self.angle * -1
-            elif(x < 0 and y > 0):
-                self.angle = 180 - self.angle * -1
-            elif(x < 0 and y < 0):
-                self.angle = self.angle + 180
-        
-            # moves the player in the right direction 
-            if(self.angle < 45 or self.angle > 315):
-                self.player.move_right(1) # move right
-                
-            elif(self.angle > 135 and self.angle < 225):
-                self.player.move_right(-1) # move left
-                
-            elif(self.angle > 45 and self.angle < 135):
-                self.player.move_up(1) # move up
-                
-            elif(self.angle > 225 and self.angle < 315):
-                self.player.move_up(-1) # move down
-        
 
             
 class TestApp(App):
