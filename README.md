@@ -1,3 +1,2 @@
 ﻿# game
-nej vi ska vara snälla med varanda
-hejsan bojkar
+edit the readme file you say?
