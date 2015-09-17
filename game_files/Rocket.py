@@ -8,7 +8,9 @@ class Rocket:
         self.ypos = ypos
         self.start_x = xpos
         self.start_y = ypos
-        self.speed = 350
+        self.play_field_width = 0
+        self.play_field_height = 0
+        self.speed = 75
         self.max_speed = 1000
         
         self.direc = direc
@@ -27,13 +29,13 @@ class Rocket:
     def move(self, dt):
         """ moves the rocket depending on the direction"""
         if(self.direc == 1):
-            self.xpos -= self.speed *dt
+            self.xpos -= self.speed * dt * (self.play_field_width/100)
         elif(self.direc == 2):
-            self.xpos += self.speed *dt
+            self.xpos += self.speed * dt * (self.play_field_width/100)
         elif(self.direc == 3):
-            self.ypos -= self.speed *dt
+            self.ypos -= self.speed * dt * (self.play_field_height/100)
         elif(self.direc == 4):
-            self.ypos += self.speed *dt
+            self.ypos += self.speed * dt * (self.play_field_height/100)
         
     def get_x(self):
         """ return the xpos"""
@@ -75,3 +77,15 @@ class Rocket:
     def set_y(self, ypos): 
         """ set the ypos"""
         self.ypos = ypos
+        
+        
+    def set_screen_size(self, w,h):
+        """ gives teh rocket the correct screensize"""
+        self.play_field_width = w
+        self.play_field_height = h
+
+
+
+
+        
+        

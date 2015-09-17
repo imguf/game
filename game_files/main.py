@@ -424,6 +424,7 @@ class RootWidget(BoxLayout):
                 for n in range(len(self.rockets_x)):
                     self.rockets_x[n-1].set_start_x(self.play_field_width)
                     self.rockets_x[n-1].set_x(self.play_field_width)
+                    self.rockets_x[n-1].set_screen_size(self.play_field_width, self.play_field_height)
                     
                  #gives the x indicators a new position
                 for n in range(len(self.indicator_x)):
@@ -435,6 +436,7 @@ class RootWidget(BoxLayout):
                 for n in range(len(self.rockets_y)):
                     self.rockets_y[n-1].set_start_y(self.play_field_height)
                     self.rockets_y[n-1].set_y(self.play_field_height)
+                    self.rockets_y[n-1].set_screen_size(self.play_field_width, self.play_field_height)
                     
                  #gives the y indicators a new position
                 for n in range(len(self.indicator_y)):
