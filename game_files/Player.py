@@ -59,3 +59,7 @@ class Player:
     def get_y(self):
         """ returns the ypos variable"""
         return self.ypos
+        
+    def update_board_size(self, x, y):
+        self.board_width = x
+        self.board_height = y
