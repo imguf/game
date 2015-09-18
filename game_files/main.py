@@ -222,8 +222,10 @@ class RootWidget(BoxLayout):
                 self.indicator_y[n-1].set_border_size(self.board_size_x, self.board_size_y)
             
             #create a new rocket
-            self.rockets_x.append(Rocket.Rocket(self.play_field_width,self.board_size_y-1,1))
-            self.rockets_y.append(Rocket.Rocket(self.play_field_height, self.board_size_x-1,3,self.play_field_width, self.play_field_height))
+            self.rockets_x.append(Rocket.Rocket(self.play_field_width,self.board_size_y-1,1, 
+                                                self.play_field_width, self.play_field_height))
+            self.rockets_y.append(Rocket.Rocket(self.play_field_height, self.board_size_x-1,3,
+                                                self.play_field_width, self.play_field_height))
             
             # create a new indicatorss            
             self.indicator_x.append(Indicator.Indicator(self.board_size_x, self.board_size_y-1, 1, self.board_size_x, self.board_size_y))
