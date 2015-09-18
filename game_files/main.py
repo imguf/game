@@ -113,6 +113,10 @@ class RootWidget(BoxLayout):
 
         # starts the drawings
         with widget.canvas:
+            # draw a background
+            Rectangle(source="img/background-temp.png", pos=(0,0), 
+                      size=(self.play_field_widget.width, self.height))            
+            
             # call the draw_grid function
             self.draw_grid(widget, self.board_size_x,self.board_size_y)
             
