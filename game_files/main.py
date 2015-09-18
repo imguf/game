@@ -223,7 +223,7 @@ class RootWidget(BoxLayout):
             
             #create a new rocket
             self.rockets_x.append(Rocket.Rocket(self.play_field_width,self.board_size_y-1,1))
-            self.rockets_y.append(Rocket.Rocket(self.play_field_height, self.board_size_x-1,3))
+            self.rockets_y.append(Rocket.Rocket(self.play_field_height, self.board_size_x-1,3,self.play_field_width, self.play_field_height))
             
             # create a new indicatorss            
             self.indicator_x.append(Indicator.Indicator(self.board_size_x, self.board_size_y-1, 1, self.board_size_x, self.board_size_y))
@@ -237,7 +237,6 @@ class RootWidget(BoxLayout):
             
             
             self.update_once = False
-            print(len((self.rockets_x)))
             
         if(float(self.seconds) % 30 != 0):
             self.update_once = True
@@ -260,9 +259,6 @@ class RootWidget(BoxLayout):
             
                 #generate a new y position
                 ypos = randint(0, self.board_size_y-1)
-    
-    
-                print(self.rocket_x_ypos)
                   
                 
                 for n in self.rocket_x_ypos:
@@ -282,7 +278,7 @@ class RootWidget(BoxLayout):
                     self.rocket_x_ypos[self.next_rocket_x] = ypos
                     self.next_rocket_x += 1
                     check_clear_position = False
-                    print(ypos)
+                    
                     return ypos
                     
             # new xpos for rockets moving up and down
@@ -305,7 +301,7 @@ class RootWidget(BoxLayout):
                     self.rocket_y_xpos[self.next_rocket_y] = xpos
                     self.next_rocket_y += 1
                     check_clear_position = False
-                    print(xpos)
+
                     return xpos
                 
     
@@ -359,7 +355,7 @@ class RootWidget(BoxLayout):
                 if(new_direc == 3):    
                     self.rockets_y[n-1].set_start_y(self.play_field_height)
                 elif(new_direc == 4):
-                    self.rockets_y[n-1].set_start_y(self.sq_h * -2)
+                    self.rockets_y[n-1].set_start_y(self.sq_h * -3)
 
 
                 # sets the new direction and sets the ypos to the new position
@@ -454,7 +450,7 @@ class RootWidget(BoxLayout):
             
             # calls the main draw function        
             self.draw(self.play_field_widget)
-        
+                    
     
     def on_touch_down(self, touch):
         """ gets the position of the first screen touch"""

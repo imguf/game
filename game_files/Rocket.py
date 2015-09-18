@@ -3,13 +3,13 @@ from kivy.graphics import *
 
 class Rocket:
     """ This is the Rocket-class"""
-    def __init__(self, xpos, ypos, direc):
+    def __init__(self, xpos, ypos, direc, play_field_width = 0, play_field_height = 0):
         self.xpos = xpos
         self.ypos = ypos
         self.start_x = xpos
         self.start_y = ypos
-        self.play_field_width = 0
-        self.play_field_height = 0
+        self.play_field_width = play_field_width
+        self.play_field_height = play_field_height
         self.speed = 75
         self.max_speed = 1000
         
