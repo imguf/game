@@ -33,22 +33,11 @@ class RootWidget(BoxLayout):
         
         # creates the base layout of the screen
         layout = BoxLayout(orientation="vertical")
-        upper_layout = BoxLayout(orientation="horizontal", size_hint=(1,0.02))        
         
-        
-        self.timer_label = Label(text=("kakor"),pos=(0, upper_layout.top))
-        self.empty_label = Label()
-        self.paus_label = Label(text=("paus, temp"))
         
         #creates the main widget that is used to draw stuff on
         self.play_field_widget = Widget()              
-        
-        upper_layout.add_widget(self.timer_label)        
-        upper_layout.add_widget(self.empty_label)        
-        upper_layout.add_widget(AsyncImage(source ="img/pause.png", size_hint= (1, 2), pos_hint={'center_x':.5, 'center_y':-.5}))           
-        
-        layout.add_widget(upper_layout)        
-        
+                
         # adds the play_field_widget to the layout
         layout.add_widget(self.play_field_widget)        
         
@@ -73,6 +62,8 @@ class RootWidget(BoxLayout):
         
         self.seconds = 0
         self.minutes = 0
+        
+        self.timer_text = ""
         
         # creates the variables used for calculating the user input
         self.touch_down_x = 0
@@ -105,28 +96,28 @@ class RootWidget(BoxLayout):
         
         
                 
-    def draw(self, widget):
+    def draw(self):
         """ this function controlls the drawing"""
         # clears the canvas
         self.play_field_widget.canvas.clear()
         
 
         # starts the drawings
-        with widget.canvas:
+        with self.play_field_widget.canvas:
             # draw a background
             Rectangle(source="img/background-temp.png", pos=(0,0), 
                       size=(self.play_field_widget.width, self.height))            
             
             # call the draw_grid function
-            self.draw_grid(widget, self.board_size_x,self.board_size_y)
+            self.draw_grid(self.play_field_widget, self.board_size_x,self.board_size_y)
             
             # call the draw function of the player
-            self.player.draw(widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
+            self.player.draw(self.play_field_widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
             
-            self.rocket_control.draw(widget, self.play_field_x, self.play_field_y)
+            self.rocket_control.draw(self.play_field_widget, self.play_field_x, self.play_field_y)
             
             
-            
+            Label(text=self.timer_text, pos=(self.play_field_width*0.01,self.play_field_height * 1.025))
             
     
     def draw_grid(self, widget, x_size, y_size):
@@ -156,7 +147,7 @@ class RootWidget(BoxLayout):
             
            
             
-    def update_timer(self):
+    def update_timer(self, dt):
         #update the timer and print out the new time on screen
         self.timer += 1.0/60.0
         self.seconds = 0
@@ -175,8 +166,7 @@ class RootWidget(BoxLayout):
         self.seconds = "%.1f" % self.seconds
         
         #update the timer on screen
-        self.timer_label.text = (str(self.minutes) +":"+ self.seconds)
-        
+        self.timer_text = (str(self.minutes) +":"+ self.seconds)
 
     
     def update(self, dt):
@@ -188,7 +178,7 @@ class RootWidget(BoxLayout):
         
         if(self.paused == False):
             # call the fnk that updates the timer
-            self.update_timer()
+            self.update_timer(dt)
             
             
             # update the the base variables, 
@@ -227,7 +217,7 @@ class RootWidget(BoxLayout):
                 self.update_once = True     
             
             # calls the main draw function        
-            self.draw(self.play_field_widget)
+            self.draw()
                     
     
     def on_touch_down(self, touch):
