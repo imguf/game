@@ -108,14 +108,17 @@ class RootWidget(BoxLayout):
             Rectangle(source="img/background-temp.png", pos=(0,0), 
                       size=(self.play_field_widget.width, self.height))            
             
+            Rectangle(pos=(281,100), size=(100,100))
+            
+            
             # call the draw_grid function
             self.draw_grid(self.play_field_widget, self.board_size_x,self.board_size_y)
             
             # call the draw function of the player
             self.player.draw(self.play_field_widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
             
-            self.rocket_control.draw(self.play_field_widget, self.play_field_x, self.play_field_y)
-            
+            self.rocket_control.draw(self.play_field_widget, self.play_field_x, self.play_field_y, self.sq_w, self.sq_h)
+
             
             Label(text=self.timer_text, pos=(self.play_field_width*0.01,self.play_field_height * 1.025))
             
@@ -142,10 +145,42 @@ class RootWidget(BoxLayout):
     def check_collision(self):
         """ this function is used to check collision"""
         
-        # calls the rocket controls check_collision funktion
-        self.rocket_control.check_collision()
+        
+        ##### Checks if the rockets and the player collides #####
+        
+        # get the players position
+        player_x = self.player.get_x() * self.sq_w + 10 + self.play_field_x
+        player_y = self.player.get_y() * self.sq_h + 10 + self.play_field_y
+        
+        #get the horizontal rockets position
+        rockets_x_xpos = self.rocket_control.get_rockets_x()[0]
+        rockets_x_ypos = self.rocket_control.get_rockets_x()[1] 
+        rockets_x_len = self.rocket_control.get_rockets_x()[2]
+        
+        # get the vertical rockets position
+        rockets_y_xpos = self.rocket_control.get_rockets_y()[0]
+        rockets_y_ypos = self.rocket_control.get_rockets_y()[1]
+        rockets_y_len = self.rocket_control.get_rockets_y()[2]
+        
+        
+        # check if the horizontal rockets collide with the player
+        for n in range(rockets_x_len):
             
-           
+            # check if the rockets lower left corner collides with player
+            if(rockets_x_xpos[n] >= player_x and 
+               rockets_x_xpos[n] + 80 + self.play_field_x < player_x + self.sq_w-10 and
+               rockets_x_ypos[n] + 20 + self.play_field_y >= player_y and
+               rockets_x_ypos[n] + 20 + self.play_field_y < player_y + self.sq_h-10):
+                   self.paused = True
+            
+            # check if the rockets upper right corner collides with the player
+            elif(rockets_x_xpos[n] + 80 + self.play_field_x + self.sq_w - 30 >= player_x and 
+               rockets_x_xpos[n] + 80 + self.play_field_x + self.sq_w - 30 < player_x + self.sq_w-10 and
+               rockets_x_ypos[n] + 20 + self.play_field_y + self.sq_h - 30 >= player_y and
+               rockets_x_ypos[n] + 20 + self.play_field_y+ self.sq_h - 30 < player_y + self.sq_h-10):
+                   self.paused = True 
+            
+
             
     def update_timer(self, dt):
         #update the timer and print out the new time on screen
