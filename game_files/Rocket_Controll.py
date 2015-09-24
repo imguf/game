@@ -45,11 +45,11 @@ class Rocket_Controll:
         
         
         
-    def draw(self, widget, play_field_x, play_field_y):
+    def draw(self, widget, play_field_x, play_field_y, sq_w, sq_h):
         
         #draw the x rockets
         for n in range(len(self.rockets_x)):         
-            self.rockets_x[n-1].draw(widget, play_field_x, play_field_y, self.sq_w, self.sq_h)
+            self.rockets_x[n-1].draw(widget, play_field_x, play_field_y, sq_w, sq_h)
                 
         # draw the y rockets
         for n in range(len(self.rockets_y)):
@@ -191,7 +191,7 @@ class Rocket_Controll:
                     return xpos
 
 
-    def check_collision(self):
+    def check_inbounds(self):
         """ this function is used to check collision with different things"""        
         
         
@@ -299,7 +299,7 @@ class Rocket_Controll:
                 
                 
         # call the check collision funktion
-        self.check_collision()
+        self.check_inbounds()
         
         
         #call the control funktion
@@ -320,15 +320,22 @@ class Rocket_Controll:
     def get_rockets_x(self):
         """ this function returns the x_positions of the rockets in a list"""
         xpos = []
+        ypos = []        
+        
         for n in range(len(self.rockets_x)):
+            # add all the position values to two different lists
             xpos.append(self.rockets_x[n-1].get_x())
+            ypos.append(self.rockets_x[n-1].get_y()* self.sq_h)
             
-        return xpos
+        return xpos, ypos, len(self.rockets_x)
         
     def get_rockets_y(self):
         """ Thid function returns the ypos of the rocekts in a list"""
+        xpos = []
         ypos = []
         for n in range(len(self.rockets_y)):
+            # add all the position values to two different lists
+            xpos.append(self.rockets_y[n-1].get_x()*self.sq_w)           
             ypos.append(self.rockets_y[n-1].get_y())
             
-        return ypos
+        return xpos, ypos, len(self.rockets_y)
