@@ -31,7 +31,10 @@ class Player:
         
     def draw(self, widget, window_x, window_y, sq_w, sq_h):
         """ draw out the player"""
-        Rectangle(source =self.current_image, pos=(10+window_x + sq_w * self.xpos, 10 + window_y + sq_h * self.ypos), size=(sq_w-10, sq_h-10))
+        Rectangle(source =self.current_image,\
+                pos=(10+window_x + sq_w * self.xpos, 10 + window_y + sq_h * self.ypos),\
+                size=(sq_w -10, sq_h-10))
+                
 
         
     def move_up(self, direc):
