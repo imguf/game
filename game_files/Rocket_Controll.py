@@ -310,26 +310,46 @@ class Rocket_Controll:
         rockets_x_start_y = [0,2,3,4]
         rockets_y_start_x = [0,2]
         
-        for n in range(len(self.rockets_x)-1,3):
-            self.rockets_x.pop()
+        self.board_width = 3
+        self.board_height = 5
+        
+        for n in range(len(self.rockets_x)-1,3, -1):
+            # delete all the elements in the list except the first 4
+            del self.rockets_x[-1]
+            del self.indicator_x[-1]
+            del self.rocket_x_ypos[-1]
             
         for n in range(4):
+            # set the rockets to their start value
             self.rockets_x[n].set_x(-400)
             self.rockets_x[n].set_y(rockets_x_start_y[n])
             self.rockets_x[n].set_start_y(rockets_x_start_y[n])
             self.rockets_x[n].set_direc(1)
             
-        for n in range(len(self.rockets_y)-1,1):
-            self.rockets_y.pop()
+            # set the indicators to their start value
+            self.indicator_x[n].set_border_size(self.board_width, self.board_height)
+            self.indicator_x[n].set_new_pos(1)
+            
+            
+            
+        for n in range(len(self.rockets_y)-1,1,-1):
+            # delete all the elements in the list except the first 2
+            del self.rockets_y[-1]
+            del self.indicator_y[-1]
+            del self.rocket_y_xpos[-1]
             
         for n in range(2):
+            # set the rockets to their start value
             self.rockets_y[n].set_x(rockets_y_start_x[n])
             self.rockets_y[n].set_start_x(rockets_y_start_x[n])
             self.rockets_y[n].set_y(-400)
             self.rockets_y[n].set_direc(3)
+            # set hte indidicators to their start value
+            self.indicator_y[n].set_border_size(self.board_width, self.board_height)
+            self.indicator_y[n].set_new_pos(3)
             
-        self.board_width = 3
-        self.board_height = 5
+        
+        # stop the rockets from moving
         self.rockets_moving = False
         
         
