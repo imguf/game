@@ -78,8 +78,8 @@ class RootWidget(BoxLayout):
         # instansiate the Rocket_Controll class
         self.rocket_control = Rocket_Controll.Rocket_Controll(self.play_field_width, self.play_field_height,
                                                               self.board_size_x, self.board_size_y)
-       
-       
+
+        self.rip = False       
         self.update_once = True
 
 
@@ -108,8 +108,6 @@ class RootWidget(BoxLayout):
             Rectangle(source="img/background-temp.png", pos=(0,0), 
                       size=(self.play_field_widget.width, self.height))            
             
-            Rectangle(pos=(281,100), size=(100,100))
-            
             
             # call the draw_grid function
             self.draw_grid(self.play_field_widget, self.board_size_x,self.board_size_y)
@@ -119,8 +117,16 @@ class RootWidget(BoxLayout):
             
             self.rocket_control.draw(self.play_field_widget, self.play_field_x, self.play_field_y, self.sq_w, self.sq_h)
 
-            
+            #Timerlabel
+
             Label(text=self.timer_text, pos=(self.play_field_width*0.01,self.play_field_height * 1.025))
+            
+            if self.rip:
+              Rectangle(source="img/ripscreen.png", pos=(self.play_field_x+0.5*self.sq_w, \
+              self.play_field_y+self.sq_h), size=(self.sq_w*2, self.sq_h*3))
+              Label(text=self.timer_text, font_size="20sp", pos=(self.play_field_x+self.sq_w*1, self.play_field_y+self.sq_h*1))
+            
+        
             
     
     def draw_grid(self, widget, x_size, y_size):
@@ -171,17 +177,23 @@ class RootWidget(BoxLayout):
                rockets_x_xpos[n] + 80 + self.play_field_x < player_x + self.sq_w-10 and
                rockets_x_ypos[n] + 20 + self.play_field_y >= player_y and
                rockets_x_ypos[n] + 20 + self.play_field_y < player_y + self.sq_h-10):
-                   self.paused = True
+                   self.death_screen()
             
             # check if the rockets upper right corner collides with the player
             elif(rockets_x_xpos[n] + 80 + self.play_field_x + self.sq_w - 30 >= player_x and 
                rockets_x_xpos[n] + 80 + self.play_field_x + self.sq_w - 30 < player_x + self.sq_w-10 and
                rockets_x_ypos[n] + 20 + self.play_field_y + self.sq_h - 30 >= player_y and
                rockets_x_ypos[n] + 20 + self.play_field_y+ self.sq_h - 30 < player_y + self.sq_h-10):
-                   self.paused = True 
+                   self.death_screen()
             
+    def death_screen(self):
+      """Describes what happens when you lose."""
+      self.paused = True
+      self.rip = True
+        
 
-            
+
+    
     def update_timer(self, dt):
         #update the timer and print out the new time on screen
         self.timer += 1.0/60.0
@@ -259,19 +271,22 @@ class RootWidget(BoxLayout):
         """ gets the position of the first screen touch"""
         
         
-            
-        if(self.paused and touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):
-            self.paused = False
-        else:
-            if(touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):            
-                self.paused = True
-            
-            
-            if(touch.y < self.play_field_height):
-                self.touch_down_x = touch.x
-                self.touch_down_y = touch.y
+        if self.rip == False:
+          if(self.paused and touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):
+              self.paused = False
+          else:
+              if(touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):            
+                  self.paused = True
+              
+              
+              if(touch.y < self.play_field_height):
+                  self.touch_down_x = touch.x
+                  self.touch_down_y = touch.y
+        elif self.rip and touch.y < self.sq_h*3 and touch.y > self.play_field_y+self.sq_h \
+        and touch.x < self.sq_w*2 and touch.x > self.play_field_x+0.5*self.sq_w:
+          self.paused = False #Restart game goes here
+          
         
-    def on_touch_up(self, touch):
         """ gets the position of the point where the usesr pulls upp the finger"""        
         if(self.paused == False):      
             if(touch.y < self.play_field_height):
