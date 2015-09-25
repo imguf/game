@@ -16,6 +16,7 @@ class Rocket_Controll:
         self.timer = 0
         
         
+        
         # creates the rockets
         self.rockets_x = [Rocket.Rocket(-10000,2,1), Rocket.Rocket(-10000,0,1),
                           Rocket.Rocket(-10000,4,1), Rocket.Rocket(-10000,3,1)]
@@ -305,6 +306,30 @@ class Rocket_Controll:
         #call the control funktion
         self.control(dt)
     
+    def restart_rockets(self):
+        rockets_x_start_y = [0,2,3,4]
+        rockets_y_start_x = [0,2]
+        
+        for n in range(len(self.rockets_x)-1,3):
+            self.rockets_x.pop()
+            
+        for n in range(4):
+            self.rockets_x[n].set_x(-10000)
+            self.rockets_x[n].set_y(rockets_x_start_y[n])
+            self.rockets_x[n].set_start_y(rockets_x_start_y[n])
+            self.rockets_x[n].set_direc(1)
+            
+        for n in range(len(self.rockets_y)-1,1):
+            self.rockets_y.pop()
+            
+        for n in range(2):
+            self.rockets_y[n].set_x(rockets_y_start_x[n])
+            self.rockets_y[n].set_start_x(rockets_y_start_x[n])
+            self.rockets_y[n].set_y(-10000)
+            self.rockets_y[n].set_direc(3)
+            
+        self.board_width = 3
+        self.board_height = 5
         
         
     def set_play_field_size(self, w,h):
