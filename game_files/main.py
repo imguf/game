@@ -272,23 +272,32 @@ class RootWidget(BoxLayout):
         
         
         if self.rip == False:
-          if(self.paused and touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):
-              self.paused = False
-          else:
-              if(touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):            
-                  self.paused = True
+            if(self.paused and touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):
+                self.paused = False
+            else:
+                if(touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):            
+                    self.paused = True
               
               
-              if(touch.y < self.play_field_height):
-                  self.touch_down_x = touch.x
-                  self.touch_down_y = touch.y
+                if(touch.y < self.play_field_height):
+                    self.touch_down_x = touch.x
+                    self.touch_down_y = touch.y
+                  
+           
+
+            
         elif self.rip and touch.y < self.sq_h*3 and touch.y > self.play_field_y+self.sq_h \
         and touch.x < self.sq_w*2 and touch.x > self.play_field_x+0.5*self.sq_w:
           self.paused = False #Restart game goes here
+          self.rocket_control.restart_rockets()
           
-        
-        """ gets the position of the point where the usesr pulls upp the finger"""        
-        if(self.paused == False):      
+          self.timer = 0.0
+          self.rip = False
+          
+
+    def on_touch_up(self, touch):
+         """ gets the position of the point where the usesr pulls upp the finger"""        
+         if(self.paused == False):      
             if(touch.y < self.play_field_height):
                 x = touch.x - self.touch_down_x
                 y = touch.y - self.touch_down_y
@@ -321,8 +330,8 @@ class RootWidget(BoxLayout):
                 elif(self.angle > 225 and self.angle < 315):
                     self.player.move_up(-1) # move down
             
+        
 
-            
 class TestApp(App):
     
     def build(self):
