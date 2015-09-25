@@ -63,6 +63,14 @@ class Player:
         """ returns the ypos variable"""
         return self.ypos
         
+    def restart_player(self):
+        """ restart the players position"""
+        self.xpos = 1
+        self.ypos = 1
+        self.board_width = 3
+        self.board_height = 5
+        
     def update_board_size(self, x, y):
+        """ takes two arguments and sets the board width and height to the values"""
         self.board_width = x
         self.board_height = y
