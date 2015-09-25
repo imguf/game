@@ -73,6 +73,8 @@ class RootWidget(BoxLayout):
         # creates the player object
         self.player = Player.Player(1,1, self.sq_w, self.sq_h, 
                                     self.board_size_x, self.board_size_y)
+        
+        self.player_movable = False
                                     
         
         # instansiate the Rocket_Controll class
@@ -220,8 +222,8 @@ class RootWidget(BoxLayout):
         """ this function is the controller of everything
         everything piece of code that is going to be run more than once goes 
         through here"""
-        
-        
+        if(self.timer > 0.05):
+            self.player_movable = True
         
         if(self.paused == False):
             # call the fnk that updates the timer
@@ -270,34 +272,39 @@ class RootWidget(BoxLayout):
     def on_touch_down(self, touch):
         """ gets the position of the first screen touch"""
         
-        
+        # if the player is alive
         if self.rip == False:
             if(self.paused and touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):
                 self.paused = False
             else:
+                # if the touch is on the pausbutton, paus the game
                 if(touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):            
                     self.paused = True
               
-              
+                # if the touch is on the play_field
+                # take the x and y position of the touch
                 if(touch.y < self.play_field_height):
                     self.touch_down_x = touch.x
                     self.touch_down_y = touch.y
                   
            
 
-            
+        # if the player is dead            
         elif self.rip and touch.y < self.sq_h*3 and touch.y > self.play_field_y+self.sq_h \
         and touch.x < self.sq_w*2 and touch.x > self.play_field_x+0.5*self.sq_w:
-          self.paused = False #Restart game goes here
+          
           self.rocket_control.restart_rockets()
+          self.player.restart_player()
           
           self.timer = 0.0
+          self.player_movable = False
+          self.paused = False           
           self.rip = False
           
 
     def on_touch_up(self, touch):
          """ gets the position of the point where the usesr pulls upp the finger"""        
-         if(self.paused == False):      
+         if(self.paused == False and self.player_movable == True):      
             if(touch.y < self.play_field_height):
                 x = touch.x - self.touch_down_x
                 y = touch.y - self.touch_down_y
