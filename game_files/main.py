@@ -175,18 +175,35 @@ class RootWidget(BoxLayout):
         for n in range(rockets_x_len):
             
             # check if the rockets lower left corner collides with player
-            if(rockets_x_xpos[n] >= player_x and 
+            if(rockets_x_xpos[n] + 80 + self.play_field_x >= player_x and 
                rockets_x_xpos[n] + 80 + self.play_field_x < player_x + self.sq_w-10 and
                rockets_x_ypos[n] + 20 + self.play_field_y >= player_y and
                rockets_x_ypos[n] + 20 + self.play_field_y < player_y + self.sq_h-10):
                    self.death_screen()
-            
             # check if the rockets upper right corner collides with the player
             elif(rockets_x_xpos[n] + 80 + self.play_field_x + self.sq_w - 30 >= player_x and 
                rockets_x_xpos[n] + 80 + self.play_field_x + self.sq_w - 30 < player_x + self.sq_w-10 and
                rockets_x_ypos[n] + 20 + self.play_field_y + self.sq_h - 30 >= player_y and
                rockets_x_ypos[n] + 20 + self.play_field_y+ self.sq_h - 30 < player_y + self.sq_h-10):
                    self.death_screen()
+                   
+        
+        # check if the vertical rockets collide with the player
+        for n in range(rockets_y_len):
+            
+            #check if the rocekts lower left corner collides with the player
+            if(rockets_y_xpos[n] + 20 + self.play_field_x >= player_x and 
+                rockets_y_xpos[n] + 20 + self.play_field_x < player_x + self.sq_w -10 and
+                rockets_y_ypos[n] + 80 + self.play_field_y >= player_y and
+                rockets_y_ypos[n] + 80 + self.play_field_y < player_y + self.sq_h - 10):
+                    self.death_screen()
+                    
+            # check if the rocekts upper right corner collides with the player
+            elif(rockets_y_xpos[n] + 20 + self.play_field_x + self.sq_w -30 >= player_x and 
+                rockets_y_xpos[n] + 20 + self.play_field_x + self.sq_w -30 < player_x + self.sq_w -10 and
+                rockets_y_ypos[n] + 80 + self.play_field_y + self.sq_h -30>= player_y and
+                rockets_y_ypos[n] + 80 + self.play_field_y + self.sq_h -30< player_y + self.sq_h - 10):
+                    self.death_screen()
             
     def death_screen(self):
       """Describes what happens when you lose."""
