@@ -120,9 +120,12 @@ class RootWidget(BoxLayout):
             self.rocket_control.draw(self.play_field_widget, self.play_field_x, self.play_field_y, self.sq_w, self.sq_h)
 
             #Timerlabel
-
             Label(text=self.timer_text, pos=(self.play_field_width*0.01,self.play_field_height * 1.025))
             
+            #Pausebutton
+            Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*1,self.play_field_height * 1.1), size=(self.sq_w*0.19, self.sq_h*0.19))
+
+            #Deathscreen            
             if self.rip:
               Rectangle(source="img/ripscreen.png", pos=(self.play_field_x+0.5*self.sq_w, \
               self.play_field_y+self.sq_h), size=(self.sq_w*2, self.sq_h*3))
