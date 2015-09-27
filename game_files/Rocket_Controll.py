@@ -15,11 +15,15 @@ class Rocket_Controll:
         
         self.timer = 0
         
+        self.rocket_spawn_time = 0.0
+        self.rocket_spawn_delay = 0.0
+        
         
         
         # creates the rockets
-        self.rockets_x = [Rocket.Rocket(-10000,2,1), Rocket.Rocket(-10000,0,1),
+        self.rockets_x = [Rocket.Rocket(-400,2,1), Rocket.Rocket(-10000,0,1),
                           Rocket.Rocket(-10000,4,1), Rocket.Rocket(-10000,3,1)]
+                          
         self.rockets_y = [Rocket.Rocket(0,-10000,3), Rocket.Rocket(2,-10000,3)]
         
         self.rockets_moving = False
@@ -71,7 +75,7 @@ class Rocket_Controll:
         
         
         # start the rockets movement firstly with the indicators
-        if(float(self.timer) % 0.5 == 0 and float(self.timer) != 0.0 and self.rocket_ready):
+        if((self.rocket_spawn_delay == 1.0 or self.rocket_spawn_delay == 2.0) and self.rocket_ready):
             if(self.show_indicator):
                 # make the rockets able to move
                 self.rockets_moving = True
@@ -80,9 +84,7 @@ class Rocket_Controll:
                 # dissable the indicators
                 self.show_indicator = False
 
-            else:
-                
-                
+            else:                
                 # show the indicators
                 self.show_indicator = True
                 # dissable the rockets
@@ -95,10 +97,12 @@ class Rocket_Controll:
             
             for n in range(len(self.rockets_y)):
                 self.rockets_y[n-1].move(dt)
+                
         
-        # make the rockets ready to spawn
-        if(float(self.timer) % 0.5 != 0):
+        if(self.rocket_spawn_delay != 1.0 and self.rocket_spawn_delay != 2.0):
             self.rocket_ready = True
+        
+        
         
         
         
@@ -202,6 +206,8 @@ class Rocket_Controll:
         # if yes stop them from mobing and return them to a new starting position
         if(self.rockets_x[0].get_x() < -500 or self.rockets_x[0].get_x() > self.play_field_width+500):
             self.rockets_moving = False
+            self.rocket_spawn_time = 0.0
+            self.rocket_spawn_delay = 0.0
             
             for n in range(len(self.rockets_x)):
                 # gives a new direction
@@ -209,9 +215,9 @@ class Rocket_Controll:
                 
                 # sets a new start_x position depening on direction
                 if(new_direc == 1):    
-                    self.rockets_x[n-1].set_start_x(self.play_field_width)
+                    self.rockets_x[n-1].set_start_x(self.sq_w * (self.board_width + 1))
                 elif(new_direc == 2):
-                    self.rockets_x[n-1].set_start_x(self.sq_w * -2)
+                    self.rockets_x[n-1].set_start_x(self.sq_w * -2 )
 
 
                 # sets the new direction and sets the xpos to the new position
@@ -270,6 +276,9 @@ class Rocket_Controll:
         self.timer = timer
         self.sq_w = sq_w
         self.sq_h = sq_h
+        self.rocket_spawn_time += 1.0/60.0
+        self.rocket_spawn_delay = float("%.1f" % self.rocket_spawn_time)
+        print(self.rocket_spawn_delay)
 
     
         # set up the rockets and indicators so they have the right starting position        
@@ -312,6 +321,9 @@ class Rocket_Controll:
         
         self.board_width = 3
         self.board_height = 5
+        
+        self.rocket_spawn_time = 0.0
+        self.rocket_spawn_delay = 0.0
         
         for n in range(len(self.rockets_x)-1,3, -1):
             # delete all the elements in the list except the first 4
