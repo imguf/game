@@ -136,20 +136,21 @@ class RootWidget(BoxLayout):
     
     def draw_grid(self, widget, x_size, y_size):
         """ this function draws out the grid and the lines surounding the playfield"""
-        dynamic_value = self.play_field_height // 20        
+        dynamic_y = self.play_field_height // 20
+        dynamic_x = self.play_field_width // 20
         
         #draw the outside lines
-        Rectangle(pos=(self.play_field_x,self.play_field_y - dynamic_value), size=(self.play_field_width + 0.45*dynamic_value,10))
-        Rectangle(pos=(self.play_field_x,self.play_field_height + dynamic_value), size=(self.play_field_width+ 0.45*dynamic_value,10))
-        Rectangle(pos=(self.play_field_x,self.play_field_y- dynamic_value), size=(10,self.play_field_height+ 0.75 * dynamic_value))
-        Rectangle(pos=(self.play_field_width+ 1.25*dynamic_value,self.play_field_y- dynamic_value), size=(10,self.play_field_height+ 0.75 *dynamic_value))
+        Rectangle(pos=(self.play_field_x,self.play_field_y - dynamic_y), size=(self.play_field_width + 0.45*dynamic_x,dynamic_y * 0.25))
+        Rectangle(pos=(self.play_field_x,self.play_field_height + dynamic_y*1.1), size=(self.play_field_width+ 0.45*dynamic_x,dynamic_y * 0.25))
+        Rectangle(pos=(self.play_field_x,self.play_field_y- dynamic_y), size=(dynamic_x*0.25,self.play_field_height+ 0.75 * dynamic_y))
+        Rectangle(pos=(self.play_field_width+ 1.25*dynamic_x,self.play_field_y- dynamic_y), size=(dynamic_x*0.25,self.play_field_height+ 0.75 *dynamic_y))
         
         
         # draw the grid
         for n in range(1,x_size):
-            Rectangle(pos=(dynamic_value+ (self.play_field_width // x_size * n), self.play_field_y-dynamic_value), size=(10,self.play_field_height+0.75*dynamic_value))
+            Rectangle(pos=(dynamic_x+ (self.play_field_width // x_size * n), self.play_field_y-dynamic_y), size=(dynamic_x*0.25,self.play_field_height+0.75*dynamic_y))
         for n in range(1, y_size):
-            Rectangle(pos=(self.play_field_x, 0.65*dynamic_value+(self.play_field_height // y_size) * (n)), size=(self.play_field_width+0.45*dynamic_value,10))
+            Rectangle(pos=(self.play_field_x, 0.65*dynamic_y+(self.play_field_height // y_size) * (n)), size=(self.play_field_width+0.45*dynamic_x,dynamic_y * 0.25))
             
     
                 
