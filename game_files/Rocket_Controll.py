@@ -204,7 +204,7 @@ class Rocket_Controll:
         
         # check if the rockets are out of bounds 
         # if yes stop them from mobing and return them to a new starting position
-        if(self.rockets_x[0].get_x() < -500 or self.rockets_x[0].get_x() > self.play_field_width+500):
+        if(self.rockets_x[0].get_x() < self.sq_w * -2 or self.rockets_x[0].get_x() > self.sq_w * (self.board_width + 1)):
             self.rockets_moving = False
             self.rocket_spawn_time = 0.0
             self.rocket_spawn_delay = 0.0
