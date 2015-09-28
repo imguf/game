@@ -14,9 +14,9 @@ class Indicator:
     def draw(self, widget, window_x, window_y, sq_w, sq_h):
         """ This function controlls the drawing of the indicator"""
         Color(0,1.,0)
-        Rectangle(pos=(10+window_x + sq_w * self.xpos, 
-                       10 + window_y + sq_h * self.ypos),\
-                  size=(sq_w, sq_h))
+        Rectangle(pos=(1.5*window_x + sq_w * self.xpos, 
+                       1.1*window_y + sq_h * self.ypos),\
+                  size=(sq_w * 0.8, sq_h*0.8))
                   
     def set_new_pos(self, direc):
         """ This function gives the indicator a new position depending on wich 
