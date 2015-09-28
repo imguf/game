@@ -87,10 +87,10 @@ class RootWidget(BoxLayout):
 
     def setup_base_variables(self):
         """ this function creates some basic variables"""
-        self.play_field_x = self.play_field_widget.x + 30
-        self.play_field_y = self.play_field_widget.y + 40
-        self.play_field_width = self.play_field_widget.right - 75
-        self.play_field_height = self.play_field_widget.top - 80
+        self.play_field_x = self.play_field_widget.width * 0.05
+        self.play_field_y =self.play_field_widget.height * 0.05
+        self.play_field_width = self.play_field_widget.width - self.play_field_x * 2
+        self.play_field_height = self.play_field_widget.height - self.play_field_y * 2
         
         
         self.sq_w = self.play_field_width // self.board_size_x
@@ -140,18 +140,20 @@ class RootWidget(BoxLayout):
         dynamic_x = self.play_field_width // 20
         
         #draw the outside lines
-        Rectangle(pos=(self.play_field_x,self.play_field_y - dynamic_y), size=(self.play_field_width + 0.45*dynamic_x,dynamic_y * 0.25))
-        Rectangle(pos=(self.play_field_x,self.play_field_height + dynamic_y*1.1), size=(self.play_field_width+ 0.45*dynamic_x,dynamic_y * 0.25))
-        Rectangle(pos=(self.play_field_x,self.play_field_y- dynamic_y), size=(dynamic_x*0.25,self.play_field_height+ 0.75 * dynamic_y))
-        Rectangle(pos=(self.play_field_width+ 1.25*dynamic_x,self.play_field_y- dynamic_y), size=(dynamic_x*0.25,self.play_field_height+ 0.75 *dynamic_y))
+        Rectangle(pos=(self.play_field_x,self.play_field_y), size=(self.play_field_width, self.play_field_width * 0.01))
+        Rectangle(pos=(self.play_field_x,self.play_field_height), size=(self.play_field_width, self.play_field_height * 0.01))
+        
+        Rectangle(pos=(self.play_field_x,self.play_field_y), size=(self.play_field_width * 0.01, self.play_field_height * 0.95))
+        Rectangle(pos=(self.play_field_width * 1.045,self.play_field_y), size=(self.play_field_width * 0.01,self.play_field_height * 0.95))
         
         
         # draw the grid
         for n in range(1,x_size):
-            Rectangle(pos=(dynamic_x+ (self.play_field_width // x_size * n), self.play_field_y-dynamic_y), size=(dynamic_x*0.25,self.play_field_height+0.75*dynamic_y))
+            Rectangle(pos=(dynamic_x+ (self.play_field_width // x_size * n), self.play_field_y), size=(self.play_field_width * 0.01,self.play_field_height * 0.95))
+        
         for n in range(1, y_size):
-            Rectangle(pos=(self.play_field_x, 0.65*dynamic_y+(self.play_field_height // y_size) * (n)), size=(self.play_field_width+0.45*dynamic_x,dynamic_y * 0.25))
-            
+            Rectangle(pos=(self.play_field_x, 0.65*dynamic_y+(self.play_field_height // y_size) * (n)), size=(self.play_field_width,self.play_field_height * 0.01))
+          
     
                 
     
