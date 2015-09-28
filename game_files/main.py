@@ -147,12 +147,15 @@ class RootWidget(BoxLayout):
         Rectangle(pos=(self.play_field_width * 1.045,self.play_field_y), size=(self.play_field_width * 0.01,self.play_field_height * 0.985))
         
         
+        
         # draw the grid
         for n in range(1,x_size):
-            Rectangle(pos=(dynamic_x+ (self.play_field_width // x_size * n), self.play_field_y), size=(self.play_field_width * 0.01,self.play_field_height * 0.985))
+            Rectangle(pos=(dynamic_x+ (self.play_field_width // x_size * n), self.play_field_y),\
+                    size=(self.play_field_width * 0.01,self.play_field_height * 0.985))
         
         for n in range(1, y_size):
-            Rectangle(pos=(self.play_field_x, dynamic_y+(self.play_field_height // y_size) * (n)), size=(self.play_field_width,self.play_field_height * 0.01))
+            Rectangle(pos=(self.play_field_x, dynamic_y+(self.play_field_height // y_size) * (n)),\
+                    size=(self.play_field_width,self.play_field_height * 0.01))
           
     
                 
