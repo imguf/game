@@ -23,8 +23,8 @@ class Rocket:
             Rectangle(pos=(window_x + self.xpos * 1.1, window_y * 1.5 + self.ypos * sq_h),\
                       size=(sq_w *0.7, sq_h *0.7))
         elif(self.direc == 3 or self.direc == 4):
-            Rectangle(pos=( 20 + window_x + self.xpos * sq_w, 80 + window_y + self.ypos),\
-                      size=(sq_w-30, sq_h-30))
+            Rectangle(pos=(2 *window_x + self.xpos * sq_w, window_y + self.ypos * 1.1),\
+                      size=(sq_w * 0.7, sq_h * 0.7))
     
     def move(self, dt):
         """ moves the rocket depending on the direction"""
