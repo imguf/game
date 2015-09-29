@@ -128,7 +128,7 @@ class RootWidget(BoxLayout):
             #Deathscreen            
             if self.rip:
               Rectangle(source="img/ripscreen.png", pos=(self.play_field_x+0.5*self.sq_w, \
-              self.play_field_y+self.sq_h), size=(self.sq_w*2, self.sq_h*3))
+              self.play_field_y+self.sq_h), size=(self.sq_w*(self.board_size_x-1), self.sq_h*(self.board_size_y-1)))
               Label(text=self.timer_text, font_size="20sp", pos=(self.play_field_x+self.sq_w*1, self.play_field_y+self.sq_h*1))
             
         
