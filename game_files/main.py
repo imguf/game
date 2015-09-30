@@ -304,11 +304,11 @@ class RootWidget(BoxLayout):
         
         # if the player is alive
         if self.rip == False:
-            if(self.paused and touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):
+            if(self.paused and touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):
                 self.paused = False
             else:
                 # if the touch is on the pausbutton, paus the game
-                if(touch.y > self.play_field_height + 50 and touch.x > self.play_field_width-200):            
+                if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):            
                     self.paused = True
               
                 # if the touch is on the play_field
