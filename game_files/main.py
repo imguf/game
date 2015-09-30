@@ -113,11 +113,13 @@ class RootWidget(BoxLayout):
             
             # call the draw_grid function
             self.draw_grid(self.play_field_widget, self.board_size_x,self.board_size_y)
+
+            # call the draw functon of the rocket_controll class            
+            self.rocket_control.draw(self.play_field_widget, self.play_field_x, self.play_field_y, self.sq_w, self.sq_h)            
             
             # call the draw function of the player
             self.player.draw(self.play_field_widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
             
-            self.rocket_control.draw(self.play_field_widget, self.play_field_x, self.play_field_y, self.sq_w, self.sq_h)
 
             #Timerlabel
             Label(text=self.timer_text, pos=(self.play_field_width*0.01,self.play_field_height * 0.975))
