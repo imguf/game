@@ -107,7 +107,7 @@ class RootWidget(BoxLayout):
         # starts the drawings
         with self.play_field_widget.canvas:
             # draw a background
-            Rectangle(source="img/background-temp.png", pos=(0,0), 
+            Rectangle(source="img/background/backgroundklar1080.png", pos=(0,0), 
                       size=(self.play_field_widget.width, self.height))            
             
             
