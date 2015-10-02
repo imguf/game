@@ -125,7 +125,7 @@ class RootWidget(BoxLayout):
             Label(text=self.timer_text, pos=(self.play_field_width*0.15,self.play_field_height * 1.05), text_size=(200, 100))
             
             #Pausebutton
-            Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*1.0225,self.play_field_height * 1.05), size=(self.sq_w*0.095, self.sq_w*0.095))
+            Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*0.99,self.play_field_height * 1.05), size=(self.sq_w*0.2, self.sq_w*0.2))
 
             #Deathscreen            
             if self.rip:
