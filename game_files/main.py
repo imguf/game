@@ -18,6 +18,7 @@ from math import degrees
 from kivy.uix.image import AsyncImage 
 import Player
 import Rocket_Controll
+import Main_menu
 
 
 class RootWidget(BoxLayout):
@@ -68,7 +69,10 @@ class RootWidget(BoxLayout):
         # creates the variables used for calculating the user input
         self.touch_down_x = 0
         self.touch_down_y = 0
-        self.angle = 0        
+        self.angle = 0   
+        
+        # main menu object
+        self.menu = Main_menu.Main_menu(True)
         
         # creates the player object
         self.player = Player.Player(1,1, self.sq_w, self.sq_h, 
@@ -110,30 +114,36 @@ class RootWidget(BoxLayout):
             Rectangle(source="img/background/backgroundklar1080.png", pos=(0,0), 
                       size=(self.play_field_widget.width, self.height))            
             
+            # if the menu is true, print it out and not the game
+            if(self.menu.get_status()):
+                self.menu.draw(self.play_field_widget, self.play_field_width,\
+                               self.play_field_height)
+            else:   
+                # if the menu is false, print the game out                
+                
+                # call the draw_grid function
+                self.draw_grid(self.play_field_widget, self.board_size_x,self.board_size_y)
+    
+                # call the draw functon of the rocket_controll class            
+                self.rocket_control.draw(self.play_field_widget, self.play_field_x, self.play_field_y, self.sq_w, self.sq_h)            
+                
+                # call the draw function of the player
+                self.player.draw(self.play_field_widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
+                
+    
+                #Timerlabel
+                Label(text=self.timer_text, pos=(self.play_field_width*0.15,self.play_field_height * 1.05), text_size=(200, 100))
+                
+                #Pausebutton
+                Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*0.99,self.play_field_height * 1.05), size=(self.sq_w*0.2, self.sq_w*0.2))
+    
+                #Deathscreen            
+                if self.rip:
+                  Rectangle(source="img/ripscreen.png", pos=(self.play_field_x+0.5*self.sq_w, \
+                  self.play_field_y+(self.sq_h*0.5)), size=(self.sq_w*(self.board_size_x-1), self.sq_h*(self.board_size_y-1)))
+                  Label(text=self.timer_text, font_size="20sp", pos=(self.play_field_x+self.sq_w*1, self.play_field_y+self.sq_h*1))
+                
             
-            # call the draw_grid function
-            self.draw_grid(self.play_field_widget, self.board_size_x,self.board_size_y)
-
-            # call the draw functon of the rocket_controll class            
-            self.rocket_control.draw(self.play_field_widget, self.play_field_x, self.play_field_y, self.sq_w, self.sq_h)            
-            
-            # call the draw function of the player
-            self.player.draw(self.play_field_widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
-            
-
-            #Timerlabel
-            Label(text=self.timer_text, pos=(self.play_field_width*0.15,self.play_field_height * 1.05), text_size=(200, 100))
-            
-            #Pausebutton
-            Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*0.99,self.play_field_height * 1.05), size=(self.sq_w*0.2, self.sq_w*0.2))
-
-            #Deathscreen            
-            if self.rip:
-              Rectangle(source="img/ripscreen.png", pos=(self.play_field_x+0.5*self.sq_w, \
-              self.play_field_y+(self.sq_h*0.5)), size=(self.sq_w*(self.board_size_x-1), self.sq_h*(self.board_size_y-1)))
-              Label(text=self.timer_text, font_size="20sp", pos=(self.play_field_x+self.sq_w*1, self.play_field_y+self.sq_h*1))
-            
-        
             
     
     def draw_grid(self, widget, x_size, y_size):
@@ -251,52 +261,62 @@ class RootWidget(BoxLayout):
         """ this function is the controller of everything
         everything piece of code that is going to be run more than once goes 
         through here"""
-        if(self.timer > 0.05):
-            self.player_movable = True
         
-        if(self.paused == False):
-            # call the fnk that updates the timer
-            self.update_timer(dt)
+        
+        if(self.menu.get_status()):
             
-            
-            # update the the base variables, 
-            # do not know why this is needed, but it is
-            self.setup_base_variables()        
-            
-            
-            # update the player image
-            self.player.update_image(self.seconds)        
-            
-            # update the rocket_control class
-            self.rocket_control.set_play_field_size(self.play_field_width, self.play_field_height)
-            self.rocket_control.set_board_size(self.board_size_x, self.board_size_y)
-            self.rocket_control.update(dt, self.seconds, self.sq_w, self.sq_h)
-           
-                
-            # check collision function 
-            self.check_collision()
-            
-            
-            # when chosen amount of time has passed, grow the field
-            if(float(self.seconds) % 30 == 0 and float(self.seconds) != 0 and self.update_once):
-            
-                # add one to the size in both x and y
-                self.board_size_x += 1
-                self.board_size_y += 1
-                
-                self.player.update_board_size(self.board_size_x, self.board_size_y)
-                
-                self.rocket_control.set_board_size(self.board_size_x, self.board_size_y)
-                self.rocket_control.add_new_rockets()
-            
-            
-                self.update_once = False
-            
-            if(float(self.seconds) % 30 != 0):
-                self.update_once = True     
-            
-            # calls the main draw function        
+        
             self.draw()
+        
+        else:
+            # if the game            
+            
+            if(self.timer > 0.05):
+                self.player_movable = True            
+            
+            if(self.paused == False):
+                # call the fnk that updates the timer
+                self.update_timer(dt)
+                
+                
+                # update the the base variables, 
+                # do not know why this is needed, but it is
+                self.setup_base_variables()        
+                
+                
+                # update the player image
+                self.player.update_image(self.seconds)        
+                
+                # update the rocket_control class
+                self.rocket_control.set_play_field_size(self.play_field_width, self.play_field_height)
+                self.rocket_control.set_board_size(self.board_size_x, self.board_size_y)
+                self.rocket_control.update(dt, self.seconds, self.sq_w, self.sq_h)
+               
+                    
+                # check collision function 
+                self.check_collision()
+                
+                
+                # when chosen amount of time has passed, grow the field
+                if(float(self.seconds) % 30 == 0 and float(self.seconds) != 0 and self.update_once):
+                
+                    # add one to the size in both x and y
+                    self.board_size_x += 1
+                    self.board_size_y += 1
+                    
+                    self.player.update_board_size(self.board_size_x, self.board_size_y)
+                    
+                    self.rocket_control.set_board_size(self.board_size_x, self.board_size_y)
+                    self.rocket_control.add_new_rockets()
+                
+                
+                    self.update_once = False
+                
+                if(float(self.seconds) % 30 != 0):
+                    self.update_once = True     
+                
+                # calls the main draw function        
+                self.draw()
                     
     
     def on_touch_down(self, touch):
