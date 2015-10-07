@@ -262,10 +262,13 @@ class RootWidget(BoxLayout):
         everything piece of code that is going to be run more than once goes 
         through here"""
         
-        
+        # update the the base variables, 
+        # do not know why this is needed, but it is
+        self.setup_base_variables()        
+
         if(self.menu.get_status()):
             
-        
+            # calls the draw funcetion to draw 
             self.draw()
         
         else:
@@ -279,9 +282,6 @@ class RootWidget(BoxLayout):
                 self.update_timer(dt)
                 
                 
-                # update the the base variables, 
-                # do not know why this is needed, but it is
-                self.setup_base_variables()        
                 
                 
                 # update the player image
@@ -322,81 +322,89 @@ class RootWidget(BoxLayout):
     def on_touch_down(self, touch):
         """ gets the position of the first screen touch"""
         
-        # if the player is alive
-        if self.rip == False:
-            if(self.paused and touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):
-                self.paused = False
-            else:
-                # if the touch is on the pausbutton, paus the game
-                if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):            
-                    self.paused = True
-              
-                # if the touch is on the play_field
-                # take the x and y position of the touch
-                if(touch.y < self.play_field_height):
-                    self.touch_down_x = touch.x
-                    self.touch_down_y = touch.y
+        # if the menu is on, call the touch_down method of the menu object
+        if(self.menu.get_status):
+            self.menu.touch_down(touch)
+        else: # if the menu is not on, the game is on
+            # if the player is alive
+            if self.rip == False:
+                if(self.paused and touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):
+                    self.paused = False
+                else:
+                    # if the touch is on the pausbutton, paus the game
+                    if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):            
+                        self.paused = True
                   
-           
-
-        # if the player is dead          
-        elif self.rip and touch.y < self.sq_h*3 and touch.y > self.play_field_y+self.sq_h \
-        and touch.x < self.sq_w*2 and touch.x > self.play_field_x+0.5*self.sq_w:
-          
-          # restart rockets and player
-          self.rocket_control.restart_rockets()
-          self.player.restart_player()
-          
-          # resets the board_size
-          self.board_size_x = 3
-          self.board_size_y = 5
-          
-          #set timer to 0
-          self.timer = 0.0
-          
-          #unables the player to move
-          self.player_movable = False
-          
-          #unpause
-          self.paused = False        
-          #make the player alive
-          self.rip = False
+                    # if the touch is on the play_field
+                    # take the x and y position of the touch
+                    if(touch.y < self.play_field_height):
+                        self.touch_down_x = touch.x
+                        self.touch_down_y = touch.y
+                      
+               
+    
+            # if the player is dead          
+            elif self.rip and touch.y < self.sq_h*3 and touch.y > self.play_field_y+self.sq_h \
+            and touch.x < self.sq_w*2 and touch.x > self.play_field_x+0.5*self.sq_w:
+              
+              # restart rockets and player
+              self.rocket_control.restart_rockets()
+              self.player.restart_player()
+              
+              # resets the board_size
+              self.board_size_x = 3
+              self.board_size_y = 5
+              
+              #set timer to 0
+              self.timer = 0.0
+              
+              #unables the player to move
+              self.player_movable = False
+              
+              #unpause
+              self.paused = False        
+              #make the player alive
+              self.rip = False
           
 
     def on_touch_up(self, touch):
          """ gets the position of the point where the usesr pulls upp the finger"""        
-         if(self.paused == False and self.player_movable == True):      
-            if(touch.y < self.play_field_height):
-                x = touch.x - self.touch_down_x
-                y = touch.y - self.touch_down_y
+         
+         if(self.menu.get_status()):
+             pass
+         else:
+             if(self.paused == False and self.player_movable == True):      
+                if(touch.y < self.play_field_height):
+                    x = touch.x - self.touch_down_x
+                    y = touch.y - self.touch_down_y
+                    
+                    # checks so the y/x != 0 and takes out the angle between the two positions
+                    try:
+                        self.angle = degrees(atan(y/x))
+                    except ZeroDivisionError:
+                        print("Dividera med 0, nedslag och uppslagsplats densamma")
+                    
+                    # checks which "square" of the screen the touch is in and corrects the 
+                    # angle to the correct one
+                    if(x > 0 and y < 0):
+                        self.angle = 360 - self.angle * -1
+                    elif(x < 0 and y > 0):
+                        self.angle = 180 - self.angle * -1
+                    elif(x < 0 and y < 0):
+                        self.angle = self.angle + 180
                 
-                # checks so the y/x != 0 and takes out the angle between the two positions
-                try:
-                    self.angle = degrees(atan(y/x))
-                except ZeroDivisionError:
-                    print("Dividera med 0, nedslag och uppslagsplats densamma")
-                
-                # checks which "square" of the screen the touch is in and corrects the 
-                # angle to the correct one
-                if(x > 0 and y < 0):
-                    self.angle = 360 - self.angle * -1
-                elif(x < 0 and y > 0):
-                    self.angle = 180 - self.angle * -1
-                elif(x < 0 and y < 0):
-                    self.angle = self.angle + 180
-            
-                # moves the player in the right direction 
-                if(self.angle < 45 or self.angle > 315):
-                    self.player.move_right(1) # move right
-                    
-                elif(self.angle > 135 and self.angle < 225):
-                    self.player.move_right(-1) # move left
-                    
-                elif(self.angle > 45 and self.angle < 135):
-                    self.player.move_up(1) # move up
-                    
-                elif(self.angle > 225 and self.angle < 315):
-                    self.player.move_up(-1) # move down
+                    # moves the player in the right direction 
+                    if(self.angle < 45 or self.angle > 315):
+                        self.player.move_right(1) # move right
+                        
+                    elif(self.angle > 135 and self.angle < 225):
+                        self.player.move_right(-1) # move left
+                        
+                    elif(self.angle > 45 and self.angle < 135):
+                        self.player.move_up(1) # move up
+                        
+                    elif(self.angle > 225 and self.angle < 315):
+                        self.player.move_up(-1) # move down
             
         
 
