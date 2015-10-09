@@ -17,15 +17,15 @@ class Main_menu:
                   size=(self.width,self.height - 14 * self.height //20))
         
         # start game button
-        Rectangle(pos=(4* self.width//20, 11 * self.height//20),\
+        Rectangle(source="img/startmeny/testknappstart.png", pos=(4* self.width//20, 11 * self.height//20),\
                   size=(15*self.width // 20, 3* self.height //20))
                   
         # Highscore button
-        Rectangle(pos=(4 * width//20, 6 * height//20),\
+        Rectangle(source="img/startmeny/testknapphiscore.png", pos=(4 * width//20, 6 * height//20),\
                   size=(15*width // 20, 3*height//20))
         
         # options game button
-        Rectangle(pos=(4* width//20, 1 * height//20), \
+        Rectangle(source="img/startmeny/testknappoptions.png", pos=(4* width//20, 1 * height//20), \
                   size=(15*width // 20, 3 * height //20))
     
     def touch_down(self, touch):
