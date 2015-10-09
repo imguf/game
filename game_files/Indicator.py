@@ -10,16 +10,16 @@ class Indicator:
         self.direc = direc
         self.board_w = board_w
         self.board_h = board_h
-        self.current_image = "img\indicators\prealphaindicator80x80L.png"
-        self.images = ["img\indicators\prealphaindicator80x80L.png",
-                       "img\indicators\prealphaindicator80x80R.png",
-                       "img\indicators\prealphaindicator80x80D.png",
-                       "img\indicators\prealphaindicator80x80U.png"]
+        self.current_image = "img/indicators/prealphaindicator80x80L.png"
+        self.images = ["img/indicators/prealphaindicator80x80L.png",\
+                       "img/indicators/prealphaindicator80x80R.png",\
+                       "img/indicators/prealphaindicator80x80D.png",\
+                       "img/indicators/prealphaindicator80x80U.png"]
         
     def draw(self, widget, window_x, window_y, sq_w, sq_h):
         """ This function controlls the drawing of the indicator"""
         Color(1,1,1)
-        Rectangle(source=self.current_image, pos=(1.5*window_x + sq_w * self.xpos, 
+        Rectangle(source=self.current_image, pos=(1.5*window_x + sq_w * self.xpos,
                        1.5*window_y + sq_h * self.ypos),\
                   size=(sq_w * 0.8, sq_h*0.75))
                   
