@@ -267,6 +267,7 @@ class RootWidget(BoxLayout):
         self.setup_base_variables()        
 
         if(self.menu.get_status()):
+            self.menu.set_size(self.play_field_width, self.play_field_height)
             
             # calls the draw funcetion to draw 
             self.draw()
@@ -323,7 +324,7 @@ class RootWidget(BoxLayout):
         """ gets the position of the first screen touch"""
         
         # if the menu is on, call the touch_down method of the menu object
-        if(self.menu.get_status):
+        if(self.menu.get_status()):
             self.menu.touch_down(touch)
         else: # if the menu is not on, the game is on
             # if the player is alive
@@ -344,8 +345,11 @@ class RootWidget(BoxLayout):
                
     
             # if the player is dead          
-            elif self.rip and touch.y < self.sq_h*3 and touch.y > self.play_field_y+self.sq_h \
-            and touch.x < self.sq_w*2 and touch.x > self.play_field_x+0.5*self.sq_w:
+            elif( self.rip and 
+                touch.y < self.sq_h*3 and 
+                touch.y > self.play_field_y+self.sq_h and 
+                touch.x < self.sq_w*2 and 
+                touch.x > self.play_field_x+0.5*self.sq_w):
               
               # restart rockets and player
               self.rocket_control.restart_rockets()
