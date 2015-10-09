@@ -179,8 +179,8 @@ class RootWidget(BoxLayout):
         ##### Checks if the rockets and the player collides #####
         
         # get the players position
-        player_x = self.player.get_x() * self.sq_w + 10 + self.play_field_x
-        player_y = self.player.get_y() * self.sq_h + 10 + self.play_field_y
+        player_x = self.player.get_x() * self.sq_w + 1.25 * self.play_field_x
+        player_y = self.player.get_y() * self.sq_h + 1.35 * self.play_field_y
         
         #get the horizontal rockets position
         rockets_x_xpos = self.rocket_control.get_rockets_x()[0]
@@ -208,7 +208,7 @@ class RootWidget(BoxLayout):
                rockets_x_ypos[n] + 1.5 * self.play_field_y + self.sq_h * 0.7 >= player_y and
                rockets_x_ypos[n] + 1.5 * self.play_field_y + self.sq_h * 0.7 < player_y  + self.sq_h * 0.85 - self.play_field_height * 0.01):
                    self.death_screen()
-                   
+        
         
         # check if the vertical rockets collide with the player
         for n in range(rockets_y_len):
