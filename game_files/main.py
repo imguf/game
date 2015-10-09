@@ -50,8 +50,11 @@ class RootWidget(BoxLayout):
         
         # creates the variables that holds the amount of squares of the playfield
         self.board_size_x = 3
+        self.board_size_y = 5
         
-        self.board_size_y = 5         
+        # variable to hold the maximum size of the board
+        self.max_board_size_x = 6
+        self.max_board_size_y = 8         
         
         # creates the base varuables 
         self.setup_base_variables()
@@ -299,7 +302,9 @@ class RootWidget(BoxLayout):
                 
                 
                 # when chosen amount of time has passed, grow the field
-                if(float(self.seconds) % 30 == 0 and float(self.seconds) != 0 and self.update_once):
+                if(float(self.seconds) % 30 == 0 and float(self.seconds) != 0 
+                    and self.update_once and self.board_size_x < self.max_board_size_x
+                    and self.board_size_y < self.max_board_size_y):
                 
                     # add one to the size in both x and y
                     self.board_size_x += 1
