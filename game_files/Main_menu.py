@@ -13,7 +13,7 @@ class Main_menu:
     def draw(self, widget, width, height):
                 
         # title image
-        Rectangle(pos=(self.width//20,15 * self.height//20),\
+        Rectangle(source="img/startmeny/testtitle.png", pos=(self.width//20,15 * self.height//20),\
                   size=(self.width,self.height - 14 * self.height //20))
         
         # start game button
