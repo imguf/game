@@ -6,17 +6,19 @@ class Main_menu:
     
     def __init__(self, status):
         self._status = status
+        self.width = 0
+        self.height = 0
         
         
     def draw(self, widget, width, height):
                 
         # title image
-        Rectangle(pos=(width//20,15 * height//20),\
-                  size=(width,height - 14 * height //20))
+        Rectangle(pos=(self.width//20,15 * self.height//20),\
+                  size=(self.width,self.height - 14 * self.height //20))
         
         # start game button
-        Rectangle(pos=(4* width//20, 11 * height//20),\
-                  size=(15*width // 20, 3* height //20))
+        Rectangle(pos=(4* self.width//20, 11 * self.height//20),\
+                  size=(15*self.width // 20, 3* self.height //20))
                   
         # Highscore button
         Rectangle(pos=(4 * width//20, 6 * height//20),\
@@ -34,7 +36,14 @@ class Main_menu:
         xpos = touch.x
         ypos = touch.y
         
-        
+        # if the startbutton is pressed
+        if(xpos >= 4* self.width//20 and
+            xpos < 4* self.width//20 + 15*self.width // 20 and
+            ypos >= 11 * self.height // 20 and 
+            ypos < 11 * self.height // 20 + 3 * self.height // 20):
+                
+                # set the menu to false                
+                self._status = False
     
     
     def set_status(self, status):
@@ -42,3 +51,7 @@ class Main_menu:
     
     def get_status(self):
         return(self._status)
+        
+    def set_size(self, width, height):
+        self.width = width
+        self.height = height
