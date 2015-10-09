@@ -128,7 +128,12 @@ class Rocket_Controll:
         #             
         self.rocket_x_ypos.append(-1)
         self.rocket_y_xpos.append(-1)
-            
+        
+        
+        for n in range(len(self.rockets_x)):
+            self.rockets_x[n].set_speed(self.board_height-5)
+        for n in range(len(self.rockets_y)):
+            self.rockets_y[n].set_speed(self.board_width-3)
                
     
     
