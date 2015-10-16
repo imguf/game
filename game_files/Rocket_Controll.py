@@ -402,3 +402,7 @@ class Rocket_Controll:
             ypos.append(self.rockets_y[n-1].get_y())
             
         return xpos, ypos, len(self.rockets_y)
+        
+    def is_rockets_moving(self):
+        """ this method returns the boolean value of the rockets, if they move or not"""
+        return self.rockets_moving
