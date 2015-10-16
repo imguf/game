@@ -13,6 +13,8 @@ class Backgrounds:
         # a list to hold all the current backgrounds
         self.current_backgrounds = [self.backgrounds[0], self.backgrounds[1]]
         
+        self.next_background = 2
+
         
         # y position of the backgrounds
         self.ypos = 0        
@@ -46,5 +48,7 @@ class Backgrounds:
     
     def change_current_bg(self):
         """ this method changes the current backgrounds when one is not visible"""
-    
+        self.current_backgrounds.pop(0)
+        self.current_backgrounds.append(self.backgrounds[self.next_background])
+        self.next_background += 1
     
