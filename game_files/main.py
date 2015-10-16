@@ -26,7 +26,8 @@ class RootWidget(BoxLayout):
     
     def __init__(self, **kwargs):
         super(RootWidget, self).__init__(**kwargs)
-        
+        self.get_save()
+
         # sets the window size
         """window_height = 960
         window_width = 540
@@ -99,14 +100,17 @@ class RootWidget(BoxLayout):
 
 
     def set_save(self):
+        if float(self.seconds) >= float(self.hi_score):
+            self.hi_score = self.seconds
+            
         try:
             file = open("./save.txt", "w")
         except:
             print("Wrong when saving to file.")
         else:
-            for n in str(self.seconds):
+            for n in str(self.hi_score):
                 file.write(str(n))
-            file.write("\n")
+            
             
                 
             file.close() 
@@ -120,7 +124,7 @@ class RootWidget(BoxLayout):
             n = 0
             for line in file:
                 if n == 0:
-                    self.seconds = int(line)
+                    self.hi_score = float(line)
                 n += 1
             file.close()
             
