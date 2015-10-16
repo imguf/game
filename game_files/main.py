@@ -90,8 +90,36 @@ class RootWidget(BoxLayout):
 
         self.rip = False       
         self.update_once = True
+        
 
 
+    def set_save(self):
+        try:
+            file = open("./save.txt", "w")
+        except:
+            print("Wrong when saving to file.")
+        else:
+            for n in str(self.seconds):
+                file.write(str(n))
+            file.write("\n")
+            
+                
+            file.close() 
+            
+    def get_save(self):
+        try:        
+            file = open("./save.txt", "r")
+        except:
+            print("Wrong when opening file.")
+        else:
+            n = 0
+            for line in file:
+                if n == 0:
+                    self.seconds = int(line)
+                n += 1
+            file.close()
+            
+            
     def setup_base_variables(self):
         """ this function creates some basic variables"""
         self.play_field_x = self.play_field_widget.width * 0.05
@@ -234,6 +262,7 @@ class RootWidget(BoxLayout):
       """Describes what happens when you lose."""
       self.paused = True
       self.rip = True
+      self.set_save()
         
 
 
