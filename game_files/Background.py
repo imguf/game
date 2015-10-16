@@ -48,8 +48,11 @@ class Backgrounds:
     def change_current_bg(self):
         """ this method changes the current backgrounds when one is not visible"""
         self.current_backgrounds.pop(0)
-        self.current_backgrounds.append(self.backgrounds[self.next_background])
-        self.next_background += 1
+        if(self.next_background != len(self.backgrounds)-1):
+            self.current_backgrounds.append(self.backgrounds[self.next_background])
+            self.next_background += 1
+        else:
+            self.current_backgrounds.append(self.backgrounds[len(self.backgrounds)-1])
     
     def set_screen_size(self, width, height):
         """ this method takes to values as arguments, width and height, it then
