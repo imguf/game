@@ -52,3 +52,8 @@ class Backgrounds:
         self.current_backgrounds.append(self.backgrounds[self.next_background])
         self.next_background += 1
     
+    def set_screen_size(self, width, height):
+        """ this method takes to values as arguments, width and height, it then
+        sets the play_field_width and play_field_height to these values"""
+        self.play_field_width = width
+        self.play_field_height = height
