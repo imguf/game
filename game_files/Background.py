@@ -56,3 +56,12 @@ class Backgrounds:
         sets the play_field_width and play_field_height to these values"""
         self.play_field_width = width
         self.play_field_height = height
+        
+    def reset_bg(self):
+        """ this method resets the backgrounds when the player dies"""
+        self.current_backgrounds = [self.backgrounds[0], self.backgrounds[1]]
+        self.next_background = 2
+        self.ypos = 0
+        
+        
+        
