@@ -95,9 +95,9 @@ class RootWidget(BoxLayout):
         self.grow_field = False
         
         # background stuff
-        self.background = Background.Backgrounds(["img/background/backgroundklar.png","img/background/background2klar1080.png",\
-                                            "img/background/backgroundklar.png","img/background/background2klar1080.png"],\
-                                            self.width, self.height) # this is not the correct image urls, these will change when the correct images is avaible
+        self.background = Background.Backgrounds(["img/background/background1.png","img/background/background2.png",\
+                                            "img/background/background1.png","img/background/background2.png"],\
+                                            self.width, self.height) 
 
 
     def set_save(self):
@@ -326,7 +326,8 @@ class RootWidget(BoxLayout):
                 # call the fnk that updates the timer
                 self.update_timer(dt)
                 
-                #self.background.move(dt)            
+                # calls the background.move method so the backgrounds move down
+                self.background.move(dt)            
 
                 
                 
@@ -406,6 +407,7 @@ class RootWidget(BoxLayout):
               # restart rockets and player
               self.rocket_control.restart_rockets()
               self.player.restart_player()
+              self.background.reset_bg()
               
               # resets the board_size
               self.board_size_x = 3
