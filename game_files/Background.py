@@ -35,6 +35,13 @@ class Backgrounds:
     def move(self, dt):
         """ this method moves the backgrounds down on the screen"""
         
+        # if the y position is more than the negative hight, move the background down
+        # else set the ypos to 0
+        if(self.ypos > self.play_field_height * -1):        
+            self.ypos -= self.play_field_height // 20 * dt * self.speed
+        else:
+            self.change_current_bg()
+            self.ypos = 0
     
     
     def change_current_bg(self):
