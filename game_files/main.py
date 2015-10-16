@@ -19,6 +19,7 @@ from kivy.uix.image import AsyncImage
 import Player
 import Rocket_Controll
 import Main_menu
+import Background
 
 
 class RootWidget(BoxLayout):
@@ -91,6 +92,10 @@ class RootWidget(BoxLayout):
         self.rip = False       
         self.update_once = True
         
+        # background stuff
+        self.background = Background.Backgrounds(["img/background/backgroundklar1080.png","img/background/backgroundklar1080.png"
+                                            "img/background/backgroundklar1080.png","img/background/backgroundklar1080.png"],\
+                                            self.width, self.height)
 
 
     def set_save(self):
@@ -142,8 +147,7 @@ class RootWidget(BoxLayout):
         # starts the drawings
         with self.play_field_widget.canvas:
             # draw a background
-            Rectangle(source="img/background/backgroundklar1080.png", pos=(0,0), 
-                      size=(self.play_field_widget.width, self.height))            
+            self.background.draw()
             
             # if the menu is true, print it out and not the game
             if(self.menu.get_status()):
@@ -298,6 +302,8 @@ class RootWidget(BoxLayout):
         # do not know why this is needed, but it is
         self.setup_base_variables()        
 
+        self.background.set_screen_size(self.width, self.height)
+
         if(self.menu.get_status()):
             self.menu.set_size(self.play_field_width, self.play_field_height)
             
@@ -306,6 +312,8 @@ class RootWidget(BoxLayout):
         
         else:
             # if the game            
+            
+            self.background.move(dt)            
             
             if(self.timer > 0.05):
                 self.player_movable = True            
