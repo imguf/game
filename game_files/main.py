@@ -80,7 +80,7 @@ class RootWidget(BoxLayout):
         self.menu = Main_menu.Main_menu(True)
         
         # creates the player object
-        self.player = Player.Player(1,1, self.sq_w, self.sq_h, 
+        self.player = Player.Player(1,0, self.sq_w, self.sq_h, 
                                     self.board_size_x, self.board_size_y)
         
         self.player_movable = False

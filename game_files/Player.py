@@ -69,7 +69,7 @@ class Player:
     def restart_player(self):
         """ restart the players position"""
         self.xpos = 1
-        self.ypos = 1
+        self.ypos = 0
         self.board_width = 3
         self.board_height = 5
         

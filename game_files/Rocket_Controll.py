@@ -21,7 +21,7 @@ class Rocket_Controll:
         
         
         # creates the rockets
-        self.rockets_x = [Rocket.Rocket(-400,2,1), Rocket.Rocket(-10000,0,1),
+        self.rockets_x = [Rocket.Rocket(-400,2,1), Rocket.Rocket(-10000,1,1),
                           Rocket.Rocket(-10000,4,1), Rocket.Rocket(-10000,3,1)]
                           
         self.rockets_y = [Rocket.Rocket(0,-10000,3), Rocket.Rocket(2,-10000,3)]
@@ -321,7 +321,7 @@ class Rocket_Controll:
         self.control(dt)
     
     def restart_rockets(self):
-        rockets_x_start_y = [0,2,3,4]
+        rockets_x_start_y = [1,2,3,4]
         rockets_y_start_x = [0,2]
         
         self.board_width = 3
