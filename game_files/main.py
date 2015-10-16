@@ -95,7 +95,7 @@ class RootWidget(BoxLayout):
         # background stuff
         self.background = Background.Backgrounds(["img/background/backgroundklar.png","img/background/background2klar1080.png",\
                                             "img/background/backgroundklar.png","img/background/background2klar1080.png"],\
-                                            self.width, self.height)
+                                            self.width, self.height) # this is not the correct image urls, these will change when the correct images is avaible
 
 
     def set_save(self):
