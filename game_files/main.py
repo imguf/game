@@ -92,6 +92,7 @@ class RootWidget(BoxLayout):
 
         self.rip = False       
         self.update_once = True
+        self.grow_field = False
         
         # background stuff
         self.background = Background.Backgrounds(["img/background/backgroundklar.png","img/background/background2klar1080.png",\
@@ -317,7 +318,6 @@ class RootWidget(BoxLayout):
         else:
             # if the game            
             
-            self.background.move(dt)            
             
             if(self.timer > 0.05):
                 self.player_movable = True            
@@ -326,7 +326,8 @@ class RootWidget(BoxLayout):
                 # call the fnk that updates the timer
                 self.update_timer(dt)
                 
-                
+                #self.background.move(dt)            
+
                 
                 
                 # update the player image
@@ -341,10 +342,13 @@ class RootWidget(BoxLayout):
                 # check collision function 
                 self.check_collision()
                 
+                if(float(self.seconds) % 30 == 0 and float(self.seconds) != 0 and self.update_once):
+                    self.grow_field = True
                 
                 # when chosen amount of time has passed, grow the field
-                if(float(self.seconds) % 30 == 0 and float(self.seconds) != 0 
-                    and self.update_once and self.board_size_x < self.max_board_size_x
+                if( self.grow_field and self.update_once 
+                    and self.rocket_control.is_rockets_moving() == False
+                    and self.board_size_x < self.max_board_size_x
                     and self.board_size_y < self.max_board_size_y):
                 
                     # add one to the size in both x and y
@@ -358,9 +362,11 @@ class RootWidget(BoxLayout):
                 
                 
                     self.update_once = False
+                    self.grow_field = False
                 
                 if(float(self.seconds) % 30 != 0):
-                    self.update_once = True     
+                    self.update_once = True 
+                    
                 
                 # calls the main draw function        
                 self.draw()
