@@ -11,7 +11,7 @@ class Backgrounds:
         self.backgrounds = backgrounds
         
         # a list to hold all the current backgrounds
-        self.current_backgrounds = [self.backgrounds[0], self.backgrounds[1]]
+        self.current_backgrounds = [backgrounds[0], backgrounds[1]]
         
         self.next_background = 2
 
@@ -24,13 +24,12 @@ class Backgrounds:
         self.play_field_width = width
         
         #moving speed
-        self.speed = 0
+        self.speed = 4
         
     def draw(self):
         """ this method draws the backgrounds on the screan"""
         for n in range(len(self.current_backgrounds)):
             # draw all the backgrounds            
-            
             Rectangle(source=self.current_backgrounds[n], pos=(0,self.ypos + self.play_field_height * n), 
                       size=(self.play_field_width, self.play_field_height))
     
