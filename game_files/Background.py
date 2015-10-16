@@ -1,3 +1,4 @@
+from kivy.graphics import *
 
 
 class Backgrounds:
@@ -10,7 +11,8 @@ class Backgrounds:
         self.backgrounds = backgrounds
         
         # a list to hold all the current backgrounds
-        self.current_backgrounds = [self.backgrounds[0]]
+        self.current_backgrounds = [self.backgrounds[0], self.backgrounds[1]]
+        
         
         # y position of the backgrounds
         self.ypos = 0        
@@ -27,7 +29,8 @@ class Backgrounds:
         for n in range(len(self.current_backgrounds)):
             # draw all the backgrounds            
             
-            pass
+            Rectangle(source=self.current_backgrounds[n], pos=(0,self.ypos + self.play_field_height * n), 
+                      size=(self.play_field_width, self.play_field_height))
     
     def move(self, dt):
         """ this method moves the backgrounds down on the screen"""
