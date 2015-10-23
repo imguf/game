@@ -99,8 +99,8 @@ class RootWidget(BoxLayout):
         self.grow_field = False
         
         # background stuff
-        self.background = Background.Backgrounds(["img/background/background1.png","img/background/background2.png",\
-                                            "img/background/background1.png","img/background/background2.png"],\
+        self.background = Background.Backgrounds(["img/background/background1.jpg","img/background/background2.jpg",\
+                                            "img/background/background1.jpg","img/background/background2.jpg"],\
                                             self.width, self.height)
         
                                             
