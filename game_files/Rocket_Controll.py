@@ -343,6 +343,9 @@ class Rocket_Controll:
             self.rockets_x[n].set_start_y(rockets_x_start_y[n])
             self.rockets_x[n].set_direc(1)
             
+            self.rockets_x[n].set_speed(self.board_height-5)
+
+            
             # set the indicators to their start value
             self.indicator_x[n].set_border_size(self.board_width, self.board_height)
             self.indicator_x[n].set_new_pos(1)
@@ -361,6 +364,8 @@ class Rocket_Controll:
             self.rockets_y[n].set_start_x(rockets_y_start_x[n])
             self.rockets_y[n].set_y(-400)
             self.rockets_y[n].set_direc(3)
+            self.rockets_y[n].set_speed(self.board_width-3)
+            
             # set hte indidicators to their start value
             self.indicator_y[n].set_border_size(self.board_width, self.board_height)
             self.indicator_y[n].set_new_pos(3)
