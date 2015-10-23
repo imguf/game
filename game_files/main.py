@@ -26,7 +26,11 @@ class RootWidget(BoxLayout):
     
     def __init__(self, **kwargs):
         super(RootWidget, self).__init__(**kwargs)
+        
+        self.hi_score = [0,0,0,0,0,0,0,0,0,0]
+
         self.get_save()
+       
 
         # sets the window size
         """window_height = 960
@@ -97,24 +101,35 @@ class RootWidget(BoxLayout):
         # background stuff
         self.background = Background.Backgrounds(["img/background/background1.png","img/background/background2.png",\
                                             "img/background/background1.png","img/background/background2.png"],\
-                                            self.width, self.height) 
+                                            self.width, self.height)
+        
                                             
                                             
                                             
 
     def set_save(self):
-        if float(self.seconds) >= float(self.hi_score):
-            self.hi_score = self.seconds
-            
+        print(self.hi_score)
+        highscore = float("%.1f" % self.timer)
+        for num in range(10):
+            if float(highscore) > float(self.hi_score[num]):
+                
+                for n in range(9, num, -1):
+                    self.hi_score[n], self.hi_score[n-1] = self.hi_score[n-1], self.hi_score[n]
+                
+                self.hi_score[num] = highscore
+
+                
+                break
+        print(self.hi_score)
+
         try:
             file = open("./save.txt", "w")
         except:
             print("Wrong when saving to file.")
         else:
-            for n in str(self.hi_score):
-                file.write(str(n))
-            
-            
+            for n in self.hi_score:
+                file.write(str(n) + "\n")
+                
                 
             file.close() 
             
@@ -126,9 +141,9 @@ class RootWidget(BoxLayout):
         else:
             n = 0
             for line in file:
-                if n == 0:
-                    self.hi_score = float(line)
+                self.hi_score[n] = float(line)
                 n += 1
+                
             file.close()
             
             
@@ -184,7 +199,7 @@ class RootWidget(BoxLayout):
                   self.play_field_y+(self.sq_h*0.5)), size=(self.sq_w*(self.board_size_x-1), self.sq_h*(self.board_size_y-1)))
                   Label(text=self.timer_text, font_size="20sp", pos=(self.play_field_x+self.sq_w*1, self.play_field_y+self.sq_h*1))
                 
-                
+            #Timer    
             Label(text=self.timer_text, pos=(self.play_field_width*0.15,self.play_field_height * 1.05), text_size=(200, 100))
 
             
