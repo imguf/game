@@ -98,7 +98,9 @@ class RootWidget(BoxLayout):
         self.background = Background.Backgrounds(["img/background/background1.png","img/background/background2.png",\
                                             "img/background/background1.png","img/background/background2.png"],\
                                             self.width, self.height) 
-
+                                            
+                                            
+                                            
 
     def set_save(self):
         if float(self.seconds) >= float(self.hi_score):
@@ -171,8 +173,7 @@ class RootWidget(BoxLayout):
                 self.player.draw(self.play_field_widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
                 
     
-                #Timerlabel
-                Label(text=self.timer_text, pos=(self.play_field_width*0.15,self.play_field_height * 1.05), text_size=(200, 100))
+                
                 
                 #Pausebutton
                 Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*0.99,self.play_field_height * 1.05), size=(self.sq_w*0.2, self.sq_w*0.2))
@@ -183,7 +184,9 @@ class RootWidget(BoxLayout):
                   self.play_field_y+(self.sq_h*0.5)), size=(self.sq_w*(self.board_size_x-1), self.sq_h*(self.board_size_y-1)))
                   Label(text=self.timer_text, font_size="20sp", pos=(self.play_field_x+self.sq_w*1, self.play_field_y+self.sq_h*1))
                 
-            
+                
+            Label(text=self.timer_text, pos=(self.play_field_width*0.15,self.play_field_height * 1.05), text_size=(200, 100))
+
             
     
     def draw_grid(self, widget, x_size, y_size):
@@ -371,6 +374,8 @@ class RootWidget(BoxLayout):
                 
                 # calls the main draw function        
                 self.draw()
+                
+                
                     
     
     def on_touch_down(self, touch):
