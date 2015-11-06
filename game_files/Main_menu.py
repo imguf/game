@@ -70,6 +70,8 @@ class Main_menu:
                 xpos < 19*self.width//20 and
                 ypos >= self.height//20 and
                 ypos < 19*self.height//20):
+                
+                self.highscore_window.get_save()
                 self.highscore_window.set_active(False)
     
     def set_status(self, status):
