@@ -17,7 +17,17 @@ class Highscore_window:
         # create highscore list
         self.highscore = [0,0,0,0,0,0,0,0,0,0]
         
-        self.number_images = ["img/test numbers/one.png"]
+        self.number_images = ["img/test numbers/one.png",
+                              "img/test numbers/one.png",
+                              "img/test numbers/one.png",
+                              "img/test numbers/one.png",
+                              "img/test numbers/one.png",
+                              "img/test numbers/one.png",
+                              "img/test numbers/one.png",
+                              "img/test numbers/one.png",
+                              "img/test numbers/one.png",
+                              "img/test numbers/one.png",
+                              "img/test numbers/colon.png",]
         self.highscore_label_list = []
         
         
@@ -30,7 +40,27 @@ class Highscore_window:
         # prints out a temporary layout of the highscore list
         for n in range(10):
             Rectangle(source=(self.number_images[0]), pos=(2*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
-
+            
+            index_list = self.get_image_index(str(self.highscore[n]))
+            
+            for n in range(len(index_list)):
+                Rectangle(source=(self.number_images[index_list[n]]), pos=(n*2*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
+            
+            
+    def get_image_index(self, time):
+        """ this method takes a string as an argument 
+            and returns the index of the images that is 
+            going to be used"""
+            
+        index_list = []
+        
+        for n in time:
+            if(n == ":"):
+                index_list.append(10)
+            else:
+                index_list.append(int(n))
+                
+        return index_list
         
     
     def get_save(self):
