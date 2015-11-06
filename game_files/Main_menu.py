@@ -16,20 +16,21 @@ class Main_menu:
         Rectangle(source="img/startmeny/testtitle.png", pos=(self.width//20,15 * self.height//20),\
                   size=(self.width,self.height - 14 * self.height //20))
         
-        # start game button
-        Rectangle(source="img/startmeny/testknappstart.png", pos=(4* self.width//20, 11 * self.height//20),\
-                  size=(15*self.width // 20, 3* self.height //20))
-                  
-        # Highscore button
-        Rectangle(source="img/startmeny/testknapphiscore.png", pos=(4 * width//20, 6 * height//20),\
-                  size=(15*width // 20, 3*height//20))
-        
-        # options game button
-        Rectangle(source="img/startmeny/testknappoptions.png", pos=(4* width//20, 1 * height//20), \
-                  size=(15*width // 20, 3 * height //20))
+        if(self.highscore_window.get_active() == False):
+            # start game button
+            Rectangle(source="img/startmeny/testknappstart.png", pos=(4* self.width//20, 11 * self.height//20),\
+                      size=(15*self.width // 20, 3* self.height //20))
+                      
+            # Highscore button
+            Rectangle(source="img/startmeny/testknapphiscore.png", pos=(4 * width//20, 6 * height//20),\
+                      size=(15*width // 20, 3*height//20))
+            
+            # options game button
+            Rectangle(source="img/startmeny/testknappoptions.png", pos=(4* width//20, 1 * height//20), \
+                      size=(15*width // 20, 3 * height //20))
                   
         # if the highscore window is active, draw it out
-        if(self.highscore_window.get_active()):
+        elif(self.highscore_window.get_active()):
             self.highscore_window.draw(widget,width,height)
     
     
