@@ -1,5 +1,7 @@
 from kivy.graphics import *
 
+import highscore_window
+
 
 class Main_menu:
     """ this class describes how the main menu works"""    
@@ -9,6 +11,7 @@ class Main_menu:
         self.width = 0
         self.height = 0
         
+        self.highscore_window = highscore_window.Highscore_window()
         
     def draw(self, widget, width, height):
                 
@@ -27,6 +30,8 @@ class Main_menu:
         # options game button
         Rectangle(source="img/startmeny/testknappoptions.png", pos=(4* width//20, 1 * height//20), \
                   size=(15*width // 20, 3 * height //20))
+                  
+        self.highscore_window.draw(widget,width,height)
     
     def touch_down(self, touch):
         """ this method is called when the player touches the screen while in
