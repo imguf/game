@@ -53,8 +53,16 @@ class Main_menu:
                 
                 # set the menu to false                
                 self._status = False
-
                 
+        # if the highscore button is pressed
+        if(xpos >= 4* self.width//20 and
+            xpos < 4* self.width//20 + 15*self.width // 20 and
+            ypos >= 6 * self.height // 20 and 
+            ypos < 6 * self.height // 20 + 3 * self.height // 20):
+            
+            # set the highscore_window to active
+            self.highscore_window.set_active(True)
+    
     def set_status(self, status):
         self._status = status
     
