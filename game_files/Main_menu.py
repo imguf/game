@@ -60,6 +60,8 @@ class Main_menu:
                 ypos >= 6 * self.height // 20 and 
                 ypos < 6 * self.height // 20 + 3 * self.height // 20):
                 
+                self.highscore_window.get_save()
+
                 # set the highscore_window to active
                 self.highscore_window.set_active(True)
                 
@@ -71,7 +73,6 @@ class Main_menu:
                 ypos >= self.height//20 and
                 ypos < 19*self.height//20):
                 
-                self.highscore_window.get_save()
                 self.highscore_window.set_active(False)
     
     def set_status(self, status):
