@@ -18,15 +18,15 @@ class Main_menu:
         
         if(self.highscore_window.get_active() == False):
             # start game button
-            Rectangle(source="img/startmeny/testknappstart.png", pos=(4* self.width//20, 11 * self.height//20),\
+            Rectangle(source="img/startmeny/startbtn.png", pos=(4* self.width//20, 11 * self.height//20),\
                       size=(15*self.width // 20, 3* self.height //20))
                       
             # Highscore button
-            Rectangle(source="img/startmeny/testknapphiscore.png", pos=(4 * width//20, 6 * height//20),\
+            Rectangle(source="img/startmeny/hiscorebtn.png", pos=(4 * width//20, 6 * height//20),\
                       size=(15*width // 20, 3*height//20))
             
             # options game button
-            Rectangle(source="img/startmeny/testknappoptions.png", pos=(4* width//20, 1 * height//20), \
+            Rectangle(source="img/startmeny/optionsbtn.png", pos=(4* width//20, 1 * height//20), \
                       size=(15*width // 20, 3 * height //20))
                   
         # if the highscore window is active, draw it out
