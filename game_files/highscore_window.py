@@ -27,7 +27,8 @@ class Highscore_window:
                               "img/test numbers/one.png",
                               "img/test numbers/one.png",
                               "img/test numbers/one.png",
-                              "img/test numbers/colon.png",]
+                              "img/test numbers/colon.png",
+                              "img/test numbers/colon.png"]
         self.highscore_label_list = []
         
         
@@ -40,26 +41,49 @@ class Highscore_window:
         # prints out a temporary layout of the highscore list
         for n in range(10):
             Rectangle(source=(self.number_images[0]), pos=(2*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
+            Rectangle(source=(self.number_images[10]), pos=(2.5*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
             
+            # gets which index of the images that are going to be printed out
             index_list = self.get_image_index(str(self.highscore[n]))
             
-            for n in range(len(index_list)):
-                Rectangle(source=(self.number_images[index_list[n]]), pos=(n*2*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
-            
+            # print out the time on the screen
+            for m in range(len(index_list)):
+                Rectangle(source=(self.number_images[index_list[m]]), pos=(4*width//20 + 0.5 * m*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
+                
             
     def get_image_index(self, time):
         """ this method takes a string as an argument 
             and returns the index of the images that is 
             going to be used"""
-            
+        
+        seconds = 0.0
+        minutes = 0
+        
+        # if the timer is more than 60 seconds, add a minute 
+        if float(time) > 60:
+            minutes = int(float(time) // 60)
+            seconds = float(time) % 60
+        
+        # else add only seconds
+        else:
+            seconds = float(time)
+          
+        #round the seconds to one decimal
+        seconds = "%.1f" % seconds
+        
+        time = str(minutes) + ":" + str(seconds)
+        
         index_list = []
         
         for n in time:
             if(n == ":"):
                 index_list.append(10)
+            elif(n == "."):
+                index_list.append(11)
             else:
                 index_list.append(int(n))
-                
+        
+        print(index_list)
         return index_list
         
     
@@ -73,7 +97,6 @@ class Highscore_window:
             for line in file:
                 self.highscore[n] = float(line)
                 n += 1
-                
             file.close()
     
     def set_active(self, active):
