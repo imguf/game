@@ -20,11 +20,17 @@ class Rocket:
         """ draws the rocket"""
         Color(1.,0,0)        
         
-        if(self.direc == 1 or self.direc == 2):
-            Rectangle(pos=(window_x + self.xpos * 1.1, window_y * 1.5 + self.ypos * sq_h),\
+        if(self.direc == 1):
+            Rectangle(source="img/enemyrockets/enemyrocketv1right.png", pos=(window_x + self.xpos * 1.1, window_y * 1.5 + self.ypos * sq_h),\
                       size=(sq_w *0.7, sq_h *0.7))
-        elif(self.direc == 3 or self.direc == 4):
-            Rectangle(pos=(2 *window_x + self.xpos * sq_w, window_y + self.ypos * 1.1),\
+        elif self.direc == 2:
+            Rectangle(source="img/enemyrockets/enemyrocketv1left.png", pos=(window_x + self.xpos * 1.1, window_y * 1.5 + self.ypos * sq_h),\
+                      size=(sq_w *0.7, sq_h *0.7))
+        elif(self.direc == 3):
+            Rectangle(source="img/enemyrockets/enemyrocketv1up.png", pos=(2 *window_x + self.xpos * sq_w, window_y + self.ypos * 1.1),\
+                      size=(sq_w * 0.7, sq_h * 0.7))
+        elif self.direc == 4:
+            Rectangle(source="img/enemyrockets/enemyrocketv1.png", pos=(2 *window_x + self.xpos * sq_w, window_y + self.ypos * 1.1),\
                       size=(sq_w * 0.7, sq_h * 0.7))
     
     def move(self, dt):
