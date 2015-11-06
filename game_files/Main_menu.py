@@ -31,7 +31,11 @@ class Main_menu:
         Rectangle(source="img/startmeny/testknappoptions.png", pos=(4* width//20, 1 * height//20), \
                   size=(15*width // 20, 3 * height //20))
                   
-        self.highscore_window.draw(widget,width,height)
+        # if the highscore window is active, draw it out
+        if(self.highscore_window.get_active()):
+            self.highscore_window.draw(widget,width,height)
+    
+    
     
     def touch_down(self, touch):
         """ this method is called when the player touches the screen while in
@@ -49,8 +53,8 @@ class Main_menu:
                 
                 # set the menu to false                
                 self._status = False
-    
-    
+
+                
     def set_status(self, status):
         self._status = status
     
