@@ -27,11 +27,11 @@ class Indicator:
         """ This function gives the indicator a new position depending on wich 
         direction that the rocket are coming from"""
         if(direc == 1):
-            self.xpos = self.board_w
+            self.xpos = self.board_w*0.98
         elif(direc == 2):
-            self.xpos = -1
+            self.xpos = -1*0.9
         elif(direc == 3):
-            self.ypos = self.board_h
+            self.ypos = self.board_h*0.98
         elif(direc == 4):
             self.ypos = -1
             
