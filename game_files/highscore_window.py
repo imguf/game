@@ -17,7 +17,8 @@ class Highscore_window:
         # create highscore list
         self.highscore = [0,0,0,0,0,0,0,0,0,0]
         
-        self.number_images = ["img/numbers/one.png",
+        self.number_images = ["img/numbers/zero.png",
+                              "img/numbers/one.png",
                               "img/numbers/two.png",
                               "img/numbers/three.png",
                               "img/numbers/four.png",
@@ -26,7 +27,6 @@ class Highscore_window:
                               "img/numbers/seven.png",
                               "img/numbers/eight.png",
                               "img/numbers/nine.png",
-                              "img/numbers/zero.png",
                               "img/numbers/colon.png",
                               "img/numbers/colon.png"]
         self.highscore_label_list = []
@@ -40,7 +40,12 @@ class Highscore_window:
                 
         # prints out a temporary layout of the highscore list
         for n in range(10):
-            Rectangle(source=(self.number_images[0]), pos=(2*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
+            if(n == 0):
+                Rectangle(source=(self.number_images[1]), pos=(1.5*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
+                Rectangle(source=(self.number_images[0]), pos=(2*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
+            else:
+                Rectangle(source=(self.number_images[10-n]), pos=(2*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
+            
             Rectangle(source=(self.number_images[10]), pos=(2.5*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
             
             # gets which index of the images that are going to be printed out
@@ -48,7 +53,7 @@ class Highscore_window:
             
             # print out the time on the screen
             for m in range(len(index_list)):
-                Rectangle(source=(self.number_images[index_list[m]]), pos=(4*width//20 + 0.5 * m*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
+                Rectangle(source=(self.number_images[index_list[m]]), pos=(4*width//20 + 0.5 * m*width//20, height//20*((9-n)*2+1) + height//40), size=(width//50,width//50))
                 
             
     def get_image_index(self, time):
