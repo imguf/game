@@ -10,11 +10,11 @@ class Indicator:
         self.direc = direc
         self.board_w = board_w
         self.board_h = board_h
-        self.current_image = "img/indicators/prealphaindicator80x80L.png"
-        self.images = ["img/indicators/prealphaindicator80x80L.png",\
-                       "img/indicators/prealphaindicator80x80R.png",\
-                       "img/indicators/prealphaindicator80x80D.png",\
-                       "img/indicators/prealphaindicator80x80U.png"]
+        self.current_image = "img/indicators/LindicatorV1.png"
+        self.images = ["img/indicators/LindicatorV1.png",\
+                       "img/indicators/RindicatorV1.png",\
+                       "img/indicators/DindicatorV1.png",\
+                       "img/indicators/UindicatorV1.png"]
         
     def draw(self, widget, window_x, window_y, sq_w, sq_h):
         """ This function controlls the drawing of the indicator"""
@@ -31,7 +31,7 @@ class Indicator:
         elif(direc == 2):
             self.xpos = -1*0.9
         elif(direc == 3):
-            self.ypos = self.board_h*0.98
+            self.ypos = self.board_h*0.97
         elif(direc == 4):
             self.ypos = -1
             
