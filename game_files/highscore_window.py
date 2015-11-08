@@ -38,11 +38,12 @@ class Highscore_window:
         Rectangle(source=(""), pos=(width//20, height//20),\
                 size=(20*width//20, 20*height//20))
                 
-        Color(0,0,0)
         # Reset highscore button
-        Rectangle(source=(""), pos=(18*width//20, 2*height//20), size=(2*width//20, height//20))
+        Rectangle(source=("img/startmeny/reset_btn.png"), pos=(16*width//20, 1*height//20), size=(5*width//20, 2*height//20))
         
-        
+                
+        Color(0,0,0)
+
         # exit highscore window button
         Rectangle(source=(""), pos=(18*width//20, 19*height//20), size=(2*width//20, height//20))
         
