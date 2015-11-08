@@ -12,11 +12,13 @@ class Main_menu:
         
     def draw(self, widget, width, height):
                 
-        # title image
-        Rectangle(source="img/startmeny/testtitle.png", pos=(self.width//20,15 * self.height//20),\
-                  size=(self.width,self.height - 14 * self.height //20))
+        
         
         if(self.highscore_window.get_active() == False):
+            # title image
+            Rectangle(source="img/startmeny/testtitle.png", pos=(self.width//20,15 * self.height//20),\
+                  size=(self.width,self.height - 14 * self.height //20))
+        
             # start game button
             Rectangle(source="img/startmeny/startbtn.png", pos=(4* self.width//20, 11 * self.height//20),\
                       size=(15*self.width // 20, 3* self.height //20))

@@ -35,8 +35,7 @@ class Highscore_window:
     def draw(self, widget, width, height):
         """ this method draws out the window on the screen"""
         Color(1,1,1)
-        Rectangle(source=(""), pos=(width//20, height//20),\
-                size=(20*width//20, 20*height//20))
+        
                 
         # Reset highscore button
         Rectangle(source=("img/startmeny/reset_btn.png"), pos=(16*width//20, 1*height//20), size=(5*width//20, 2*height//20))
