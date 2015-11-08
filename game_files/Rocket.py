@@ -10,7 +10,7 @@ class Rocket:
         self.start_y = ypos
         self.play_field_width = play_field_width
         self.play_field_height = play_field_height
-        self.speed = [75,100,125,150]
+        self.speed = [75,85,95,105]
         self.which_speed = 0
         self.max_speed = 1000
         
