@@ -38,7 +38,18 @@ class Highscore_window:
         Rectangle(source=(""), pos=(width//20, height//20),\
                 size=(20*width//20, 20*height//20))
                 
-        # prints out a temporary layout of the highscore list
+        Color(0,0,0)
+        # Reset highscore button
+        Rectangle(source=(""), pos=(18*width//20, 2*height//20), size=(2*width//20, height//20))
+        
+        
+        # exit highscore window button
+        Rectangle(source=(""), pos=(18*width//20, 19*height//20), size=(2*width//20, height//20))
+        
+
+        Color(1,1,1)
+
+        # prints the highscore list
         for n in range(10):
             if(n == 0):
                 Rectangle(source=(self.number_images[1]), pos=(1.5*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
@@ -103,6 +114,22 @@ class Highscore_window:
                 self.highscore[n] = float(line)
                 n += 1
             file.close()
+            
+            
+            
+    def reset_save(self):
+
+        try:
+            file = open("./save.txt", "w")
+        except:
+            print("Wrong when saving to file.")
+        else:
+            for n in self.highscore:
+                file.write("0" + "\n")
+                
+                
+            file.close() 
+            
     
     def set_active(self, active):
         """ this method takes a boolean as an arguments
