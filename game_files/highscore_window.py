@@ -28,7 +28,7 @@ class Highscore_window:
                               "img/numbers/eight.png",
                               "img/numbers/nine.png",
                               "img/numbers/colon.png",
-                              "img/numbers/colon.png"]
+                              "img/numbers/dot.png"]
         self.highscore_label_list = []
         
         
