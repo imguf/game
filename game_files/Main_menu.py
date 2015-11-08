@@ -65,15 +65,26 @@ class Main_menu:
                 # set the highscore_window to active
                 self.highscore_window.set_active(True)
                 
-        # if the highscore window is open, check for 
-        # touches that want to quit the highscore window
+        # if the highscore window is open, 
         elif(self.highscore_window.get_active()): 
-            if(xpos >= self.width//20 and
-                xpos < 19*self.width//20 and
-                ypos >= self.height//20 and
-                ypos < 19*self.height//20):
+        
+            #check for touches that want to quit the highscore window
+            if(xpos >= 18*self.width//20 and
+                xpos < 20*self.width//20 and
+                ypos >= 19*self.height//20 and
+                ypos < 20*self.height//20):
                 
                 self.highscore_window.set_active(False)
+                
+            # check for touches that wants to restet the highscore
+            if(xpos >= 18*self.width//20 and
+                xpos < 20*self.width//20 and
+                ypos >= 2*self.height//20 and
+                ypos < 3*self.height//20):
+                    print("reset highscore")
+                    self.highscore_window.reset_save()
+        
+        
     
     def set_status(self, status):
         self._status = status
