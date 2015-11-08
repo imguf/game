@@ -17,18 +17,18 @@ class Highscore_window:
         # create highscore list
         self.highscore = [0,0,0,0,0,0,0,0,0,0]
         
-        self.number_images = ["img/test numbers/one.png",
-                              "img/test numbers/one.png",
-                              "img/test numbers/one.png",
-                              "img/test numbers/one.png",
-                              "img/test numbers/one.png",
-                              "img/test numbers/one.png",
-                              "img/test numbers/one.png",
-                              "img/test numbers/one.png",
-                              "img/test numbers/one.png",
-                              "img/test numbers/one.png",
-                              "img/test numbers/colon.png",
-                              "img/test numbers/colon.png"]
+        self.number_images = ["img/numbers/one.png",
+                              "img/numbers/two.png",
+                              "img/numbers/three.png",
+                              "img/numbers/four.png",
+                              "img/numbers/five.png",
+                              "img/numbers/six.png",
+                              "img/numbers/seven.png",
+                              "img/numbers/eight.png",
+                              "img/numbers/nine.png",
+                              "img/numbers/zero.png",
+                              "img/numbers/colon.png",
+                              "img/numbers/colon.png"]
         self.highscore_label_list = []
         
         
