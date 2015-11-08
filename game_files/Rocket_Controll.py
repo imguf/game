@@ -251,7 +251,7 @@ class Rocket_Controll:
                 
                 # sets a new start_y position depening on direction
                 if(new_direc == 3):    
-                    self.rockets_y[n-1].set_start_y(self.play_field_height)
+                    self.rockets_y[n-1].set_start_y(self.play_field_height+2*self.sq_h)
                 elif(new_direc == 4):
                     self.rockets_y[n-1].set_start_y(self.sq_h * -3)
 
