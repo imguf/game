@@ -99,7 +99,6 @@ class Highscore_window:
             else:
                 index_list.append(int(n))
         
-        print(index_list)
         return index_list
         
     
@@ -126,7 +125,8 @@ class Highscore_window:
         else:
             for n in self.highscore:
                 file.write("0" + "\n")
-                
+            
+            self.highscore = [0,0,0,0,0,0,0,0,0,0]
                 
             file.close() 
             
