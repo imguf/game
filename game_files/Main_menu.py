@@ -71,7 +71,7 @@ class Main_menu:
         elif(self.highscore_window.get_active()): 
         
             #check for touches that want to quit the highscore window
-            if(xpos >= 18*self.width//20 and
+            if(xpos >= 19*self.width//20 and
                 xpos < 20*self.width//20 and
                 ypos >= 19*self.height//20 and
                 ypos < 20*self.height//20):
