@@ -299,7 +299,7 @@ class RootWidget(BoxLayout):
         dynamic_x = self.play_field_width // 95
         
         # change the color of the lines
-        Color(255/255, 255/255, 168/255, 75/255)
+        Color(255/255, 255/255, 168/255, 255/255)
         
         #draw the outside lines
         Rectangle(pos=(self.play_field_x + dynamic_x ,self.play_field_y), size=(self.play_field_width * 0.979, self.play_field_width * 0.01))
