@@ -16,20 +16,20 @@ class Main_menu:
         
         if(self.highscore_window.get_active() == False):
             # title image
-            Rectangle(source="img/startmeny/testtitle.png", pos=(self.width//20,15 * self.height//20),\
-                  size=(self.width,self.height - 14 * self.height //20))
+            Rectangle(source="img/startmeny/superdodgerocketlogo.png", pos=(self.width//20,12 * self.height//20),\
+                  size=(self.width,self.height - 11 * self.height //20))
         
             # start game button
-            Rectangle(source="img/startmeny/startbtn.png", pos=(4* self.width//20, 11 * self.height//20),\
-                      size=(15*self.width // 20, 3* self.height //20))
+            Rectangle(source="img/startmeny/startbtn.png", pos=(4* self.width//20, 9 * self.height//20),\
+                      size=(15*self.width // 20, 2.5* self.height //20))
                       
             # Highscore button
-            Rectangle(source="img/startmeny/hiscorebtn.png", pos=(4 * width//20, 6 * height//20),\
-                      size=(15*width // 20, 3*height//20))
+            Rectangle(source="img/startmeny/hiscorebtn.png", pos=(4 * width//20, 5 * height//20),\
+                      size=(15*width // 20, 2.5*height//20))
             
             # options game button
             Rectangle(source="img/startmeny/optionsbtn.png", pos=(4* width//20, 1 * height//20), \
-                      size=(15*width // 20, 3 * height //20))
+                      size=(15*width // 20, 2.5 * height //20))
                   
         # if the highscore window is active, draw it out
         elif(self.highscore_window.get_active()):
