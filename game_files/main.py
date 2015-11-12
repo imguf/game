@@ -295,18 +295,18 @@ class RootWidget(BoxLayout):
     
     def draw_grid(self, widget, x_size, y_size):
         """ this function draws out the grid and the lines surounding the playfield"""
-        dynamic_y = self.play_field_height // 20
-        dynamic_x = self.play_field_width // 20
+        dynamic_y = self.play_field_height // 80
+        dynamic_x = self.play_field_width // 95
         
         # change the color of the lines
         Color(255/255, 255/255, 168/255, 75/255)
         
         #draw the outside lines
-        Rectangle(pos=(self.play_field_x,self.play_field_y*0.975), size=(self.play_field_width, self.play_field_width * 0.01))
+        Rectangle(pos=(self.play_field_x + dynamic_x ,self.play_field_y), size=(self.play_field_width * 0.979, self.play_field_width * 0.01))
         Rectangle(pos=(self.play_field_x,self.play_field_height *1.035), size=(self.play_field_width, self.play_field_height * 0.01))
         
-        Rectangle(pos=(self.play_field_x,self.play_field_y), size=(self.play_field_width * 0.01, self.play_field_height * 0.985))
-        Rectangle(pos=(self.play_field_width * 1.045,self.play_field_y), size=(self.play_field_width * 0.01,self.play_field_height * 0.985))
+        Rectangle(pos=(self.play_field_x,self.play_field_y), size=(self.play_field_width * 0.01, self.play_field_height * 0.9805))
+        Rectangle(pos=(self.play_field_width * 1.045,self.play_field_y), size=(self.play_field_width * 0.01,self.play_field_height * 0.9805))
         
         
         
