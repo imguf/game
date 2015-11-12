@@ -298,6 +298,9 @@ class RootWidget(BoxLayout):
         dynamic_y = self.play_field_height // 20
         dynamic_x = self.play_field_width // 20
         
+        # change the color of the lines
+        Color(255/255, 255/255, 168/255, 75/255)
+        
         #draw the outside lines
         Rectangle(pos=(self.play_field_x,self.play_field_y*0.975), size=(self.play_field_width, self.play_field_width * 0.01))
         Rectangle(pos=(self.play_field_x,self.play_field_height *1.035), size=(self.play_field_width, self.play_field_height * 0.01))
@@ -317,7 +320,9 @@ class RootWidget(BoxLayout):
                     size=(self.play_field_width,self.play_field_height * 0.01))
           
         """
-                
+        
+        # set the color back to white to prevent color bugs
+        Color(1,1,1)
     
     def check_collision(self):
         """ this function is used to check collision"""
