@@ -195,14 +195,103 @@ class RootWidget(BoxLayout):
     
                 #Deathscreen            
                 if self.rip:
-                  Rectangle(source="img/ripscreen.png", pos=(self.play_field_x+0.5*self.sq_w, \
-                  self.play_field_y+(self.sq_h*0.5)), size=(self.sq_w*(self.board_size_x-1), self.sq_h*(self.board_size_y-1)))
-                  Label(text=self.timer_text, font_size="20sp", pos=(self.play_field_x+self.sq_w*1, self.play_field_y+self.sq_h*1))
+                    self.draw_death_screen()
+                  
+                  #Label(text=self.timer_text, font_size="20sp", pos=(self.play_field_x+self.sq_w*1, self.play_field_y+self.sq_h*1))
                 
             #Timer    
             Label(text=self.timer_text, pos=(self.play_field_width*0.15,self.play_field_height * 1.05), text_size=(200, 100))
 
+    
+    
+    def draw_death_screen(self):
+        number_images = ["img/numbers/zero.png",
+                          "img/numbers/one.png",
+                          "img/numbers/two.png",
+                          "img/numbers/three.png",
+                          "img/numbers/four.png",
+                          "img/numbers/five.png",
+                          "img/numbers/six.png",
+                          "img/numbers/seven.png",
+                          "img/numbers/eight.png",
+                          "img/numbers/nine.png",
+                          "img/numbers/colon.png",
+                          "img/numbers/dot.png"]
+        
+        
+        # gets the highest score
+        highscore = self.get_highest_score()
+                          
+        # draw out the deathscreen
+        Rectangle(source="img/ripscreen.png", pos=(self.play_field_x+0.5*self.sq_w, \
+                  self.play_field_y+(self.sq_h*0.5)), size=(self.sq_w*(self.board_size_x-1), self.sq_h*(self.board_size_y-1)))
+                  
+        # gets the indexes of the correct imgaes that are going to draw out the time
+        index_list = self.get_image_index(str(self.timer))
+        
+        # draw out the time on screen
+        for m in range(len(index_list)):
+            Rectangle(source=(number_images[index_list[m]]), pos=(4*self.play_field_width//20 + 0.5 * m*self.play_field_width//20,\
+                                self.play_field_height//20 + self.play_field_height//40), size=(self.play_field_width//50,self.play_field_width//50))
+
+        
+        
+        # gets the indexes of the correct imgaes that are going to draw out the time
+        index_list = self.get_image_index(str(highscore))
+        
+        # draw out the highest score on screen
+        for m in range(len(index_list)):
+            Rectangle(source=(number_images[index_list[m]]), pos=(4*self.play_field_width//20 + 0.5 * m*self.play_field_width//20,\
+                                self.play_field_height//20 * 2 + self.play_field_height//40), size=(self.play_field_width//50,self.play_field_width//50))
+                  
+    def get_image_index(self, time):
+        """ this method takes a string as an argument 
+            and returns the index of the images that is 
+            going to be used"""
+        
+        seconds = 0.0
+        minutes = 0
+        
+        # if the timer is more than 60 seconds, add a minute 
+        if float(time) > 60:
+            minutes = int(float(time) // 60)
+            seconds = float(time) % 60
+        
+        # else add only seconds
+        else:
+            seconds = float(time)
+          
+        #round the seconds to one decimal
+        seconds = "%.1f" % seconds
+        
+        time = str(minutes) + ":" + str(seconds)
+        
+        index_list = []
+        
+        for n in time:
+            if(n == ":"):
+                index_list.append(10)
+            elif(n == "."):
+                index_list.append(11)
+            else:
+                index_list.append(int(n))
+        
+        return index_list
+                  
+    def get_highest_score(self):
+        try:        
+            file = open("./save.txt", "r")
+        except:
+            print("Wrong when opening file.")
+        else:
+            for line in file:
+                highscore = float(line)
+                break
+
+            file.close
             
+            return highscore
+
     
     def draw_grid(self, widget, x_size, y_size):
         """ this function draws out the grid and the lines surounding the playfield"""
