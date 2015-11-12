@@ -200,7 +200,7 @@ class RootWidget(BoxLayout):
                   #Label(text=self.timer_text, font_size="20sp", pos=(self.play_field_x+self.sq_w*1, self.play_field_y+self.sq_h*1))
                 
             #Timer    
-            Label(text=self.timer_text, pos=(self.play_field_width*0.15,self.play_field_height * 1.05), text_size=(200, 100))
+            #Label(text=self.timer_text, pos=(self.play_field_width*0.15,self.play_field_height * 1.05), text_size=(200, 100))
 
     
     
@@ -307,7 +307,7 @@ class RootWidget(BoxLayout):
         
         
         
-        # draw the grid
+        """# draw the grid
         for n in range(1,x_size):
             Rectangle(pos=(dynamic_x+ (self.play_field_width // x_size * n), self.play_field_y),\
                     size=(self.play_field_width * 0.01,self.play_field_height * 0.985))
@@ -316,7 +316,7 @@ class RootWidget(BoxLayout):
             Rectangle(pos=(self.play_field_x, dynamic_y+(self.play_field_height // y_size) * (n)),\
                     size=(self.play_field_width,self.play_field_height * 0.01))
           
-    
+        """
                 
     
     def check_collision(self):
