@@ -75,17 +75,17 @@ class Main_menu:
         
             #check for touches that want to quit the highscore window
             if(xpos >= 19*self.width//20 and
-                xpos < 20*self.width//20 and
-                ypos >= 19*self.height//20 and
-                ypos < 20*self.height//20):
+                xpos < 21*self.width//20 and
+                ypos >= 19*self.height/20 and
+                ypos < 19*self.height//20 + 2*self.width//20):
                 
                 self.highscore_window.set_active(False)
                 
             # check for touches that wants to restet the highscore
-            if(xpos >= 18*self.width//20 and
-                xpos < 20*self.width//20 and
-                ypos >= 2*self.height//20 and
-                ypos < 3*self.height//20):
+            if(xpos >= 14*self.width//20 and
+                xpos < 21*self.width//20 and
+                ypos >= 1*self.height//20 and
+                ypos < 1*self.height//20 + 3*self.width//20):
                     print("reset highscore")
                     self.highscore_window.reset_save()
         

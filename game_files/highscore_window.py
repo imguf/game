@@ -38,29 +38,29 @@ class Highscore_window:
         
                 
         # Reset highscore button
-        Rectangle(source=("img/startmeny/reset_btn.png"), pos=(16*width//20, 1*height//20), size=(5*width//20, 2*height//20))
+        Rectangle(source=("img/startmeny/reset_btn.png"), pos=(14*width//20, 1*height//20), size=(7*width//20, 3*width//20))
               
 
         # exit highscore window button
-        Rectangle(source=("img/startmeny/closebtn.png"), pos=(19*width//20, 19*height//20), size=(width//20, height//20))
+        Rectangle(source=("img/startmeny/closebtn.png"), pos=(19*width//20, 19*height//20), size=(2*width//20, 2*width//20))
         
         
         # prints the highscore list
         for n in range(10):
             if(n == 0):
-                Rectangle(source=(self.number_images[1]), pos=(1.5*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
-                Rectangle(source=(self.number_images[0]), pos=(2*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
+                Rectangle(source=(self.number_images[1]), pos=(1*width//20, height//20*(n*5+1) + height//40), size=(width//25,width//25))
+                Rectangle(source=(self.number_images[0]), pos=(2*width//20, height//20*(n*2+1) + height//40), size=(width//25,width//25))
             else:
-                Rectangle(source=(self.number_images[10-n]), pos=(2*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
+                Rectangle(source=(self.number_images[10-n]), pos=(2*width//20, height//20*(n*2+1) + height//40), size=(width/25,width//25))
             
-            Rectangle(source=(self.number_images[10]), pos=(2.5*width//20, height//20*(n*2+1) + height//40), size=(width//50,width//50))
+            Rectangle(source=(self.number_images[10]), pos=(2.75*width//20, height//20*(n*2+1) + height//40), size=(width//25,width//25))
             
             # gets which index of the images that are going to be printed out
             index_list = self.get_image_index(str(self.highscore[n]))
             
             # print out the time on the screen
             for m in range(len(index_list)):
-                Rectangle(source=(self.number_images[index_list[m]]), pos=(4*width//20 + 0.5 * m*width//20, height//20*((9-n)*2+1) + height//40), size=(width//50,width//50))
+                Rectangle(source=(self.number_images[index_list[m]]), pos=(4.5*width//20 + m*width//20, height//20*((9-n)*2+1) + height//40), size=(width//25,width//25))
                 
             
     def get_image_index(self, time):
