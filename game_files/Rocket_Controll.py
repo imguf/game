@@ -50,7 +50,7 @@ class Rocket_Controll:
         
         
         
-    def draw(self, widget, play_field_x, play_field_y, sq_w, sq_h):
+    def draw(self, widget, play_field_x, play_field_y, sq_w, sq_h, is_paused):
         
         #draw the x rockets
         for n in range(len(self.rockets_x)):         
@@ -62,7 +62,7 @@ class Rocket_Controll:
 
             
         # draw the indicators of the show_indicator is true
-        if(self.show_indicator and self.rockets_moving == False):
+        if(self.show_indicator and self.rockets_moving == False and not is_paused):
             for n in range(len(self.indicator_x)):
                 self.indicator_x[n-1].draw(widget, play_field_x, play_field_y,self.sq_w, self.sq_h)
             
