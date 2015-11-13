@@ -189,9 +189,19 @@ class RootWidget(BoxLayout):
                 
                     
                 
-                #Pausebutton
-                Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*0.99,self.play_field_height * 1.05), size=(self.sq_w*0.2, self.sq_w*0.2))
+                
     
+                
+                # pausescreen
+                if(self.paused == True):
+                    Rectangle(source=("img/startmeny/closebtn.png"), pos=(self.play_field_width*0.99, self.play_field_height * 1.05),\
+                    size=(self.sq_w*0.2, self.sq_w*0.2))
+                    
+                else:
+                    #Pausebutton
+                    Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*0.99,self.play_field_height * 1.05), size=(self.sq_w*0.2, self.sq_w*0.2))
+    
+                
                 #Deathscreen            
                 if self.rip:
                     self.draw_death_screen()
@@ -425,7 +435,7 @@ class RootWidget(BoxLayout):
             self.draw()
         
         else:
-            # if the game            
+            # if the game   is on          
             
             
             if(self.timer > 0.05):
@@ -478,8 +488,8 @@ class RootWidget(BoxLayout):
                     self.update_once = True 
                     
                 
-                # calls the main draw function        
-                self.draw()
+            # calls the main draw function        
+            self.draw()
                 
                 
                     
