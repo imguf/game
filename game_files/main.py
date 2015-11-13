@@ -252,7 +252,16 @@ class RootWidget(BoxLayout):
         for m in range(len(index_list)):
             Rectangle(source=(number_images[index_list[m]]), pos=(4*self.play_field_width//20 + 0.5 * m*self.play_field_width//20,\
                                 self.play_field_height//20 * 2 + self.play_field_height//40), size=(self.play_field_width//50,self.play_field_width//50))
-                  
+        
+        
+        # return to main menu button
+        Rectangle(source=("img/startmeny/hiscorebtn.png"), pos=(self.play_field_width//20, 7*self.play_field_height//20), \
+                size=(self.sq_w, self.sq_w//5))
+        
+        # restart game button
+        Rectangle(source=("img/startmeny/reset_btn.png"), pos=(self.play_field_width//20, 4*self.play_field_height//20), \
+                size=(self.sq_w, self.sq_w//5))
+        
     def get_image_index(self, time):
         """ this method takes a string as an argument 
             and returns the index of the images that is 
