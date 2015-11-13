@@ -187,8 +187,7 @@ class RootWidget(BoxLayout):
                 # call the draw function of the player
                 self.player.draw(self.play_field_widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
                 
-    
-                
+                    
                 
                 #Pausebutton
                 Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*0.99,self.play_field_height * 1.05), size=(self.sq_w*0.2, self.sq_w*0.2))
@@ -298,15 +297,13 @@ class RootWidget(BoxLayout):
         dynamic_y = self.play_field_height // 80
         dynamic_x = self.play_field_width // 95
         
-        # change the color of the lines
-        Color(255/255, 255/255, 168/255, 255/255)
-        
+                
         #draw the outside lines
-        Rectangle(pos=(self.play_field_x + dynamic_x ,self.play_field_y), size=(self.play_field_width * 0.979, self.play_field_width * 0.01))
-        Rectangle(pos=(self.play_field_x,self.play_field_height *1.035), size=(self.play_field_width, self.play_field_height * 0.01))
+        Rectangle(source=("img/opacity test.png"), pos=(self.play_field_x + dynamic_x ,self.play_field_y), size=(self.play_field_width * 0.979, self.play_field_width * 0.01))
+        Rectangle(source=("img/opacity test.png"), pos=(self.play_field_x,self.play_field_height *1.035), size=(self.play_field_width, self.play_field_height * 0.01))
         
-        Rectangle(pos=(self.play_field_x,self.play_field_y), size=(self.play_field_width * 0.01, self.play_field_height * 0.9805))
-        Rectangle(pos=(self.play_field_width * 1.045,self.play_field_y), size=(self.play_field_width * 0.01,self.play_field_height * 0.9805))
+        Rectangle(source=("img/opacity test.png"), pos=(self.play_field_x,self.play_field_y), size=(self.play_field_width * 0.01, self.play_field_height * 0.9805))
+        Rectangle(source=("img/opacity test.png"), pos=(self.play_field_width * 1.045,self.play_field_y), size=(self.play_field_width * 0.01,self.play_field_height * 0.9805))
         
         
         
