@@ -198,13 +198,13 @@ class RootWidget(BoxLayout):
                     size=(self.sq_w*0.2, self.sq_w*0.2))
                     
                     # return to main menu button
-                    Rectangle(source=("img/deathandpause/mainmenubtn.png"), pos=(self.play_field_width//20, 7*self.play_field_height//20), \
+                    Rectangle(source=("img/deathandpause/mainmenubtn.png"), pos=(4.3*self.play_field_width//20, 7.35*self.play_field_height//20), \
                             size=(self.sq_w, self.sq_w//5))
                     
                     # restart game button
-                    Rectangle(source=("img/deathandpause/restartbtn.png"), pos=(self.play_field_width//20, 4*self.play_field_height//20), \
+                    Rectangle(source=("img/deathandpause/restartbtn.png"), pos=(11.2*self.play_field_width//20, 7.35*self.play_field_height//20), \
                             size=(self.sq_w, self.sq_w//5))
-                    
+                
                 else:
                     #Pausebutton
                     Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*0.99,self.play_field_height * 1.05), size=(self.sq_w*0.2, self.sq_w*0.2))
@@ -240,16 +240,16 @@ class RootWidget(BoxLayout):
         highscore = self.get_highest_score()
                           
         # draw out the deathscreen
-        Rectangle(source="img/ripscreen.png", pos=(self.play_field_x+0.5*self.sq_w, \
-                  self.play_field_y+(self.sq_h*0.5)), size=(self.sq_w*(self.board_size_x-1), self.sq_h*(self.board_size_y-1)))
+        Rectangle(source="img/deathandpause/alan.png", pos=(self.play_field_x+0.5*self.sq_w, \
+                  1.1*self.play_field_y+(self.sq_h*0.5)), size=(self.sq_w*(self.board_size_x-1), 0.85*self.sq_h*(self.board_size_y-1)))
                   
         # gets the indexes of the correct imgaes that are going to draw out the time
         index_list = self.get_image_index(str(self.timer))
         
         # draw out the time on screen
         for m in range(len(index_list)):
-            Rectangle(source=(number_images[index_list[m]]), pos=(4*self.play_field_width//20 + 0.5 * m*self.play_field_width//20,\
-                                self.play_field_height//20 + self.play_field_height//40), size=(self.play_field_width//50,self.play_field_width//50))
+            Rectangle(source=(number_images[index_list[m]]), pos=(12*self.play_field_width//20 + 0.5 * m*self.play_field_width//20,\
+                                4.25*self.play_field_height//20 + self.play_field_height//40), size=(self.play_field_width//50,self.play_field_width//50))
 
         
         
@@ -258,16 +258,16 @@ class RootWidget(BoxLayout):
         
         # draw out the highest score on screen
         for m in range(len(index_list)):
-            Rectangle(source=(number_images[index_list[m]]), pos=(4*self.play_field_width//20 + 0.5 * m*self.play_field_width//20,\
-                                self.play_field_height//20 * 2 + self.play_field_height//40), size=(self.play_field_width//50,self.play_field_width//50))
+            Rectangle(source=(number_images[index_list[m]]), pos=(12*self.play_field_width//20 + 0.5 * m*self.play_field_width//20,\
+                                self.play_field_height//20 * 2.95 + self.play_field_height//40), size=(self.play_field_width//50,self.play_field_width//50))
         
         
         # return to main menu button
-        Rectangle(source=("img/deathandpause/mainmenubtn.png"), pos=(self.play_field_width//20, 7*self.play_field_height//20), \
+        Rectangle(source=("img/deathandpause/mainmenubtn.png"), pos=(4.3*self.play_field_width//20, 7.35*self.play_field_height//20), \
                 size=(self.sq_w, self.sq_w//5))
         
         # restart game button
-        Rectangle(source=("img/deathandpause/restartbtn.png"), pos=(self.play_field_width//20, 4*self.play_field_height//20), \
+        Rectangle(source=("img/deathandpause/restartbtn.png"), pos=(11.2*self.play_field_width//20, 7.35*self.play_field_height//20), \
                 size=(self.sq_w, self.sq_w//5))
         
     def get_image_index(self, time):
@@ -524,18 +524,18 @@ class RootWidget(BoxLayout):
             if( self.rip or self.paused):
             
                 # check if the user wants to restart the game
-                if(touch.x >= self.play_field_width//20 and
-                touch.x < self.play_field_width//20 + self.sq_w and
-                touch.y >= 4*self.play_field_height/20 and
-                touch.y < 4*self.play_field_height//20 + self.sq_w//5 ):
+                if(touch.x >= 11.2*self.play_field_width//20 and
+                touch.x < 11.2*self.play_field_width//20 + self.sq_w and
+                touch.y >= 7.35*self.play_field_height/20 and
+                touch.y < 7.35*self.play_field_height//20 + self.sq_w//5 ):
                     self.restart_game()
                     
                 
                 # check if the player wants to return to the main menu
-                if(touch.x >= self.play_field_width//20 and
-                touch.x < self.play_field_width//20 + self.sq_w and
-                touch.y >= 7*self.play_field_height/20 and
-                touch.y < 7*self.play_field_height//20 + self.sq_w//5):
+                if(touch.x >= 4.3*self.play_field_width//20 and
+                touch.x < 4.3*self.play_field_width//20 + self.sq_w and
+                touch.y >= 7.35*self.play_field_height/20 and
+                touch.y < 7.35*self.play_field_height//20 + self.sq_w//5):
                     self.menu.set_status(True)
                     self.restart_game()
             
