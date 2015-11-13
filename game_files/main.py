@@ -528,31 +528,33 @@ class RootWidget(BoxLayout):
                
     
             # if the player is dead          
-            elif( self.rip and 
-                touch.y < self.sq_h*3 and 
-                touch.y > self.play_field_y+self.sq_h and 
-                touch.x < self.sq_w*2 and 
-                touch.x > self.play_field_x+0.5*self.sq_w):
+            elif( self.rip):
+            
+                # check if the user wants to restart the game
+                if(touch.x >= self.play_field_width//20 and
+                touch.x < self.play_field_width//20 + self.sq_w and
+                touch.y >= 4*self.play_field_height/20 and
+                touch.y < 4*self.play_field_height//20 + self.sq_w//5 ):
               
-              # restart rockets and player
-              self.rocket_control.restart_rockets()
-              self.player.restart_player()
-              self.background.reset_bg()
-              
-              # resets the board_size
-              self.board_size_x = 3
-              self.board_size_y = 5
-              
-              #set timer to 0
-              self.timer = 0.0
-              
-              #unables the player to move
-              self.player_movable = False
-              
-              #unpause
-              self.paused = False        
-              #make the player alive
-              self.rip = False
+                    # restart rockets and player
+                    self.rocket_control.restart_rockets()
+                    self.player.restart_player()
+                    self.background.reset_bg()
+
+                    # resets the board_size
+                    self.board_size_x = 3
+                    self.board_size_y = 5
+
+                    #set timer to 0
+                    self.timer = 0.0
+
+                    #unables the player to move
+                    self.player_movable = False
+
+                    #unpause
+                    self.paused = False        
+                    #make the player alive
+                    self.rip = False
           
 
     def on_touch_up(self, touch):
