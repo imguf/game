@@ -100,7 +100,7 @@ class RootWidget(BoxLayout):
         
         # background stuff
         self.background = Background.Backgrounds(["img/background/background1.jpg","img/background/background2.jpg",\
-                                            "img/background/background1.jpg","img/background/background2.jpg"],\
+                                            "img/background/background3.jpg","img/background/background4.jpg"],\
                                             self.width, self.height)
         
                                             
