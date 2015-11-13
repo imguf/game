@@ -182,7 +182,7 @@ class RootWidget(BoxLayout):
                 self.draw_grid(self.play_field_widget, self.board_size_x,self.board_size_y)
     
                 # call the draw functon of the rocket_controll class            
-                self.rocket_control.draw(self.play_field_widget, self.play_field_x, self.play_field_y, self.sq_w, self.sq_h)            
+                self.rocket_control.draw(self.play_field_widget, self.play_field_x, self.play_field_y, self.sq_w, self.sq_h, self.paused)            
                 
                 # call the draw function of the player
                 self.player.draw(self.play_field_widget, self.play_field_x, self.play_field_y,self.sq_w, self.sq_h)
@@ -196,6 +196,14 @@ class RootWidget(BoxLayout):
                 if(self.paused == True):
                     Rectangle(source=("img/startmeny/closebtn.png"), pos=(self.play_field_width*0.99, self.play_field_height * 1.05),\
                     size=(self.sq_w*0.2, self.sq_w*0.2))
+                    
+                    # return to main menu button
+                    Rectangle(source=("img/deathandpause/mainmenubtn.png"), pos=(self.play_field_width//20, 7*self.play_field_height//20), \
+                            size=(self.sq_w, self.sq_w//5))
+                    
+                    # restart game button
+                    Rectangle(source=("img/deathandpause/restartbtn.png"), pos=(self.play_field_width//20, 4*self.play_field_height//20), \
+                            size=(self.sq_w, self.sq_w//5))
                     
                 else:
                     #Pausebutton
@@ -255,11 +263,11 @@ class RootWidget(BoxLayout):
         
         
         # return to main menu button
-        Rectangle(source=("img/startmeny/hiscorebtn.png"), pos=(self.play_field_width//20, 7*self.play_field_height//20), \
+        Rectangle(source=("img/deathandpause/mainmenubtn.png"), pos=(self.play_field_width//20, 7*self.play_field_height//20), \
                 size=(self.sq_w, self.sq_w//5))
         
         # restart game button
-        Rectangle(source=("img/startmeny/reset_btn.png"), pos=(self.play_field_width//20, 4*self.play_field_height//20), \
+        Rectangle(source=("img/deathandpause/restartbtn.png"), pos=(self.play_field_width//20, 4*self.play_field_height//20), \
                 size=(self.sq_w, self.sq_w//5))
         
     def get_image_index(self, time):
@@ -511,24 +519,9 @@ class RootWidget(BoxLayout):
             self.menu.touch_down(touch)
         else: # if the menu is not on, the game is on
             # if the player is alive
-            if self.rip == False:
-                if(self.paused and touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):
-                    self.paused = False
-                else:
-                    # if the touch is on the pausbutton, paus the game
-                    if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):            
-                        self.paused = True
-                  
-                    # if the touch is on the play_field
-                    # take the x and y position of the touch
-                    if(touch.y < self.play_field_height):
-                        self.touch_down_x = touch.x
-                        self.touch_down_y = touch.y
-                      
-               
-    
+            
             # if the player is dead          
-            elif( self.rip or self.paused):
+            if( self.rip or self.paused):
             
                 # check if the user wants to restart the game
                 if(touch.x >= self.play_field_width//20 and
@@ -545,6 +538,24 @@ class RootWidget(BoxLayout):
                 touch.y < 7*self.play_field_height//20 + self.sq_w//5):
                     self.menu.set_status(True)
                     self.restart_game()
+            
+            else:
+                if(self.paused and touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):
+                    self.paused = False
+                else:
+                    # if the touch is on the pausbutton, paus the game
+                    if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):            
+                        self.paused = True
+                  
+                    # if the touch is on the play_field
+                    # take the x and y position of the touch
+                    if(touch.y < self.play_field_height):
+                        self.touch_down_x = touch.x
+                        self.touch_down_y = touch.y
+                      
+               
+    
+            
 
                     
     def restart_game(self):
