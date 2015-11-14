@@ -524,34 +524,35 @@ class RootWidget(BoxLayout):
             if( self.rip or self.paused):
             
                 # check if the user wants to restart the game
-                if(touch.x >= 11.2*self.play_field_width//20 and
-                touch.x < 11.2*self.play_field_width//20 + self.sq_w and
-                touch.y >= 7.35*self.play_field_height/20 and
-                touch.y < 7.35*self.play_field_height//20 + self.sq_w//5 ):
+                if(touch.x >= 12*self.play_field_width//20 and
+                touch.x < 12*self.play_field_width//20 + self.sq_w * 1.1 and
+                touch.y >= 9*self.play_field_height/20 and
+                touch.y < 9*self.play_field_height//20 + 1.6* self.sq_w//5 ):
                     self.restart_game()
                     
                 
                 # check if the player wants to return to the main menu
-                if(touch.x >= 4.3*self.play_field_width//20 and
-                touch.x < 4.3*self.play_field_width//20 + self.sq_w and
-                touch.y >= 7.35*self.play_field_height/20 and
-                touch.y < 7.35*self.play_field_height//20 + self.sq_w//5):
+                if(touch.x >= 3.5*self.play_field_width//20 and
+                touch.x < 3.5*self.play_field_width//20 + self.sq_w * 1.1 and
+                touch.y >= 9*self.play_field_height/20 and
+                touch.y < 9*self.play_field_height//20 + 1.6* self.sq_w//5):
                     self.menu.set_status(True)
                     self.restart_game()
+                    
+                if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):
+                    self.paused = False
             
             else:
-                if(self.paused and touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):
-                    self.paused = False
-                else:
-                    # if the touch is on the pausbutton, paus the game
-                    if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):            
-                        self.paused = True
-                  
-                    # if the touch is on the play_field
-                    # take the x and y position of the touch
-                    if(touch.y < self.play_field_height):
-                        self.touch_down_x = touch.x
-                        self.touch_down_y = touch.y
+                
+                # if the touch is on the pausbutton, paus the game
+                if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):            
+                    self.paused = True
+              
+                # if the touch is on the play_field
+                # take the x and y position of the touch
+                if(touch.y < self.play_field_height):
+                    self.touch_down_x = touch.x
+                    self.touch_down_y = touch.y
                       
                
     
