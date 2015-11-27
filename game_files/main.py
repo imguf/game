@@ -205,7 +205,7 @@ class RootWidget(BoxLayout):
                     Rectangle(source=("img/deathandpause/restartbtn.png"), pos=(12*self.play_field_width//20, 9*self.play_field_height//20), \
                     size=(self.sq_w*1.1, 1.6*self.sq_w//5))
                 
-                else:
+                elif(not self.rip):
                     #Pausebutton
                     Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*0.99,self.play_field_height * 1.05), size=(self.sq_w*0.2, self.sq_w*0.2))
     
@@ -539,7 +539,7 @@ class RootWidget(BoxLayout):
                     self.menu.set_status(True)
                     self.restart_game()
                     
-                if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):
+                if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95 and not self.rip):
                     self.paused = False
             
             else:
