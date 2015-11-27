@@ -199,11 +199,11 @@ class RootWidget(BoxLayout):
                     
                     # return to main menu button
                     Rectangle(source=("img/deathandpause/mainmenubtn.png"), pos=(3.5*self.play_field_width//20, 9*self.play_field_height//20), \
-                    size=(self.sq_w*1.1, 1.6*self.sq_w//5))
+                    size=(self.play_field_width*0.4, 0.55*self.play_field_width//5))
         
                     # restart game button
                     Rectangle(source=("img/deathandpause/restartbtn.png"), pos=(12*self.play_field_width//20, 9*self.play_field_height//20), \
-                    size=(self.sq_w*1.1, 1.6*self.sq_w//5))
+                    size=(self.play_field_width*0.4, 0.55*self.play_field_width//5))
                 
                 elif(not self.rip):
                     #Pausebutton
@@ -240,16 +240,15 @@ class RootWidget(BoxLayout):
         highscore = self.get_highest_score()
                           
         # draw out the deathscreen
-        Rectangle(source="img/deathandpause/alan.png", pos=(self.play_field_x+0.5*self.sq_w*0.05, \
-                  1.1*self.play_field_y+(self.sq_h*1.1)), size=(self.sq_w*(self.board_size_x-1)*1.5, 0.85*self.sq_h*(self.board_size_y-1)))
+        Rectangle(source="img/deathandpause/alan.png", pos=(self.play_field_x*0.6, self.play_field_y*3), size=(self.play_field_x*19, self.play_field_y*16.5))
                   
         # gets the indexes of the correct imgaes that are going to draw out the time
         index_list = self.get_image_index(str(self.timer))
         
         # draw out the time on screen
         for m in range(len(index_list)):
-            Rectangle(source=(number_images[index_list[m]]), pos=(12*self.play_field_width//20 + 0.5 * m*self.play_field_width//20,\
-                                6.75*self.play_field_height//20 + self.play_field_height//40), size=(self.play_field_width//45,self.play_field_width//45))
+            Rectangle(source=(number_images[index_list[m]]), pos=(13*self.play_field_width//20 + 0.5 * m*self.play_field_width//15,\
+                                5*self.play_field_height//20 + self.play_field_height//40), size=(self.play_field_width//30,self.play_field_width//30))
 
         
         
@@ -258,17 +257,17 @@ class RootWidget(BoxLayout):
         
         # draw out the highest score on screen
         for m in range(len(index_list)):
-            Rectangle(source=(number_images[index_list[m]]), pos=(12*self.play_field_width//20 + 0.5 * m*self.play_field_width//20,\
-                                self.play_field_height//20 * 5.5 + self.play_field_height//40), size=(self.play_field_width//45,self.play_field_width//45))
+            Rectangle(source=(number_images[index_list[m]]), pos=(13*self.play_field_width//20 + 0.5 * m*self.play_field_width//15,\
+                                self.play_field_height//20 * 3.3 + self.play_field_height//40), size=(self.play_field_width//30,self.play_field_width//30))
         
         
         # return to main menu button
         Rectangle(source=("img/deathandpause/mainmenubtn.png"), pos=(3.5*self.play_field_width//20, 9*self.play_field_height//20), \
-                size=(self.sq_w*1.1, 1.6*self.sq_w//5))
+                size=(self.play_field_width*0.35, 0.55*self.play_field_width//5))
         
         # restart game button
         Rectangle(source=("img/deathandpause/restartbtn.png"), pos=(12*self.play_field_width//20, 9*self.play_field_height//20), \
-                size=(self.sq_w*1.1, 1.6*self.sq_w//5))
+                size=(self.play_field_width*0.35, 0.55*self.play_field_width//5))
         
     def get_image_index(self, time):
         """ this method takes a string as an argument 
