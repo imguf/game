@@ -54,20 +54,20 @@ class Rocket_Controll:
         
         #draw the x rockets
         for n in range(len(self.rockets_x)):         
-            self.rockets_x[n-1].draw(widget, play_field_x, play_field_y, sq_w, sq_h)
+            self.rockets_x[n].draw(widget, play_field_x, play_field_y, sq_w, sq_h)
                 
         # draw the y rockets
         for n in range(len(self.rockets_y)):
-            self.rockets_y[n-1].draw(widget, play_field_x, play_field_y,self.sq_w, self.sq_h)
+            self.rockets_y[n].draw(widget, play_field_x, play_field_y,self.sq_w, self.sq_h)
 
             
         # draw the indicators of the show_indicator is true
         if(self.show_indicator and self.rockets_moving == False and not is_paused):
             for n in range(len(self.indicator_x)):
-                self.indicator_x[n-1].draw(widget, play_field_x, play_field_y,self.sq_w, self.sq_h)
+                self.indicator_x[n].draw(widget, play_field_x, play_field_y,self.sq_w, self.sq_h)
             
             for n in range(len(self.indicator_y)):
-                self.indicator_y[n-1].draw(widget, play_field_x, play_field_y,self.sq_w, self.sq_h)
+                self.indicator_y[n].draw(widget, play_field_x, play_field_y,self.sq_w, self.sq_h)
 
         
     def control(self, dt):
@@ -93,10 +93,10 @@ class Rocket_Controll:
         # move the rockets
         if(self.rockets_moving):
             for n in range(len(self.rockets_x)):
-                self.rockets_x[n-1].move(dt)
+                self.rockets_x[n].move(dt)
             
             for n in range(len(self.rockets_y)):
-                self.rockets_y[n-1].move(dt)
+                self.rockets_y[n].move(dt)
                 
         
         if(self.rocket_spawn_delay != 1.0 and self.rocket_spawn_delay != 2.0):
@@ -111,9 +111,9 @@ class Rocket_Controll:
             
         # gives the new bordersize to the indicators
         for n in range(len(self.indicator_x)):
-            self.indicator_x[n-1].set_border_size(self.board_width, self.board_height)
+            self.indicator_x[n].set_border_size(self.board_width, self.board_height)
         for n in range(len(self.indicator_y)):
-            self.indicator_y[n-1].set_border_size(self.board_width, self.board_height)
+            self.indicator_y[n].set_border_size(self.board_width, self.board_height)
         
         #create a new rocket
         self.rockets_x.append(Rocket.Rocket(self.play_field_width,self.board_height-1,1, 
@@ -210,6 +210,11 @@ class Rocket_Controll:
         # check if the rockets are out of bounds 
         # if yes stop them from mobing and return them to a new starting position
         if(self.rockets_x[0].get_x() < self.sq_w * -2 or self.rockets_x[0].get_x() > self.sq_w * (self.board_width + 1)):
+            print("start X: " , self.rockets_x[0].get_start_x())
+            print("Current X: " , self.rockets_x[0].get_x())
+            print("left: " , self.sq_w * -2)
+            print("Right: " , self.sq_w * (self.board_width + 1))
+            print()
             self.rockets_moving = False
             self.rocket_spawn_time = 0.0
             self.rocket_spawn_delay = 0.0
@@ -220,27 +225,35 @@ class Rocket_Controll:
                 
                 # sets a new start_x position depening on direction
                 if(new_direc == 1):    
-                    self.rockets_x[n-1].set_start_x(self.sq_w * (self.board_width + 1))
+                    self.rockets_x[n].set_start_x(self.sq_w * (self.board_width + 1))
+                    self.rockets_x[n].set_direc(1)                
                 elif(new_direc == 2):
-                    self.rockets_x[n-1].set_start_x(self.sq_w * -2 )
+                    self.rockets_x[n].set_start_x(self.sq_w * -2 )
+                    self.rockets_x[n].set_direc(2)
 
 
                 # sets the new direction and sets the xpos to the new position
-                self.rockets_x[n-1].set_direc(new_direc)
-                self.rockets_x[n-1].set_x(self.rockets_x[n-1].get_start_x())
+                self.rockets_x[n].set_x(self.rockets_x[n].get_start_x())
+                self.rockets_x[0].set_direc(1)
+                self.rockets_x[0].set_x(self.sq_w * (self.board_width + 1))
+                self.rockets_x[0].set_start_x(self.sq_w * (self.board_width + 1))
+
+                if(n == 0):
+                    print("direc: ", new_direc)
+                
                 
                 # set the new ypos by using the function new_rocket_position
-                self.rockets_x[n-1].set_y(self.new_rocket_position(self.rockets_x[n-1].get_direc()))
+                self.rockets_x[n].set_y(self.new_rocket_position(self.rockets_x[n].get_direc()))
                 
                 #gives the indicators a new position
-                for n in range(len(self.indicator_x)):
-                    self.indicator_x[n-1].set_new_pos(self.rockets_x[n-1].get_direc())
-                    self.indicator_x[n-1].set_y(self.rockets_x[n-1].get_y())
+                for m in range(len(self.indicator_x)):
+                    self.indicator_x[m].set_new_pos(self.rockets_x[m].get_direc())
+                    self.indicator_x[m].set_y(self.rockets_x[m].get_y())
                 
             
             # resets the variables used in new_rocket_position so it can be used again
             for n in range(len(self.rocket_x_ypos)):
-                self.rocket_x_ypos[n-1] = -1
+                self.rocket_x_ypos[n] = -1
             self.next_rocket_x = 0
             
             
@@ -251,27 +264,27 @@ class Rocket_Controll:
                 
                 # sets a new start_y position depening on direction
                 if(new_direc == 3):    
-                    self.rockets_y[n-1].set_start_y(self.play_field_height+2*self.sq_h)
+                    self.rockets_y[n].set_start_y(self.play_field_height+2*self.sq_h)
                 elif(new_direc == 4):
-                    self.rockets_y[n-1].set_start_y(self.sq_h * -3)
+                    self.rockets_y[n].set_start_y(self.sq_h * -3)
 
 
                 # sets the new direction and sets the ypos to the new position
-                self.rockets_y[n-1].set_direc(new_direc)
-                self.rockets_y[n-1].set_y(self.rockets_y[n-1].get_start_y())
+                self.rockets_y[n].set_direc(new_direc)
+                self.rockets_y[n].set_y(self.rockets_y[n].get_start_y())
                 
                 # set the new xpos by using the function new_rocket_position
-                self.rockets_y[n-1].set_x(self.new_rocket_position(self.rockets_y[n-1].get_direc()))
+                self.rockets_y[n].set_x(self.new_rocket_position(self.rockets_y[n].get_direc()))
                 
                 #gives the indicators a new position
                 for n in range(len(self.indicator_y)):
-                    self.indicator_y[n-1].set_new_pos(self.rockets_y[n-1].get_direc())
-                    self.indicator_y[n-1].set_x(self.rockets_y[n-1].get_x())
+                    self.indicator_y[n].set_new_pos(self.rockets_y[n].get_direc())
+                    self.indicator_y[n].set_x(self.rockets_y[n].get_x())
                 
             
             # resets the variables used in new_rocket_position so it can be used again
             for n in range(len(self.rocket_y_xpos)):
-                self.rocket_y_xpos[n-1] = -1
+                self.rocket_y_xpos[n] = -1
             self.next_rocket_y = 0
     
         """ end of code that checks if the rockets are out of bounds"""
@@ -283,7 +296,7 @@ class Rocket_Controll:
         self.sq_h = sq_h
         self.rocket_spawn_time += 1.0/60.0
         self.rocket_spawn_delay = float("%.1f" % self.rocket_spawn_time)
-        print(self.rocket_spawn_delay)
+        #print(self.rocket_spawn_delay)
 
     
         # set up the rockets and indicators so they have the right starting position        
@@ -291,34 +304,37 @@ class Rocket_Controll:
                 
             # gives the x rockets a new position
             for n in range(len(self.rockets_x)):
-                self.rockets_x[n-1].set_start_x(self.play_field_width)
-                self.rockets_x[n-1].set_x(self.play_field_width)
-                self.rockets_x[n-1].set_screen_size(self.play_field_width, self.play_field_height)
+                self.rockets_x[n].set_start_x(self.play_field_width)
+                self.rockets_x[n].set_x(self.play_field_width)
+                self.rockets_x[n].set_screen_size(self.play_field_width, self.play_field_height)
                 
              #gives the x indicators a new position
             for n in range(len(self.indicator_x)):
-                self.indicator_x[n-1].set_new_pos(self.rockets_x[n-1].get_direc())
-                self.indicator_x[n-1].set_y(self.rockets_x[n-1].get_y())
+                self.indicator_x[n].set_new_pos(self.rockets_x[n].get_direc())
+                self.indicator_x[n].set_y(self.rockets_x[n].get_y())
 
 
             # gives the y rockets a new position
             for n in range(len(self.rockets_y)):
-                self.rockets_y[n-1].set_start_y(self.play_field_height)
-                self.rockets_y[n-1].set_y(self.play_field_height)
-                self.rockets_y[n-1].set_screen_size(self.play_field_width, self.play_field_height)
+                self.rockets_y[n].set_start_y(self.play_field_height)
+                self.rockets_y[n].set_y(self.play_field_height)
+                self.rockets_y[n].set_screen_size(self.play_field_width, self.play_field_height)
                 
              #gives the y indicators a new position
             for n in range(len(self.indicator_y)):
-                self.indicator_y[n-1].set_new_pos(self.rockets_y[n-1].get_direc())
-                self.indicator_y[n-1].set_x(self.rockets_y[n-1].get_x())    
+                self.indicator_y[n].set_new_pos(self.rockets_y[n].get_direc())
+                self.indicator_y[n].set_x(self.rockets_y[n].get_x())    
                 
                 
-        # call the check collision funktion
-        self.check_inbounds()
+        
         
         
         #call the control funktion
         self.control(dt)
+    
+        # call the check collision funktion
+        self.check_inbounds()
+    
     
     def restart_rockets(self):
         rockets_x_start_y = [1,2,3,4]
@@ -372,7 +388,7 @@ class Rocket_Controll:
             
         
         # stop the rockets from moving
-        self.rockets_moving = False
+        #self.rockets_moving = False
         
         
     def set_play_field_size(self, w,h):
@@ -392,8 +408,8 @@ class Rocket_Controll:
         
         for n in range(len(self.rockets_x)):
             # add all the position values to two different lists
-            xpos.append(self.rockets_x[n-1].get_x())
-            ypos.append(self.rockets_x[n-1].get_y()* self.sq_h)
+            xpos.append(self.rockets_x[n].get_x())
+            ypos.append(self.rockets_x[n].get_y()* self.sq_h)
             
         return xpos, ypos, len(self.rockets_x)
         
@@ -403,8 +419,8 @@ class Rocket_Controll:
         ypos = []
         for n in range(len(self.rockets_y)):
             # add all the position values to two different lists
-            xpos.append(self.rockets_y[n-1].get_x()*self.sq_w)           
-            ypos.append(self.rockets_y[n-1].get_y())
+            xpos.append(self.rockets_y[n].get_x()*self.sq_w)           
+            ypos.append(self.rockets_y[n].get_y())
             
         return xpos, ypos, len(self.rockets_y)
         
