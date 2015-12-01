@@ -388,7 +388,7 @@ class Rocket_Controll:
             
         
         # stop the rockets from moving
-        #self.rockets_moving = False
+        self.rockets_moving = False
         
         
     def set_play_field_size(self, w,h):
