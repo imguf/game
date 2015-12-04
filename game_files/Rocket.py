@@ -16,12 +16,22 @@ class Rocket:
         
         self.direc = direc
         
+        self.which_image = -1
+        self.able_to_change_image = True
+        self.current_image = ""
+        self.update_round = 0
+        
+        self.right_rockets_images = ["img/enemyrockets/right/enemyrocketv1fire.png",\
+                                     "img/enemyrockets/right/enemyrocketv1fire2.png",\
+                                     "img/enemyrockets/right/enemyrocketv1fire3.png",\
+                                     "img/enemyrockets/right/enemyrocketv1fire4.png"]
+        
     def draw(self, widget, window_x, window_y, sq_w, sq_h):
         """ draws the rocket"""
-        Color(1.,0,0)        
+        Color(1.,1.0,1.0)        
         
         if(self.direc == 1):
-            Rectangle(source="img/enemyrockets/enemyrocketv1rightfire.png", pos=(window_x + self.xpos * 1.1, window_y * 1.5 + self.ypos * sq_h),\
+            Rectangle(source=self.current_image, pos=(window_x + self.xpos * 1.1, window_y * 1.5 + self.ypos * sq_h),\
                       size=(sq_w *0.7, sq_h *0.7))
         elif self.direc == 2:
             Rectangle(source="img/enemyrockets/enemyrocketv1leftfire.png", pos=(window_x + self.xpos * 1.1, window_y * 1.5 + self.ypos * sq_h),\
@@ -32,6 +42,27 @@ class Rocket:
         elif self.direc == 4:
             Rectangle(source="img/enemyrockets/enemyrocketv1fire.png", pos=(2 *window_x + self.xpos * sq_w, window_y + self.ypos * 1.1),\
                       size=(sq_w * 0.7, sq_h * 0.7))
+    
+    def update_image(self, seconds):
+        """ this method updates the current image of the rockets"""
+        print(seconds)
+        if(float(seconds) // 0.05 != self.update_round):
+            self.able_to_change_image = True
+            #print("sluta så den inte ändrar bild")
+        if(float(seconds) //  0.05 == self.update_round and self.able_to_change_image == True):
+            print("ändra bild för fan!")
+            
+            self.update_round += 1
+            
+            self.which_image += 1
+            
+            if(self.which_image == len(self.right_rockets_images)):
+                self.which_image = 0
+
+            self.able_to_change_image = False
+    
+        if(self.direc == 1):
+            self.current_image = self.right_rockets_images[self.which_image]
     
     def move(self, dt):
         """ moves the rocket depending on the direction"""
@@ -84,6 +115,9 @@ class Rocket:
     def set_y(self, ypos): 
         """ set the ypos"""
         self.ypos = ypos
+        
+    def set_update_round(self, update_round):
+        self.update_round = update_round
         
         
     def set_screen_size(self, w,h):

@@ -342,6 +342,8 @@ class Rocket_Controll:
                 
         
         
+        for n in range(len(self.rockets_x)):
+            self.rockets_x[n].update_image(timer)
         
         #call the control funktion
         self.control(dt)
@@ -374,6 +376,8 @@ class Rocket_Controll:
             self.rockets_x[n].set_direc(1)
             
             self.rockets_x[n].set_speed(self.board_height-5)
+            
+            self.rockets_x[n].set_update_round(0)
 
             
             # set the indicators to their start value
