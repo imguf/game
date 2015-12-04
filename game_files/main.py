@@ -508,7 +508,29 @@ class RootWidget(BoxLayout):
             self.draw()
                 
                 
-                    
+    def restart_game(self):
+        """ when this method is called all the variables resets to their 
+        initial values"""
+    
+        # restart rockets and player
+        self.rocket_control.restart_rockets()
+        self.player.restart_player()
+        self.background.reset_bg()
+
+        # resets the board_size
+        self.board_size_x = 3
+        self.board_size_y = 5
+
+        #set timer to 0
+        self.timer = 0.0
+
+        #unables the player to move
+        self.player_movable = False
+
+        #unpause
+        self.paused = False        
+        #make the player alive
+        self.rip = False                   
     
     def on_touch_down(self, touch):
         """ gets the position of the first screen touch"""
@@ -524,17 +546,17 @@ class RootWidget(BoxLayout):
             
                 # check if the user wants to restart the game
                 if(touch.x >= 12*self.play_field_width//20 and
-                touch.x < 12*self.play_field_width//20 + self.sq_w * 1.1 and
+                touch.x < 12*self.play_field_width//20 + self.play_field_width*0.4 and
                 touch.y >= 9*self.play_field_height/20 and
-                touch.y < 9*self.play_field_height//20 + 1.6* self.sq_w//5 ):
+                touch.y < 9*self.play_field_height//20 +self.play_field_width // 5 * 0.55 ):
                     self.restart_game()
                     
                 
                 # check if the player wants to return to the main menu
                 if(touch.x >= 3.5*self.play_field_width//20 and
-                touch.x < 3.5*self.play_field_width//20 + self.sq_w * 1.1 and
+                touch.x < 3.5*self.play_field_width//20 + self.play_field_width *0.4 and
                 touch.y >= 9*self.play_field_height/20 and
-                touch.y < 9*self.play_field_height//20 + 1.6* self.sq_w//5):
+                touch.y < 9*self.play_field_height//20 + self.play_field_width // 5 * 0.55):
                     self.menu.set_status(True)
                     self.restart_game()
                     
@@ -558,29 +580,7 @@ class RootWidget(BoxLayout):
             
 
                     
-    def restart_game(self):
-        """ when this method is called all the variables resets to their 
-        initial values"""
-    
-        # restart rockets and player
-        self.rocket_control.restart_rockets()
-        self.player.restart_player()
-        self.background.reset_bg()
 
-        # resets the board_size
-        self.board_size_x = 3
-        self.board_size_y = 5
-
-        #set timer to 0
-        self.timer = 0.0
-
-        #unables the player to move
-        self.player_movable = False
-
-        #unpause
-        self.paused = False        
-        #make the player alive
-        self.rip = False
           
 
     def on_touch_up(self, touch):
