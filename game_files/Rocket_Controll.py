@@ -344,6 +344,9 @@ class Rocket_Controll:
         
         for n in range(len(self.rockets_x)):
             self.rockets_x[n].update_image(timer)
+            
+        for n in range(len(self.rockets_y)):
+            self.rockets_y[n].update_image(timer)
         
         #call the control funktion
         self.control(dt)

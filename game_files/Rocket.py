@@ -25,6 +25,21 @@ class Rocket:
                                      "img/enemyrockets/right/enemyrocketv1fire2.png",\
                                      "img/enemyrockets/right/enemyrocketv1fire3.png",\
                                      "img/enemyrockets/right/enemyrocketv1fire4.png"]
+                                     
+        self.left_rockets_images = ["img/enemyrockets/left/enemyrocketv1fire.png",\
+                                     "img/enemyrockets/left/enemyrocketv1fire2.png",\
+                                     "img/enemyrockets/left/enemyrocketv1fire3.png",\
+                                     "img/enemyrockets/left/enemyrocketv1fire4.png"]
+                                     
+        self.up_rockets_images = ["img/enemyrockets/up/enemyrocketv1fire.png",\
+                                     "img/enemyrockets/up/enemyrocketv1fire2.png",\
+                                     "img/enemyrockets/up/enemyrocketv1fire3.png",\
+                                     "img/enemyrockets/up/enemyrocketv1fire4.png"]
+                                     
+        self.down_rockets_images = ["img/enemyrockets/down/enemyrocketv1fire.png",\
+                                     "img/enemyrockets/down/enemyrocketv1fire2.png",\
+                                     "img/enemyrockets/down/enemyrocketv1fire3.png",\
+                                     "img/enemyrockets/down/enemyrocketv1fire4.png"]
         
     def draw(self, widget, window_x, window_y, sq_w, sq_h):
         """ draws the rocket"""
@@ -34,13 +49,13 @@ class Rocket:
             Rectangle(source=self.current_image, pos=(window_x + self.xpos * 1.1, window_y * 1.5 + self.ypos * sq_h),\
                       size=(sq_w *0.7, sq_h *0.7))
         elif self.direc == 2:
-            Rectangle(source="img/enemyrockets/enemyrocketv1leftfire.png", pos=(window_x + self.xpos * 1.1, window_y * 1.5 + self.ypos * sq_h),\
+            Rectangle(source=self.current_image, pos=(window_x + self.xpos * 1.1, window_y * 1.5 + self.ypos * sq_h),\
                       size=(sq_w *0.7, sq_h *0.7))
         elif(self.direc == 3):
-            Rectangle(source="img/enemyrockets/enemyrocketv1upfire.png", pos=(2 *window_x + self.xpos * sq_w, window_y + self.ypos * 1.1),\
+            Rectangle(source=self.current_image, pos=(2 *window_x + self.xpos * sq_w, window_y + self.ypos * 1.1),\
                       size=(sq_w * 0.7, sq_h * 0.7))
         elif self.direc == 4:
-            Rectangle(source="img/enemyrockets/enemyrocketv1fire.png", pos=(2 *window_x + self.xpos * sq_w, window_y + self.ypos * 1.1),\
+            Rectangle(source=self.current_image, pos=(2 *window_x + self.xpos * sq_w, window_y + self.ypos * 1.1),\
                       size=(sq_w * 0.7, sq_h * 0.7))
     
     def update_image(self, seconds):
@@ -48,20 +63,31 @@ class Rocket:
         
         if(float(seconds) // 0.05 != self.update_round):
             self.able_to_change_image = True
-            
+        
+        # if the timer is dividable by 0.05
         if(float(seconds) //  0.05 == self.update_round and self.able_to_change_image == True):
-                        
-            self.update_round += 1
             
+            # add one to the round and image
+            self.update_round += 1
             self.which_image += 1
             
+            # if the image number is higher then the highest index
+            # put it to 0
             if(self.which_image == len(self.right_rockets_images)):
                 self.which_image = 0
-
+            
+            # make the image change only work once
             self.able_to_change_image = False
-    
+        
+        # update tbe image to the correct image chosen by the directon
         if(self.direc == 1):
             self.current_image = self.right_rockets_images[self.which_image]
+        if(self.direc == 2):
+            self.current_image = self.left_rockets_images[self.which_image]
+        if(self.direc == 3):
+            self.current_image = self.up_rockets_images[self.which_image]
+        if(self.direc == 4):
+            self.current_image = self.down_rockets_images[self.which_image]
     
     def move(self, dt):
         """ moves the rocket depending on the direction"""
