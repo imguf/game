@@ -8,26 +8,28 @@ class Player:
         # sets the position of the player        
         self.xpos = xpos
         self.ypos = ypos
-        self.image = ["img/playerrocketv1.6.gif", "img/playerrocketv1.6.gif"]
-        self.current_image = "img/playerrocketv1.6.gif"
-        self.num = 0
+        self.image = ["img/mainrocket/1_png.png", "img/mainrocket/2_png.png", "img/mainrocket/3_png.png", "img/mainrocket/4_png.png"]
+        self.current_image = ""
+        self.num = -1
         self.board_width = board_width
         self.board_height = board_height
-        self.value_for_image = False
+        self.value_for_image = True
         # these are not used right now
         self.size_x = size_x
         self.size_y = size_y
+        self.update_round = 0
         
         
     def update_image(self, function):
-      if float(function) % 1.0 != 0:
-        self.value_for_image = True
-      if float(function) % 1.0 == 0 and self.value_for_image:
-        self.num += 1
-        if self.num == (len(self.image)):
-          self.num = 0
-        self.value_for_image = False
-      self.current_image = self.image[self.num]
+        if(float(function) // 0.1 != self.update_round):
+            self.value_for_image = True
+        if float(function) // 0.1 == self.update_round and self.value_for_image == True:
+            self.update_round += 1
+            self.num += 1
+            if self.num == (len(self.image)):
+                self.num = 0
+                self.value_for_image = False
+        self.current_image = self.image[self.num]
         
     def draw(self, widget, window_x, window_y, sq_w, sq_h):
         """ draw out the player"""
@@ -66,13 +68,14 @@ class Player:
         """ returns the ypos variable"""
         return self.ypos
         
+        
     def restart_player(self):
         """ restart the players position"""
         self.xpos = 1
         self.ypos = 0
         self.board_width = 3
         self.board_height = 5
-        
+        self.update_round = 0
     def update_board_size(self, x, y):
         """ takes two arguments and sets the board width and height to the values"""
         self.board_width = x
