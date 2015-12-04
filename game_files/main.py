@@ -72,6 +72,7 @@ class RootWidget(BoxLayout):
         
         self.seconds = 0
         self.minutes = 0
+        self.rounded_sec = 0
         
         self.timer_text = ""
         
@@ -414,6 +415,7 @@ class RootWidget(BoxLayout):
     def update_timer(self, dt):
         #update the timer and print out the new time on screen
         self.timer += 1.0/60.0
+        self.rounded_sec = 0
         self.seconds = 0
         self.minutes = 0
 
@@ -421,16 +423,19 @@ class RootWidget(BoxLayout):
         if self.timer > 60:
             self.minutes = int(self.timer // 60)
             self.seconds = self.timer % 60
+            self.rounded_sec = self.timer % 60
         
         # else add only seconds
         else:
             self.seconds = self.timer
+            self.rounded_sec = self.timer
           
         #round the seconds to one decimal
-        self.seconds = "%.1f" % self.seconds
+        self.rounded_sec = "%.2f" % self.rounded_sec
+        self.seconds = "%.4f" % self.seconds
         
         #update the timer on screen
-        self.timer_text = (str(self.minutes) +":"+ self.seconds)
+        self.timer_text = (str(self.minutes) +":"+ self.rounded_sec)
 
     
     def update(self, dt):
@@ -467,7 +472,7 @@ class RootWidget(BoxLayout):
                 
                 
                 # update the player image
-                self.player.update_image(self.seconds)        
+                self.player.update_image(self.seconds)   
                 
                 # update the rocket_control class
                 self.rocket_control.set_play_field_size(self.play_field_width, self.play_field_height)
@@ -478,7 +483,7 @@ class RootWidget(BoxLayout):
                 # check collision function 
                 self.check_collision()
                 
-                if(float(self.seconds) % 30 == 0 and float(self.seconds) != 0 and self.update_once):
+                if(float(self.rounded_sec) % 30 == 0 and float(self.rounded_sec) != 0 and self.update_once):
                     self.grow_field = True
                 
                 # when chosen amount of time has passed, grow the field
@@ -500,7 +505,7 @@ class RootWidget(BoxLayout):
                     self.update_once = False
                     self.grow_field = False
                 
-                if(float(self.seconds) % 30 != 0):
+                if(float(self.rounded_sec) % 30 != 0):
                     self.update_once = True 
                     
                 
@@ -523,6 +528,8 @@ class RootWidget(BoxLayout):
 
         #set timer to 0
         self.timer = 0.0
+        self.seconds = 0.0
+        self.rounded_sec = 0.0 
 
         #unables the player to move
         self.player_movable = False
