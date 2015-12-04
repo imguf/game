@@ -45,13 +45,12 @@ class Rocket:
     
     def update_image(self, seconds):
         """ this method updates the current image of the rockets"""
-        print(seconds)
+        
         if(float(seconds) // 0.05 != self.update_round):
             self.able_to_change_image = True
-            #print("sluta så den inte ändrar bild")
-        if(float(seconds) //  0.05 == self.update_round and self.able_to_change_image == True):
-            print("ändra bild för fan!")
             
+        if(float(seconds) //  0.05 == self.update_round and self.able_to_change_image == True):
+                        
             self.update_round += 1
             
             self.which_image += 1
