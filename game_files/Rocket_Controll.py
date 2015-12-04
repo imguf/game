@@ -54,7 +54,7 @@ class Rocket_Controll:
         
         #draw the x rockets
         for n in range(len(self.rockets_x)):         
-            self.rockets_x[n].draw(widget, play_field_x, play_field_y, sq_w, sq_h)
+            self.rockets_x[n].draw(widget, play_field_x, play_field_y,self.sq_w, self.sq_h)
                 
         # draw the y rockets
         for n in range(len(self.rockets_y)):
@@ -210,11 +210,18 @@ class Rocket_Controll:
         # check if the rockets are out of bounds 
         # if yes stop them from mobing and return them to a new starting position
         if(self.rockets_x[0].get_x() < self.sq_w * -2 or self.rockets_x[0].get_x() > self.sq_w * (self.board_width + 1)):
-            print("start X: " , self.rockets_x[0].get_start_x())
-            print("Current X: " , self.rockets_x[0].get_x())
-            print("left: " , self.sq_w * -2)
-            print("Right: " , self.sq_w * (self.board_width + 1))
-            print()
+            print("\n\n\n")
+            
+            for n in range(len(self.rockets_x)):
+            
+                if(self.rockets_x[n].get_direc() == 2):
+                    print("start X: " , self.rockets_x[n].get_start_x())
+                    print("Current X: " , self.rockets_x[n].get_x())
+                    print("Direc: ", self.rockets_x[n].get_direc())
+                    print("left: " , self.sq_w * -2)
+                    print("Right: " , self.sq_w * (self.board_width + 1))
+                    print()
+            
             self.rockets_moving = False
             self.rocket_spawn_time = 0.0
             self.rocket_spawn_delay = 0.0
@@ -225,23 +232,30 @@ class Rocket_Controll:
                 
                 # sets a new start_x position depening on direction
                 if(new_direc == 1):    
+                    self.rockets_x[n].set_direc(1)
                     self.rockets_x[n].set_start_x(self.sq_w * (self.board_width + 1))
-                    self.rockets_x[n].set_direc(1)                
+                    self.rockets_x[n].set_x(self.sq_w * (self.board_width + 1))
                 elif(new_direc == 2):
-                    self.rockets_x[n].set_start_x(self.sq_w * -2 )
                     self.rockets_x[n].set_direc(2)
+                    self.rockets_x[n].set_start_x(self.sq_w * -2)
+                    self.rockets_x[n].set_x(self.sq_w * -2)
+                    
+                    
+                
 
 
                 # sets the new direction and sets the xpos to the new position
-                self.rockets_x[n].set_x(self.rockets_x[n].get_start_x())
+                #self.rockets_x[n].set_x(self.rockets_x[n].get_start_x())
                 self.rockets_x[0].set_direc(1)
                 self.rockets_x[0].set_x(self.sq_w * (self.board_width + 1))
                 self.rockets_x[0].set_start_x(self.sq_w * (self.board_width + 1))
 
-                if(n == 0):
+                """if(n == 0):
                     print("direc: ", new_direc)
+                """
                 
                 
+                    
                 # set the new ypos by using the function new_rocket_position
                 self.rockets_x[n].set_y(self.new_rocket_position(self.rockets_x[n].get_direc()))
                 
@@ -287,7 +301,7 @@ class Rocket_Controll:
                 self.rocket_y_xpos[n] = -1
             self.next_rocket_y = 0
     
-        """ end of code that checks if the rockets are out of bounds"""
+        """ end of code that checks if the rockets are out of bounds and restarting the rockets"""
         
     def update(self, dt, timer, sq_w, sq_h):
         # update the timer and the squaresizes"
