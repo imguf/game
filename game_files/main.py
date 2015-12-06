@@ -12,6 +12,7 @@ from kivy.graphics import *
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
 from kivy.core.window import Window
+from kivy.core.audio import SoundLoader
 from math import atan
 from random import randint
 from math import degrees
@@ -110,7 +111,14 @@ class RootWidget(BoxLayout):
                                             
                                             
                                             
-
+        
+        # sound
+        bg_music = SoundLoader.load("audio/test_song.mp3")
+        if(bg_music):
+            bg_music.loop = True
+            bg_music.volume = 0.1
+            bg_music.play()
+        
     def set_save(self):
         print(self.hi_score)
         highscore = float("%.1f" % self.timer)
