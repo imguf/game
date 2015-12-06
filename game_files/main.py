@@ -474,8 +474,7 @@ class RootWidget(BoxLayout):
 
                 
                 
-                # update the player image
-                self.player.update_image(self.seconds)
+                
                 
                 # check if the player wants to move to the right
                 if(self.player_moving == 1):
@@ -483,6 +482,8 @@ class RootWidget(BoxLayout):
                     # call the move right method
                     self.player.move_right(1, dt)
                     self.player_move_time += 1.0/60.0
+                    
+                    self.player.update_image_move_right(self.seconds)
                     
                     # if the player is in the new correct position,
                     # stop it from moving
@@ -496,6 +497,8 @@ class RootWidget(BoxLayout):
                     self.player.move_right(-1, dt)
                     self.player_move_time += 1.0/60.0
                     
+                    self.player.update_image(self.seconds)
+                    
                     if(self.player.get_x() <= self.player_target_position):
                         self.player_moving = 0
                         self.player_movable = True
@@ -505,6 +508,8 @@ class RootWidget(BoxLayout):
                 elif(self.player_moving == 3):
                     self.player.move_up(1, dt)
                     self.player_move_time += 1.0/60.0
+                    
+                    self.player.update_image(self.seconds)
                     
                     if(self.player.get_y() >= self.player_target_position):
                         self.player_moving = 0
@@ -516,12 +521,16 @@ class RootWidget(BoxLayout):
                     self.player.move_up(-1, dt)
                     self.player_move_time += 1.0/60.0
                     
+                    self.player.update_image(self.seconds)
+                    
                     if(self.player.get_y() <= self.player_target_position):
                         self.player_moving = 0
                         self.player_movable = True
                         self.player.set_y(self.player_target_position)
                 
-                    
+                else:
+                    # update the player image
+                    self.player.update_image(self.seconds)
                 
                 # update the rocket_control class
                 self.rocket_control.set_play_field_size(self.play_field_width, self.play_field_height)
