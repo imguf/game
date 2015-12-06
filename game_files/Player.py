@@ -42,10 +42,10 @@ class Player:
                 
 
         
-    def move_up(self, direc):
+    def move_up(self, direc, dt):
         """ move the player up or down"""
         
-        self.ypos += direc * dt * 5
+        self.ypos += direc * dt * 7
         
     def move_right(self, direc, dt):
         """ move the player left or right"""

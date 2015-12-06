@@ -501,6 +501,7 @@ class RootWidget(BoxLayout):
                         self.player_movable = True
                         self.player.set_x(self.player_target_position)
                 
+                # check if the player wants to move upwards
                 elif(self.player_moving == 3):
                     self.player.move_up(1, dt)
                     self.player_move_time += 1.0/60.0
