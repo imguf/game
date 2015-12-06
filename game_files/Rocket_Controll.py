@@ -49,6 +49,8 @@ class Rocket_Controll:
         self.rocket_ready = True
         
         
+        self.update_once = True
+        
         
     def draw(self, widget, play_field_x, play_field_y, sq_w, sq_h, is_paused):
         
@@ -75,7 +77,7 @@ class Rocket_Controll:
         
         
         # start the rockets movement firstly with the indicators
-        if((self.rocket_spawn_delay == 1.0 or self.rocket_spawn_delay == 2.0) and self.rocket_ready):
+        if((self.rocket_spawn_delay == 1.5 or self.rocket_spawn_delay == 3.0) and self.rocket_ready):
             if(self.show_indicator):
                 # make the rockets able to move
                 self.rockets_moving = True
@@ -99,7 +101,7 @@ class Rocket_Controll:
                 self.rockets_y[n].move(dt)
                 
         
-        if(self.rocket_spawn_delay != 1.0 and self.rocket_spawn_delay != 2.0):
+        if(self.rocket_spawn_delay != 1.5 and self.rocket_spawn_delay != 3.0):
             self.rocket_ready = True
         
         
@@ -314,8 +316,8 @@ class Rocket_Controll:
 
     
         # set up the rockets and indicators so they have the right starting position        
-        if(float(timer) < 0.1):   
-                
+        if(float(timer) < 0.1 and self.update_once):   
+            self.update_once = False
             # gives the x rockets a new position
             for n in range(len(self.rockets_x)):
                 self.rockets_x[n].set_start_x(self.play_field_width)

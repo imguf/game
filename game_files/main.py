@@ -118,7 +118,7 @@ class RootWidget(BoxLayout):
         if(bg_music):
             bg_music.loop = True
             bg_music.volume = 0.1
-            bg_music.play()
+            #bg_music.play()
         
     def set_save(self):
         print(self.hi_score)
@@ -548,9 +548,9 @@ class RootWidget(BoxLayout):
                
                     
                 # check collision function 
-                self.check_collision()
+                #self.check_collision()
                 
-                if(float(self.rounded_sec) % 30 == 0 and float(self.rounded_sec) != 0 and self.update_once):
+                if(float(self.rounded_sec) % 45 == 0 and float(self.rounded_sec) != 0 and self.update_once):
                     self.grow_field = True
                 
                 # when chosen amount of time has passed, grow the field
@@ -572,7 +572,7 @@ class RootWidget(BoxLayout):
                     self.update_once = False
                     self.grow_field = False
                 
-                if(float(self.rounded_sec) % 30 != 0):
+                if(float(self.rounded_sec) % 45 != 0):
                     self.update_once = True 
                     
                 
