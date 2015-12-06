@@ -9,6 +9,10 @@ class Player:
         self.xpos = xpos
         self.ypos = ypos
         self.image = ["img/mainrocket/testing/1_png.png", "img/mainrocket/testing/2_png.png", "img/mainrocket/testing/3_png.png", "img/mainrocket/testing/4_png.png"]
+        self.image_move_right = ["img/mainrocket/right/1right.png",
+                                 "img/mainrocket/right/2right.png",
+                                 "img/mainrocket/right/3right.png",
+                                 "img/mainrocket/right/4right.png"]
         self.current_image = ""
         self.num = -1
         self.board_width = board_width
@@ -30,6 +34,17 @@ class Player:
                 self.num = 0
                 self.value_for_image = False
         self.current_image = self.image[self.num]
+    
+    def update_image_move_right(self, function):
+        if(float(function) // 0.1 != self.update_round):
+            self.value_for_image = True
+        if float(function) // 0.1 == self.update_round and self.value_for_image == True:
+            self.update_round += 1
+            self.num += 1
+            if self.num == (len(self.image_move_right)):
+                self.num = 0
+                self.value_for_image = False
+        self.current_image = self.image_move_right[self.num]
         
     def draw(self, widget, window_x, window_y, sq_w, sq_h):
         """ draw out the player"""
