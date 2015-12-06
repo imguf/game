@@ -484,8 +484,6 @@ class RootWidget(BoxLayout):
                     self.player.move_right(1, dt)
                     self.player_move_time += 1.0/60.0
                     
-                    print(str(self.player.get_x()) + " ,, " + str(self.player_target_position))
-                    
                     # if the player is in the new correct position,
                     # stop it from moving
                     if(self.player.get_x() >= self.player_target_position):
@@ -502,6 +500,25 @@ class RootWidget(BoxLayout):
                         self.player_moving = 0
                         self.player_movable = True
                         self.player.set_x(self.player_target_position)
+                
+                elif(self.player_moving == 3):
+                    self.player.move_up(1, dt)
+                    self.player_move_time += 1.0/60.0
+                    
+                    if(self.player.get_y() >= self.player_target_position):
+                        self.player_moving = 0
+                        self.player_movable = True
+                        self.player.set_y(self.player_target_position)
+                
+                # check if the player wants to move downwards
+                elif(self.player_moving == 4):
+                    self.player.move_up(-1, dt)
+                    self.player_move_time += 1.0/60.0
+                    
+                    if(self.player.get_y() <= self.player_target_position):
+                        self.player_moving = 0
+                        self.player_movable = True
+                        self.player.set_y(self.player_target_position)
                 
                     
                 
@@ -644,6 +661,7 @@ class RootWidget(BoxLayout):
                 
                     # moves the player in the right direction 
                     if(self.angle < 45 or self.angle > 315):
+                        # if the player is not in the rightest square
                         if(self.player.get_x() != self.board_size_x-1):
                             self.player_moving = 1 # move right
                             self.player_target_position = (self.player.get_x() + 1)
@@ -651,16 +669,23 @@ class RootWidget(BoxLayout):
                     
                     # moves the player in the left direction
                     elif(self.angle > 135 and self.angle < 225):
+                        # if the player is not in the leftest square
                         if(self.player.get_x() != 0):
                             self.player_moving = 2 # move left
                             self.player_movable = False
                             self.player_target_position = (self.player.get_x() - 1)
                         
                     elif(self.angle > 45 and self.angle < 135):
-                        self.player.move_up(1) # move up
+                        if(self.player.get_y() != self.board_size_y-1):
+                            self.player_moving = 3 # move left
+                            self.player_movable = False
+                            self.player_target_position = (self.player.get_y() + 1)
                         
                     elif(self.angle > 225 and self.angle < 315):
-                        self.player.move_up(-1) # move down
+                        if(self.player.get_y() != 0):
+                            self.player_moving = 4 # move left
+                            self.player_movable = False
+                            self.player_target_position = (self.player.get_y() - 1)
             
         
 
