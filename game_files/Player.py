@@ -44,13 +44,12 @@ class Player:
         
     def move_up(self, direc):
         """ move the player up or down"""
-        if(self.ypos != self.board_height-1 and direc == 1 or self.ypos != 0 and direc == -1):
-            self.ypos += direc
         
-    def move_right(self, direc):
+        self.ypos += direc * dt * 5
+        
+    def move_right(self, direc, dt):
         """ move the player left or right"""
-        if(self.xpos != self.board_width-1 and direc == 1 or self.xpos != 0 and direc == -1):
-            self.xpos += direc
+        self.xpos += direc * dt * 5
 
     def set_x(self, xpos):
         """ sets the xpos variable"""
