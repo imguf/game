@@ -89,6 +89,9 @@ class RootWidget(BoxLayout):
                                     self.board_size_x, self.board_size_y)
         
         self.player_movable = False
+        self.player_moving = 0
+        self.player_move_time = 0
+        self.player_target_position = 0
                                     
         
         # instansiate the Rocket_Controll class
@@ -459,7 +462,7 @@ class RootWidget(BoxLayout):
             # if the game   is on          
             
             
-            if(self.timer > 0.05):
+            if(self.timer > 0.25 and self.timer < 0.5):
                 self.player_movable = True            
             
             if(self.paused == False):
@@ -472,7 +475,35 @@ class RootWidget(BoxLayout):
                 
                 
                 # update the player image
-                self.player.update_image(self.seconds)   
+                self.player.update_image(self.seconds)
+                
+                # check if the player wants to move to the right
+                if(self.player_moving == 1):
+                    
+                    # call the move right method
+                    self.player.move_right(1, dt)
+                    self.player_move_time += 1.0/60.0
+                    
+                    print(str(self.player.get_x()) + " ,, " + str(self.player_target_position))
+                    
+                    # if the player is in the new correct position,
+                    # stop it from moving
+                    if(self.player.get_x() >= self.player_target_position):
+                        self.player_moving = 0
+                        self.player_movable = True
+                        self.player.set_x(self.player_target_position)
+                
+                # check if the player wants to move to the left
+                elif(self.player_moving == 2):
+                    self.player.move_right(-1, dt)
+                    self.player_move_time += 1.0/60.0
+                    
+                    if(self.player.get_x() <= self.player_target_position):
+                        self.player_moving = 0
+                        self.player_movable = True
+                        self.player.set_x(self.player_target_position)
+                
+                    
                 
                 # update the rocket_control class
                 self.rocket_control.set_play_field_size(self.play_field_width, self.play_field_height)
@@ -533,6 +564,7 @@ class RootWidget(BoxLayout):
 
         #unables the player to move
         self.player_movable = False
+        self.player_moving = 0
 
         #unpause
         self.paused = False        
@@ -583,12 +615,6 @@ class RootWidget(BoxLayout):
                     self.touch_down_y = touch.y
                       
                
-    
-            
-
-                    
-
-          
 
     def on_touch_up(self, touch):
          """ gets the position of the point where the usesr pulls upp the finger"""        
@@ -618,10 +644,17 @@ class RootWidget(BoxLayout):
                 
                     # moves the player in the right direction 
                     if(self.angle < 45 or self.angle > 315):
-                        self.player.move_right(1) # move right
-                        
+                        if(self.player.get_x() != self.board_size_x-1):
+                            self.player_moving = 1 # move right
+                            self.player_target_position = (self.player.get_x() + 1)
+                            self.player_movable = False
+                    
+                    # moves the player in the left direction
                     elif(self.angle > 135 and self.angle < 225):
-                        self.player.move_right(-1) # move left
+                        if(self.player.get_x() != 0):
+                            self.player_moving = 2 # move left
+                            self.player_movable = False
+                            self.player_target_position = (self.player.get_x() - 1)
                         
                     elif(self.angle > 45 and self.angle < 135):
                         self.player.move_up(1) # move up
