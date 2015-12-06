@@ -10,11 +10,11 @@ class Indicator:
         self.direc = direc
         self.board_w = board_w
         self.board_h = board_h
-        self.current_image = "img/indicators/LindicatorV1.png"
-        self.images = ["img/indicators/LindicatorV1.png",\
-                       "img/indicators/RindicatorV1.png",\
-                       "img/indicators/DindicatorV1.png",\
-                       "img/indicators/UindicatorV1.png"]
+        self.current_image = "img/indicators/LindicatorV2.png"
+        self.images = ["img/indicators/LindicatorV2.png",\
+                       "img/indicators/RindicatorV2.png",\
+                       "img/indicators/DindicatorV2.png",\
+                       "img/indicators/UindicatorV2.png"]
         
     def draw(self, widget, window_x, window_y, sq_w, sq_h):
         """ This function controlls the drawing of the indicator"""
