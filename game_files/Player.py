@@ -8,7 +8,7 @@ class Player:
         # sets the position of the player        
         self.xpos = xpos
         self.ypos = ypos
-        self.image = ["img/mainrocket/1_png.png", "img/mainrocket/2_png.png", "img/mainrocket/3_png.png", "img/mainrocket/4_png.png"]
+        self.image = ["img/mainrocket/testing/1_png.png", "img/mainrocket/testing/2_png.png", "img/mainrocket/testing/3_png.png", "img/mainrocket/testing/4_png.png"]
         self.current_image = ""
         self.num = -1
         self.board_width = board_width
