@@ -21,25 +21,25 @@ class Rocket:
         self.current_image = ""
         self.update_round = 0
         
-        self.right_rockets_images = ["img/enemyrockets/right/enemyrocketv1fire.png",\
-                                     "img/enemyrockets/right/enemyrocketv1fire2.png",\
-                                     "img/enemyrockets/right/enemyrocketv1fire3.png",\
-                                     "img/enemyrockets/right/enemyrocketv1fire4.png"]
+        self.right_rockets_images = ["img/enemyrockets/right/enemyrocketv1fire.gif",\
+                                     "img/enemyrockets/right/enemyrocketv1fire2.gif",\
+                                     "img/enemyrockets/right/enemyrocketv1fire3.gif",\
+                                     "img/enemyrockets/right/enemyrocketv1fire4.gif"]
                                      
-        self.left_rockets_images = ["img/enemyrockets/left/enemyrocketv1fire.png",\
-                                     "img/enemyrockets/left/enemyrocketv1fire2.png",\
-                                     "img/enemyrockets/left/enemyrocketv1fire3.png",\
-                                     "img/enemyrockets/left/enemyrocketv1fire4.png"]
+        self.left_rockets_images = ["img/enemyrockets/left/enemyrocketv1fire.gif",\
+                                     "img/enemyrockets/left/enemyrocketv1fire2.gif",\
+                                     "img/enemyrockets/left/enemyrocketv1fire3.gif",\
+                                     "img/enemyrockets/left/enemyrocketv1fire4.gif"]
                                      
-        self.up_rockets_images = ["img/enemyrockets/up/enemyrocketv1fire.png",\
-                                     "img/enemyrockets/up/enemyrocketv1fire2.png",\
-                                     "img/enemyrockets/up/enemyrocketv1fire3.png",\
-                                     "img/enemyrockets/up/enemyrocketv1fire4.png"]
+        self.up_rockets_images = ["img/enemyrockets/up/enemyrocketv1fire.gif",\
+                                     "img/enemyrockets/up/enemyrocketv1fire2.gif",\
+                                     "img/enemyrockets/up/enemyrocketv1fire3.gif",\
+                                     "img/enemyrockets/up/enemyrocketv1fire4.gif"]
                                      
-        self.down_rockets_images = ["img/enemyrockets/down/enemyrocketv1fire.png",\
-                                     "img/enemyrockets/down/enemyrocketv1fire2.png",\
-                                     "img/enemyrockets/down/enemyrocketv1fire3.png",\
-                                     "img/enemyrockets/down/enemyrocketv1fire4.png"]
+        self.down_rockets_images = ["img/enemyrockets/down/enemyrocketv1fire.gif",\
+                                     "img/enemyrockets/down/enemyrocketv1fire2.gif",\
+                                     "img/enemyrockets/down/enemyrocketv1fire3.gif",\
+                                     "img/enemyrockets/down/enemyrocketv1fire4.gif"]
         
     def draw(self, widget, window_x, window_y, sq_w, sq_h):
         """ draws the rocket"""
