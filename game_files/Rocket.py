@@ -61,11 +61,11 @@ class Rocket:
     def update_image(self, seconds):
         """ this method updates the current image of the rockets"""
         
-        if(float(seconds) // 0.05 != self.update_round):
+        if(float(seconds) // 0.1 != self.update_round):
             self.able_to_change_image = True
         
         # if the timer is dividable by 0.05
-        if(float(seconds) //  0.05 == self.update_round and self.able_to_change_image == True):
+        if(float(seconds) //  0.1 == self.update_round and self.able_to_change_image == True):
             
             # add one to the round and image
             self.update_round += 1
