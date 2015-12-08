@@ -506,7 +506,7 @@ class RootWidget(BoxLayout):
                     self.player.move_right(-1, dt)
                     self.player_move_time += 1.0/60.0
                     
-                    self.player.update_image(self.seconds)
+                    self.player.update_image_move_left(self.seconds)
                     
                     if(self.player.get_x() <= self.player_target_position):
                         self.player_moving = 0
