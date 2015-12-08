@@ -24,7 +24,7 @@ class Backgrounds:
         self.play_field_width = width
         
         #moving speed
-        self.speed = 4
+        self.speed = 2
         
     def draw(self):
         """ this method draws the backgrounds on the screan"""
