@@ -41,7 +41,6 @@ class Player:
                 self.value_for_image = False
         self.current_image = self.image[self.num]
         
-        print("sutffsfasfasf")
     
     def update_image_move_right(self, function):
         if(float(function) // 0.1 != self.update_round):

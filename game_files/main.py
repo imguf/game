@@ -379,7 +379,9 @@ class RootWidget(BoxLayout):
         rockets_y_xpos = self.rocket_control.get_rockets_y()[0]
         rockets_y_ypos = self.rocket_control.get_rockets_y()[1]
         rockets_y_len = self.rocket_control.get_rockets_y()[2]
-        
+                            
+        sound_explosion = SoundLoader.load("audio/sounds/explosiontemp.wav")
+
         
         # check if the horizontal rockets collide with the player
         for n in range(rockets_x_len):
@@ -389,13 +391,19 @@ class RootWidget(BoxLayout):
                rockets_x_xpos[n] * 1.15 + self.play_field_x < player_x + self.sq_w * 0.925 - self.play_field_width * 0.01 and
                rockets_x_ypos[n] + 1.5 * self.play_field_y >= player_y and
                rockets_x_ypos[n] + 1.5 * self.play_field_y < player_y  + self.sq_h * 0.85 - self.play_field_height * 0.01):
-                   self.death_screen()
+                    self.death_screen()
+                    if(sound_explosion ):
+                        sound_explosion.volume = 0.1
+                        sound_explosion.play()
             # check if the rockets upper right corner collides with the player
             elif(rockets_x_xpos[n] * 1.15 +self.play_field_x + self.sq_w * 0.6 >= player_x and 
                rockets_x_xpos[n] * 1.15 +self.play_field_x + self.sq_w * 0.7 < player_x + self.sq_w * 0.925 - self.play_field_width * 0.01 and
                rockets_x_ypos[n] + 1.5 * self.play_field_y + self.sq_h * 0.7 >= player_y and
                rockets_x_ypos[n] + 1.5 * self.play_field_y + self.sq_h * 0.7 < player_y  + self.sq_h * 0.85 - self.play_field_height * 0.01):
                    self.death_screen()
+                   if(sound_explosion ):
+                        sound_explosion.volume = 0.1
+                        sound_explosion.play()
         
         
         # check if the vertical rockets collide with the player
@@ -407,6 +415,9 @@ class RootWidget(BoxLayout):
                 rockets_y_ypos[n] * 1.1 + self.play_field_y >= player_y and
                 rockets_y_ypos[n] * 1.1 + self.play_field_y < player_y  + self.sq_h * 0.85 - self.play_field_height * 0.01):
                     self.death_screen()
+                    if(sound_explosion ):
+                        sound_explosion.volume = 0.1
+                        sound_explosion.play()
                     
             # check if the rocekts upper right corner collides with the player
             elif(rockets_y_xpos[n] + 2 * self.play_field_x + self.sq_w * 0.7 >= player_x and 
@@ -414,6 +425,9 @@ class RootWidget(BoxLayout):
                 rockets_y_ypos[n] * 1.1 + self.play_field_y + self.sq_h * 0.7 >= player_y and
                 rockets_y_ypos[n] * 1.1 + self.play_field_y + self.sq_h * 0.7 < player_y + self.sq_h * 0.85 - self.play_field_height * 0.01):
                     self.death_screen()
+                    if(sound_explosion ):
+                        sound_explosion.volume = 0.1
+                        sound_explosion.play()
             
     def death_screen(self):
       """Describes what happens when you lose."""
@@ -453,7 +467,6 @@ class RootWidget(BoxLayout):
         
         #update the timer on screen
         self.timer_text = (str(self.minutes) +":"+ str(self.rounded_sec))
-        print(self.rounded_sec)
 
     
     def update(self, dt):
@@ -554,7 +567,7 @@ class RootWidget(BoxLayout):
                
                     
                 # check collision function 
-                #self.check_collision()
+                self.check_collision()
                 
                 if(float(self.rounded_sec) % 45 == 0 and float(self.rounded_sec) != 0 and self.update_once):
                     self.grow_field = True
