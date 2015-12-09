@@ -114,11 +114,11 @@ class RootWidget(BoxLayout):
                                             
         
         # sound
-        bg_music = SoundLoader.load("audio/test_song.mp3")
+        bg_music = SoundLoader.load("audio/mainmenu.wav")
         if(bg_music):
             bg_music.loop = True
-            bg_music.volume = 0.1
-            #bg_music.play()
+            bg_music.volume = 0.7
+            bg_music.play()
         
     def set_save(self):
         print(self.hi_score)
