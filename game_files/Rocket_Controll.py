@@ -119,9 +119,11 @@ class Rocket_Controll:
         
         #create a new rocket
         self.rockets_x.append(Rocket.Rocket(self.play_field_width,self.board_height-1,1, 
-                                            self.play_field_width, self.play_field_height))
+                                            self.play_field_width, self.play_field_height, 
+                                            self.rockets_x[0].get_update_round()))
         self.rockets_y.append(Rocket.Rocket(self.play_field_height, self.board_width-1,3,
-                                            self.play_field_width, self.play_field_height))
+                                            self.play_field_width, self.play_field_height,
+                                            self.rockets_x[0].get_update_round()))
         
         # create a new indicatorss            
         self.indicator_x.append(Indicator.Indicator(self.board_width, self.board_height-1, 1, self.board_width, self.board_height))
@@ -405,6 +407,8 @@ class Rocket_Controll:
             self.rockets_y[n].set_direc(3)
             self.rockets_y[n].set_speed(self.board_width-3)
             
+            self.rockets_y[n].set_update_round(0)
+            
             # set hte indidicators to their start value
             self.indicator_y[n].set_border_size(self.board_width, self.board_height)
             self.indicator_y[n].set_new_pos(3)
@@ -412,6 +416,7 @@ class Rocket_Controll:
         
         # stop the rockets from moving
         self.rockets_moving = False
+        self.update_once = True
         
         
     def set_play_field_size(self, w,h):
@@ -450,3 +455,10 @@ class Rocket_Controll:
     def is_rockets_moving(self):
         """ this method returns the boolean value of the rockets, if they move or not"""
         return self.rockets_moving
+        
+    def reset_update_round(self):
+        for n in range(len(self.rockets_x)):
+            self.rockets_x[n].set_update_round(0)
+    
+        for n in range(len(self.rockets_y)):
+            self.rockets_y[n].set_update_round(0)

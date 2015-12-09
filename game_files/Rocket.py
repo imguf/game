@@ -3,7 +3,7 @@ from kivy.graphics import *
 
 class Rocket:
     """ This is the Rocket-class"""
-    def __init__(self, xpos, ypos, direc, play_field_width = 0, play_field_height = 0):
+    def __init__(self, xpos, ypos, direc, play_field_width = 0, play_field_height = 0, update_round = 0):
         self.xpos = xpos
         self.ypos = ypos
         self.start_x = xpos
@@ -19,7 +19,7 @@ class Rocket:
         self.which_image = -1
         self.able_to_change_image = True
         self.current_image = ""
-        self.update_round = 0
+        self.update_round = update_round
         
         self.right_rockets_images = ["img/enemyrockets/right/enemyrocketv1fire.png",\
                                      "img/enemyrockets/right/enemyrocketv1fire2.png",\
@@ -64,7 +64,7 @@ class Rocket:
         if(float(seconds) // 0.1 != self.update_round):
             self.able_to_change_image = True
         
-        # if the timer is dividable by 0.05
+        # if the timer is dividable by 0.1
         if(float(seconds) //  0.1 == self.update_round and self.able_to_change_image == True):
             
             # add one to the round and image
@@ -154,7 +154,8 @@ class Rocket:
     def set_speed(self, speed):
         self.which_speed = speed
 
-
+    def get_update_round(self):
+        return self.update_round
 
 
         

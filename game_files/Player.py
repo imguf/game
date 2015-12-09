@@ -40,6 +40,8 @@ class Player:
                 self.num = 0
                 self.value_for_image = False
         self.current_image = self.image[self.num]
+        
+        print("sutffsfasfasf")
     
     def update_image_move_right(self, function):
         if(float(function) // 0.1 != self.update_round):
@@ -107,6 +109,10 @@ class Player:
         self.board_width = 3
         self.board_height = 5
         self.update_round = 0
+        
+    def reset_update_round(self):
+        self.update_round = 0
+    
     def update_board_size(self, x, y):
         """ takes two arguments and sets the board width and height to the values"""
         self.board_width = x
