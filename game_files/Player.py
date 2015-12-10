@@ -14,10 +14,10 @@ class Player:
                                  "img/mainrocket/right/3right.png",
                                  "img/mainrocket/right/4right.png"]
                                  
-        self.image_move_left = ["img/mainrocket/left/1right.png",
-                                 "img/mainrocket/left/2right.png",
-                                 "img/mainrocket/left/3right.png",
-                                 "img/mainrocket/left/4right.png"]
+        self.image_move_left = ["img/mainrocket/left/1left.png",
+                                 "img/mainrocket/left/2left.png",
+                                 "img/mainrocket/left/3left.png",
+                                 "img/mainrocket/left/4left.png"]
                                  
         self.current_image = ""
         self.num = -1
