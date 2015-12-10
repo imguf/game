@@ -219,7 +219,7 @@ class RootWidget(BoxLayout):
 
                 elif(not self.rip):
                     #Pausebutton
-                    Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*0.99,self.play_field_height * 1.05), size=(self.sq_w*0.2, self.sq_w*0.2))
+                    Rectangle(source="img/pausebutton.png", pos=(self.play_field_width*0.99,self.play_field_height * 1.05), size=(self.play_field_x, self.play_field_x))
 
 
                 #Deathscreen
@@ -669,13 +669,13 @@ class RootWidget(BoxLayout):
                     self.menu.set_status(True)
                     self.restart_game()
 
-                if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95 and not self.rip):
+                if(touch.y > self.play_field_height * 0.995 and touch.x > self.play_field_width * 0.95 and not self.rip):
                     self.paused = False
 
             else:
 
                 # if the touch is on the pausbutton, paus the game
-                if(touch.y > self.play_field_height * 0.985 and touch.x > self.play_field_width * 0.95):
+                if(touch.y > self.play_field_height * 0.995 and touch.x > self.play_field_width * 0.95):
                     self.paused = True
 
                 # if the touch is on the play_field
