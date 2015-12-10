@@ -48,6 +48,7 @@ class Rocket_Controll:
         self.show_indicator = False
         self.rocket_ready = True
         
+        self.spawn_delay = 1.5
         
         self.update_once = True
         
@@ -77,7 +78,7 @@ class Rocket_Controll:
         
         
         # start the rockets movement firstly with the indicators
-        if((self.rocket_spawn_delay == 1.5 or self.rocket_spawn_delay == 3.0) and self.rocket_ready):
+        if((self.rocket_spawn_delay == self.spawn_delay or self.rocket_spawn_delay == 2*self.spawn_delay) and self.rocket_ready):
             if(self.show_indicator):
                 # make the rockets able to move
                 self.rockets_moving = True
@@ -110,6 +111,7 @@ class Rocket_Controll:
         
         
     def add_new_rockets(self):
+        self.spawn_delay = 1.0
             
         # gives the new bordersize to the indicators
         for n in range(len(self.indicator_x)):
@@ -365,6 +367,8 @@ class Rocket_Controll:
         
         self.board_width = 3
         self.board_height = 5
+        
+        self.spawn_delay = 1.5
         
         self.rocket_spawn_time = 0.0
         self.rocket_spawn_delay = 0.0
