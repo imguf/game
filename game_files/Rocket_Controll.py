@@ -102,7 +102,7 @@ class Rocket_Controll:
                 self.rockets_y[n].move(dt)
                 
         
-        if(self.rocket_spawn_delay != 1.5 and self.rocket_spawn_delay != 3.0):
+        if(self.rocket_spawn_delay != self.spawn_delay and self.rocket_spawn_delay != 2*self.spawn_delay):
             self.rocket_ready = True
         
         

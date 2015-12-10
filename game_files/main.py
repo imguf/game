@@ -581,9 +581,9 @@ class RootWidget(BoxLayout):
 
 
                 # check collision function
-                self.check_collision()
+                #self.check_collision()
 
-                if(float(self.rounded_sec) % 30 == 0 and float(self.rounded_sec) != 0 and self.update_once):
+                if(float(self.rounded_sec) % 45 == 0 and float(self.rounded_sec) != 0 and self.update_once):
                     self.grow_field = True
 
                 # when chosen amount of time has passed, grow the field
@@ -605,7 +605,7 @@ class RootWidget(BoxLayout):
                     self.update_once = False
                     self.grow_field = False
 
-                if(float(self.rounded_sec) % 30 != 0):
+                if(float(self.rounded_sec) % 45 != 0):
                     self.update_once = True
 
 
