@@ -114,14 +114,13 @@ class RootWidget(BoxLayout):
 
 
         # sound
-        bg_music = SoundLoader.load("audio/mainmenu.mp3")
-        if(bg_music):
-            bg_music.loop = True
-            bg_music.volume = 0.7
-            bg_music.play()
-            
-        self.sound_explosion = SoundLoader.load("audio/sounds/explosiontemp.mp3")
+        self.bg_music = SoundLoader.load("audio/mainmenu.mp3")
+        if(self.bg_music):
+            self.bg_music.loop = True
+            self.bg_music.volume = 0.7
+            self.bg_music.play()
 
+        self.sound_explosion = SoundLoader.load("audio/sounds/explosiontemp.mp3")
 
     def set_save(self):
         print(self.hi_score)
@@ -162,7 +161,6 @@ class RootWidget(BoxLayout):
 
             file.close()
 
-
     def setup_base_variables(self):
         """ this function creates some basic variables"""
         self.play_field_x = self.play_field_widget.width * 0.05
@@ -173,8 +171,6 @@ class RootWidget(BoxLayout):
 
         self.sq_w = self.play_field_width // self.board_size_x
         self.sq_h = self.play_field_height // self.board_size_y
-
-
 
     def draw(self):
         """ this function controlls the drawing"""
@@ -234,8 +230,6 @@ class RootWidget(BoxLayout):
 
                 #Timer
                 Label(text=self.timer_text, pos=(self.play_field_width*0.15,self.play_field_height * 1.05), text_size=(200, 100))
-
-
 
     def draw_death_screen(self):
         number_images = ["img/numbers/zero.png",
@@ -332,7 +326,6 @@ class RootWidget(BoxLayout):
             file.close
 
             return highscore
-
 
     def draw_grid(self, widget, x_size, y_size):
         """ this function draws out the grid and the lines surounding the playfield"""
@@ -437,12 +430,9 @@ class RootWidget(BoxLayout):
       self.rip = True
       self.set_save()
 
-
-
-
     def update_timer(self, dt):
         #update the timer and print out the new time on screen
-        
+
         self.timer += 1.0/60.0
         self.timer = "%.4f" % self.timer
         self.timer = float(self.timer)
@@ -468,17 +458,17 @@ class RootWidget(BoxLayout):
         #round the seconds to one decimal
         self.rounded_sec = float("%.2f" % self.rounded_sec)
         self.seconds = float("%.4f" % self.seconds)
-        
+
         print_sec = ""
         print_sec = "%.1f" % self.seconds
-        
+
         print(self.timer)
         print(self.seconds)
         print()
-        
+
         minutes2 = 0
         seconds2 = 2
-        
+
         if float(self.timer) > 60:
             minutes2 = int(float(self.timer) // 60)
             seconds2 = float(self.timer) % 60
@@ -489,10 +479,9 @@ class RootWidget(BoxLayout):
 
         #round the seconds to one decimal
         seconds2 = "%.1f" % seconds2
-        
+
         #update the timer on screen
         self.timer_text = str(minutes2) + ":" + str(seconds2)
-
 
     def update(self, dt):
         """ this function is the controller of everything
@@ -623,7 +612,6 @@ class RootWidget(BoxLayout):
             # calls the main draw function
             self.draw()
 
-
     def restart_game(self):
         """ when this method is called all the variables resets to their
         initial values"""
@@ -658,9 +646,11 @@ class RootWidget(BoxLayout):
         if(self.menu.get_status()):
             self.menu.touch_down(touch)
         else: # if the menu is not on, the game is on
+
             # if the player is alive
 
             # if the player is dead
+            self.bg_music.loop = True
             if( self.rip or self.paused):
 
                 # check if the user wants to restart the game
@@ -693,8 +683,6 @@ class RootWidget(BoxLayout):
                 if(touch.y < self.play_field_height):
                     self.touch_down_x = touch.x
                     self.touch_down_y = touch.y
-
-
 
     def on_touch_up(self, touch):
          """ gets the position of the point where the usesr pulls upp the finger"""
@@ -750,8 +738,6 @@ class RootWidget(BoxLayout):
                             self.player_movable = False
                             self.player_target_position = (self.player.get_y() - 1)
 
-
-
 class TestApp(App):
 
     def build(self):
@@ -761,7 +747,6 @@ class TestApp(App):
         Clock.schedule_interval(game.update, 1.0 / 60.0)
 
         return game
-
 
 if __name__ == '__main__':
     TestApp().run()
