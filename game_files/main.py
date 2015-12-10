@@ -442,14 +442,17 @@ class RootWidget(BoxLayout):
 
     def update_timer(self, dt):
         #update the timer and print out the new time on screen
+        
         self.timer += 1.0/60.0
+        self.timer = "%.4f" % self.timer
+        self.timer = float(self.timer)
         self.seconds = float(self.seconds)
         self.seconds += 1.0/60.0
         self.rounded_sec = float(self.rounded_sec)
         self.rounded_sec += 1.0/60.0
 
         # if the timer is more than 60 seconds, add a minute
-        if self.rounded_sec >= 59:
+        if self.seconds >= 59:
             self.minutes += 1
 
             self.seconds = 0
@@ -463,11 +466,32 @@ class RootWidget(BoxLayout):
 
 
         #round the seconds to one decimal
-        self.rounded_sec = "%.2f" % self.rounded_sec
+        self.rounded_sec = float("%.2f" % self.rounded_sec)
         self.seconds = float("%.4f" % self.seconds)
+        
+        print_sec = ""
+        print_sec = "%.1f" % self.seconds
+        
+        print(self.timer)
+        print(self.seconds)
+        print()
+        
+        minutes2 = 0
+        seconds2 = 2
+        
+        if float(self.timer) > 60:
+            minutes2 = int(float(self.timer) // 60)
+            seconds2 = float(self.timer) % 60
 
+        # else add only seconds
+        else:
+            seconds2 = float(self.timer)
+
+        #round the seconds to one decimal
+        seconds2 = "%.1f" % seconds2
+        
         #update the timer on screen
-        self.timer_text = (str(self.minutes) +":"+ str(self.rounded_sec))
+        self.timer_text = str(minutes2) + ":" + str(seconds2)
 
 
     def update(self, dt):
