@@ -581,7 +581,7 @@ class RootWidget(BoxLayout):
 
 
                 # check collision function
-                #self.check_collision()
+                self.check_collision()
 
                 if(float(self.rounded_sec) % 45 == 0 and float(self.rounded_sec) != 0 and self.update_once):
                     self.grow_field = True
@@ -739,8 +739,12 @@ class RootWidget(BoxLayout):
                             self.player_target_position = (self.player.get_y() - 1)
 
 class TestApp(App):
-
+    icon = "img/icon.png"
+    title = "Super Dodge Rocket"
+    
     def build(self):
+        
+    
         game = RootWidget()
 
         # calling the game.update function 60 times a second
