@@ -117,7 +117,7 @@ class RootWidget(BoxLayout):
         self.bg_music = SoundLoader.load("audio/mainmenu.mp3")
         if(self.bg_music):
             self.bg_music.loop = True
-            self.bg_music.volume = 0.7
+            self.bg_music.volume = 3.0
             self.bg_music.play()
 
         self.sound_explosion = SoundLoader.load("audio/sounds/explosiontemp.mp3")
@@ -388,7 +388,7 @@ class RootWidget(BoxLayout):
                rockets_x_ypos[n] + 1.5 * self.play_field_y < player_y  + self.sq_h * 0.85 - self.play_field_height * 0.01):
                     self.death_screen()
                     if(self.sound_explosion ):
-                        self.sound_explosion.volume = 0.1
+                        self.sound_explosion.volume = 0.2
                         self.sound_explosion.play()
             # check if the rockets upper right corner collides with the player
             elif(rockets_x_xpos[n] * 1.15 +self.play_field_x + self.sq_w * 0.6 >= player_x and
