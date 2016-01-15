@@ -121,6 +121,7 @@ class RootWidget(BoxLayout):
             self.bg_music.play()
 
         self.sound_explosion = SoundLoader.load("audio/sounds/explosiontemp.mp3")
+        self.sound_explosion.volume = 0.2
 
     def set_save(self):
         print(self.hi_score)
@@ -387,8 +388,7 @@ class RootWidget(BoxLayout):
                rockets_x_ypos[n] + 1.5 * self.play_field_y >= player_y and
                rockets_x_ypos[n] + 1.5 * self.play_field_y < player_y  + self.sq_h * 0.85 - self.play_field_height * 0.01):
                     self.death_screen()
-                    if(self.sound_explosion ):
-                        self.sound_explosion.volume = 0.2
+                    if(self.sound_explosion ): 
                         self.sound_explosion.play()
             # check if the rockets upper right corner collides with the player
             elif(rockets_x_xpos[n] * 1.15 +self.play_field_x + self.sq_w * 0.6 >= player_x and
@@ -397,7 +397,6 @@ class RootWidget(BoxLayout):
                rockets_x_ypos[n] + 1.5 * self.play_field_y + self.sq_h * 0.7 < player_y  + self.sq_h * 0.85 - self.play_field_height * 0.01):
                    self.death_screen()
                    if(self.sound_explosion ):
-                        self.sound_explosion.volume = 0.1
                         self.sound_explosion.play()
 
 
@@ -411,7 +410,6 @@ class RootWidget(BoxLayout):
                 rockets_y_ypos[n] * 1.1 + self.play_field_y < player_y  + self.sq_h * 0.85 - self.play_field_height * 0.01):
                     self.death_screen()
                     if(self.sound_explosion ):
-                        self.sound_explosion.volume = 0.1
                         self.sound_explosion.play()
 
             # check if the rocekts upper right corner collides with the player
@@ -421,8 +419,19 @@ class RootWidget(BoxLayout):
                 rockets_y_ypos[n] * 1.1 + self.play_field_y + self.sq_h * 0.7 < player_y + self.sq_h * 0.85 - self.play_field_height * 0.01):
                     self.death_screen()
                     if(self.sound_explosion ):
-                        self.sound_explosion.volume = 0.1
                         self.sound_explosion.play()
+                        
+        # check if the player is outside the playfield
+        if(self.player.get_x() > self.board_size_x or
+           self.player.get_x() < 0 or
+           self.player.get_y() > self.board_size_y or
+           self.player.get_y() < 0):
+            
+            # trigger the death
+            self.death_screen()
+            
+            if(self.sound_explosion ):
+                self.sound_explosion.play()
 
     def death_screen(self):
       """Describes what happens when you lose."""
@@ -462,9 +471,7 @@ class RootWidget(BoxLayout):
         print_sec = ""
         print_sec = "%.1f" % self.seconds
 
-        print(self.timer)
-        print(self.seconds)
-        print()
+        
 
         minutes2 = 0
         seconds2 = 2
