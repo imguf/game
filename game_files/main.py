@@ -105,8 +105,8 @@ class RootWidget(BoxLayout):
 
         # background stuff
         self.background = Background.Backgrounds(["img/background/background1.jpg","img/background/background2.jpg",\
-                                            "img/background/background3.jpg","img/background/background4.jpg",\
-                                            "img/background/background5.jpg"],\
+                                            "img/background/background3.jpg","img/background/background4v2.jpg",\
+                                            "img/background/background5v2.jpg"],\
                                             self.width, self.height)
 
 
@@ -388,7 +388,7 @@ class RootWidget(BoxLayout):
                rockets_x_ypos[n] + 1.5 * self.play_field_y >= player_y and
                rockets_x_ypos[n] + 1.5 * self.play_field_y < player_y  + self.sq_h * 0.85 - self.play_field_height * 0.01):
                     self.death_screen()
-                    if(self.sound_explosion ): 
+                    if(self.sound_explosion ):
                         self.sound_explosion.play()
             # check if the rockets upper right corner collides with the player
             elif(rockets_x_xpos[n] * 1.15 +self.play_field_x + self.sq_w * 0.6 >= player_x and
@@ -420,16 +420,16 @@ class RootWidget(BoxLayout):
                     self.death_screen()
                     if(self.sound_explosion ):
                         self.sound_explosion.play()
-                        
+
         # check if the player is outside the playfield
         if(self.player.get_x() > self.board_size_x or
            self.player.get_x() < 0 or
            self.player.get_y() > self.board_size_y or
            self.player.get_y() < 0):
-            
+
             # trigger the death
             self.death_screen()
-            
+
             if(self.sound_explosion ):
                 self.sound_explosion.play()
 
@@ -471,7 +471,7 @@ class RootWidget(BoxLayout):
         print_sec = ""
         print_sec = "%.1f" % self.seconds
 
-        
+
 
         minutes2 = 0
         seconds2 = 2
@@ -748,10 +748,10 @@ class RootWidget(BoxLayout):
 class TestApp(App):
     icon = "img/icon.png"
     title = "Super Dodge Rocket"
-    
+
     def build(self):
-        
-    
+
+
         game = RootWidget()
 
         # calling the game.update function 60 times a second
