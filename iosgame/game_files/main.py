@@ -257,7 +257,7 @@ class RootWidget(BoxLayout):
         # draw out the time on screen
         for m in range(len(index_list)):
             Rectangle(source=(number_images[index_list[m]]), pos=(13*self.play_field_width//20 + 0.5 * m*self.play_field_width//15,\
-                                5*self.play_field_height//20 + self.play_field_height//40), size=(self.play_field_width//30,self.play_field_width//30))
+                                4.9*self.play_field_height//20 + self.play_field_height//40), size=(self.play_field_width//20,self.play_field_width//20))
 
 
 
@@ -267,7 +267,7 @@ class RootWidget(BoxLayout):
         # draw out the highest score on screen
         for m in range(len(index_list)):
             Rectangle(source=(number_images[index_list[m]]), pos=(13*self.play_field_width//20 + 0.5 * m*self.play_field_width//15,\
-                                self.play_field_height//20 * 3.3 + self.play_field_height//40), size=(self.play_field_width//30,self.play_field_width//30))
+                                self.play_field_height//20 * 3.2 + self.play_field_height//40), size=(self.play_field_width//20,self.play_field_width//20))
 
 
         # return to main menu button

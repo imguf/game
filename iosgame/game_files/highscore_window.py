@@ -62,7 +62,7 @@ class Highscore_window:
 
             # print out the time on the screen
             for m in range(len(index_list)):
-                Rectangle(source=(self.number_images[index_list[m]]), pos=(4.5*width//20 + m*width//20, height//20*((9-n)*2+1) + height//40), size=(width//20,width//20))
+                Rectangle(source=(self.number_images[index_list[m]]), pos=(4.5*width//20 + m*width//20, height//20*((9-n)*2+1) + height//40), size=(width//15,width//15))
 
 
     def get_image_index(self, time):
